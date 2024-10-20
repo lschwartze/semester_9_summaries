@@ -1,0 +1,101 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage[explicit]{titlesec}
+\usepackage{ulem}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{amsthm}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section] % reset theorem numbering for each chapter
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition} % definition numbers are dependent on theorem numbers
+\theoremstyle{lemma}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\theoremstyle{corollary}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{example}
+\newtheorem{example}[theorem]{Example}
+
+\titleformat{\subsection}
+{\small}{\thesubsection}{1em}{\uline{#1}}
+\begin{document}
+	\begin{titlepage} 
+		\title{Calculus of Variations}
+		\clearpage\maketitle
+		\thispagestyle{empty}
+	\end{titlepage}
+	\tableofcontents
+	\newpage
+	\section{Introduction}
+	The objects of calculus of variations are so-called functionals, i.e. functions of functions. The main interests are the critical points of these functionals. Since such critical points are often solutions to (elliptic) PDEs. We will therefore look for minima and saddle points.
+	\begin{example}[soap bubbles]
+		Which object encloses a fixed volume and has smallest surface area?\\
+		Formulation: \[\mathcal{F}: \{\text{surfaces enclosing volume } v_0\} \to \mathbb{R}_{\geq 0}\]
+		The minimizer is a sphere.
+	\end{example}
+	\subsection{mathematical formulation}
+	Let $X$ be a Banach space. Let $\varnothing \neq U \subset X$ and \[E: U \to \mathbb{R}\] be a functional.\\
+	Now, if $E$ is bounded from below (i.e. $\exists M>0: E(u) \geq -M \; \forall u \in U$), is there a $u \in U$ s.t. $E(u) = \inf_{v \in U} E(v)$? Are there other critical points?\\
+	There are two ways to approach the first question.
+	\begin{enumerate}
+		\item if $U$ is open and $E$ is differentiable then look for a solution to \[E'(u) = 0\] (called the classical method in CV). This will lead us to $u$ being a solution to a PDE.
+		\item take a sequence $(u_n)_{n \in \mathbb{N}} \subset U$ s.t. $E(u_n) \to \inf_{v \in U} E(v)$ (a minimizing sequence).
+		\begin{enumerate}
+			\item Find a topology s.t. $\exists (u_{n_k})_{k \in \mathbb{N}}, u \in U$ with \[u_{n_k} \to u\] in this topology.
+			\item check if $E(u) \leq \liminf_{k \to \infty} E(u_{n_k})$.
+		\end{enumerate}
+	\end{enumerate}
+	\section{First variation and convexity}
+	\subsection{First variation}
+	We fix $X$ to be a Banach space
+	\begin{definition}
+		Let $\varnothing \neq V\subset X$ be open. Let $E: V \to \mathbb{R}$. We say that $E$ is \underline{Fréchet differentiable} at $u \in V$ if $\exists A \in L(X,\mathbb{R})$ (a linear bounded map) s.t. \[\lim_{||\varphi||_x \to 0} \frac{E(u + \varphi) - E(u) - A\varphi}{||\varphi||_x} = 0\]
+	\end{definition}
+	$A$ is called the Fréchet derivative of $E$ at $u$ denoted by $E'(u)$.
+	\begin{definition}[First variation]
+		Let $\varnothing \neq V \subset X$, $E:V \to \mathbb{R}$ and $u \in V$. Let $\varphi \in X$ s.t. \[\exists \delta > 0 \text{ s.t. } u + t\varphi \in V \; \forall t \in (-\delta, \delta)\]
+		If \[(-\delta, \delta) \ni t \mapsto E(u+t\varphi) \in \mathbb{R}\] is differentiable at $t=0$ we say that $E$ has first in variation $u$ in direction $\varphi$ and write \[\delta E(u)(\varphi) = \frac{d}{dt} E(u+t\varphi)|_{t = 0}\]
+	\end{definition}
+	\begin{theorem}[Fundamental Lemma of CV]
+		Let $\Omega \subset \mathbb{R}^n$ open, $w \in L_{loc}^1(\Omega)$ (i.e. $\forall K \subset \Omega$ compact, $w \in L^1(K))$. If \[\int_\Omega w\varphi \,dx = 0 \; \forall \varphi \in C_0^\infty(\Omega)\] then $w = 0$ a.e.
+	\end{theorem}
+	\begin{corollary}
+		Let $n \in \mathbb{N}$, $u \in L^1_{loc}((a,b))$ s.t. \[\int_a^b u \frac{d^n}{dx^n} \varphi \,dx = 0 \,\forall \varphi \in c_0^\infty ((a,b))\] Then $\exists a_1,...,a_n \in \mathbb{R}$ s.t. \[u(x) = \sum_{i=0}^{n-1} a_i x^i\]
+	\end{corollary}
+	\begin{definition}
+		Let $u \in L^1_{loc}(\Omega)$. We say that $u$ is once weakly differentiable if $\forall i \in \{1,2,...,n\}$ $\exists v_i \in L^1_{loc}(\Omega)$ s.t. \[\int_\Omega u \partial_{x_i}\varphi \, dx = - \int_\Omega v_i \varphi \,dx \; \forall \varphi \in C_0^\infty (\Omega)\] In that case $\partial_i u = v_i$.\\
+		Similarly, if $\alpha \in \mathbb{N}_0^n$ we say $u$ is $\alpha$-weakly differentiable if \[\exists v_\alpha \in L^1_{loc} \text{ s.t. } \int_\Omega uD^\alpha \varphi \, dx = (-1)^{\left|\alpha\right|} \int v_\alpha \varphi \, dx\]
+	\end{definition}
+	\begin{definition}[Sobolev spaces]
+		For $m \in \mathbb{N}$, $p \in (1,\infty)$, define \[W^{m,p}(\Omega) = \{u \in L^p(\Omega) \text{ s.t. } D^\alpha u \in L^p(\Omega) \; \forall \alpha \in \mathbb{N}_0^n, \; \left|\alpha\right| \leq m\}\] This is a vector space and can be equipped with the norm \[||u||_{W^{m,p}} = \left(\sum_{\left(\alpha\right) \leq m} ||D^\alpha u||^p_{L^p(\Omega)}\right)^{\frac{1}{p}}\]
+	\end{definition}
+	\begin{theorem}
+		$(W^{m,p}(\Omega), ||\cdot||_{W^{m,p}})$ is a Banach space and for $p=2$ it's a Hilbert space. Finally, $C^\infty(\Omega) \cap W^{m,p}(\Omega)$ is dense in $W^{m,p}(\Omega)$.
+	\end{theorem}
+	\begin{definition}
+		$W_0^{m,p}(\Omega) = \overline{C_0^\infty(\Omega)}^{W^{m,p}(\Omega)}$, i.w. $f \in W_0^{m,p}(\Omega)$ if \[\exists (f_n)_{n \in \mathbb{N}} \subset C_0^\infty (\Omega)\] s.t. \[||f-f_n||_{W^{m,p}} \to 0, \, n \to \infty\]
+	\end{definition}
+	\begin{remark}
+		$W_0^{m,p}(\Omega) \subset W^{m,p}(\Omega)$
+	\end{remark}
+	\begin{definition}[weak solution of Poisson equation]
+		We say that $u$ is a \underline{weak solution} of \[\begin{cases}
+			-\nabla u &= f, \text{ in } \Omega\\
+			u &= 0, \text{ on } \partial \Omega
+		\end{cases}\] if $u \in W_0^{1,2}(\Omega)$ and \[\int_\Omega (\nabla u \nabla \varphi - f\varphi) \, dx = 0 \; \forall \varphi \in C_0^\infty(\Omega)\]
+	\end{definition}
+	\section{Direct Methods}
+	\begin{lemma}[Poincaré-inequality]
+		$\exists C = C(\Omega)$ s.t. \[||u||_{L^2} \leq C||\nabla u||_{L^2} \, \forall u \in W_0^{1,2}(\Omega)\]
+	\end{lemma}
+\end{document}

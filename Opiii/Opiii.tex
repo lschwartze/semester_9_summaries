@@ -1,0 +1,89 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage[explicit]{titlesec}
+\usepackage{ulem}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{amsthm}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section] % reset theorem numbering for each chapter
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition} % definition numbers are dependent on theorem numbers
+\theoremstyle{lemma}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\theoremstyle{corollary}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{example}
+\newtheorem{example}[theorem]{Example}
+
+\titleformat{\subsection}
+{\small}{\thesubsection}{1em}{\uline{#1}}
+\begin{document}
+	\begin{titlepage} 
+		\title{Opiii}
+		\clearpage\maketitle
+		\thispagestyle{empty}
+	\end{titlepage}
+	\tableofcontents
+	\newpage
+	\section{Dynamic Networks}
+	Dynamic graph networks are graph networks that change over time. Communication is in synchronous, asynchronous or semi-synchronous rounds. Additionally shared memory is possible. Network elements may be failure-free or failure-prone. A classical example are \underline{mobile ad-hoc networks}. Those are temporary interconnection networks of mobile wireless nodes without a fixed infrastructure. Communication happens whenever mobile nodes come within the wireless range of each other.
+	\begin{example}
+		In mobile ad hoc networks, one may want to colour the graph or maintain a routing mechanism for communication to any particular destination in the network.
+	\end{example}
+	\subsection{Almost constant message-passing vertex colouring in a tree}
+	Let $T$ be a tree network with $n$ labelled vertices in $[n]$. Colouring the graph can be done in almost constant, i.e. in $\log^*$ time.
+	\begin{definition}
+		$\log^*(x)$ is defined as the number of $\log$ functions that need to be applied to $x$ such that the result is at most 1. E.g. $\log^*(16) = 3$ and $\log^*2^{65536} = 5$.
+	\end{definition}
+	\begin{enumerate}
+		\item begin by rooting the tree at vertex $0$. This defines an order on the tree
+		\item each parent sends its number to all of its children
+		\item each child computes the smallest index $i$ where its number differs from the parent's number. It is important to note that this can be done in constant time with suitable hardware
+		\item It computes a new ID for itself consisting of a trailing bit corresponding to the bit where IDs disagreed. The new ID begins with the binary representation of the digit where the Ids differed.
+		\item the new ID is now only $\log\log n$ bits long. This is repeated until there are only six distinct numbers left. This takes $\log^*$ rounds each taking only constant time.
+		\item each parent sends its number to its children which relabel themselves accordingly
+		\item This is repeated another time and the IDs are taken $\mod 3$ resulting in a three colourin
+	\end{enumerate}
+	\begin{definition}
+		The collection of the initial states of all nodes in the $r$-neighbourhood of a node $v$ is the $r$-hop view of $v$.
+	\end{definition}
+	\begin{definition}
+		Let $\mathcal{G}$ be a family of network graphs. The $r$-neighbourhood graph $N_r(\mathcal{G})$ is defined as follows:\\
+		The node set is the set of all possible labelled $r$-neighbourhoods (i.e. all possible $r$-hop views). There is an edge between tow labelled $r$-neighbourhoods $V_r$ and $V_r'$ if $V_r$ and $V_r'$ can be the $r$-hop views of adjacent nodes.
+	\end{definition}
+	\begin{lemma}
+		For a given family of network graphs $\mathcal{G}$ there is an $r$-round algorithm that colours graphs of $\mathcal{G}$ with $c$ colours of the chromatic number of the neighbourhood graph is $\chi(N_r(\mathcal{G})) \leq c$.
+	\end{lemma}
+	\begin{definition}
+		We define a directed graph $B_k$ which is closely related to the neighbourhood graph. The vertex set is made up of all $k$-tuples consisting increasing node labels. For two nodes $\alpha = (\alpha_1, ..., \alpha_k)$ and $\beta = (\beta_1, ..., \beta_k)$ there is an edge from $\alpha$ to $\beta$ if $\forall i$ it holds that $\beta_i = \alpha_{i+1}$.
+	\end{definition}
+	\begin{lemma}
+		Viewed as an undirected graph, $B_{2r+1}$ is a subgraph of the $r$-neighbourhood graph of directed rings with $n$ nodes.
+	\end{lemma}
+	\begin{lemma}
+		If $n>k$ the graph $B_{k+1}$ can be defined as the line graph $\mathcal{L}(B_k)$ of $B_k$.
+	\end{lemma}
+	\begin{lemma}
+		It holds that \[\chi(\mathcal{L}(G)) \geq \log_2(\chi(G))\]
+	\end{lemma}
+	\begin{lemma}
+		For all $n\geq 1$ it holds that $\chi(B_1) = n$. Further for $n\geq k \geq 2$ it holds that $\chi(B_k) \geq \log^{(k-1)} n$.
+	\end{lemma}
+	\begin{theorem}
+		Every deterministic distributed algorithm to colour a directed ring with at most 3 colours needs at least $\log^*(\frac{n}{2}) - 1$ rounds.
+	\end{theorem}
+	\begin{corollary}
+		Every deterministic distributed algorithm to compute a maximal independent set on a directed ring needs at least $\log^*(\frac{n}{2}) - \mathcal{O}(1)$ rounds.
+	\end{corollary}
+\end{document}

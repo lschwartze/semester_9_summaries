@@ -1,0 +1,57 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage[explicit]{titlesec}
+\usepackage{ulem}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{amsthm}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Satz}[section] % reset theorem numbering for each chapter
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition} % definition numbers are dependent on theorem numbers
+\theoremstyle{lemma}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Bemerkung}
+
+\theoremstyle{corollary}
+\newtheorem{corollary}[theorem]{Korollar}
+
+\theoremstyle{example}
+\newtheorem{example}[theorem]{Beispirl}
+
+\titleformat{\subsection}
+{\small}{\thesubsection}{1em}{\uline{#1}}
+\begin{document}
+	\begin{titlepage} 
+		\title{Topologische Flächen und Fundamentalgruppen Zusammenfassung}
+		\clearpage\maketitle
+		\thispagestyle{empty}
+	\end{titlepage}
+	\tableofcontents
+	\newpage
+	\section{Topologische Flächen}
+	\subsection{Einführung}
+	\begin{definition}[Mannigfaltigkeit]
+		Sei $n \in \mathbb{N}$. Eine $n$-Mannigfaltigkeit ist ein topologischer Raum $X$ sodass \begin{enumerate}
+			\item $X$ ist Hausdorff'sch
+			\item die Topologie besitzt eine abzählbare Basis
+			\item jeder Punkt $x \in X$ besitzt eine Umgebung $x\in U\subseteq X$, die homöomorph zu einer offenen Teilmenge $V\subseteq \mathbb{R}^n$ ist. Ein Homöomorphismus \[\varphi: \, U \tilde{\rightarrow} V \subseteq \mathbb{R}^n\] heißt Karte.
+			\item $X$ ist zusammenhängend
+		\end{enumerate}
+	\end{definition}
+	Für $n=1$ heißt $X$ eine Kurve, für $n=2$ eine Fläche.
+	\subsection{Klassifikation der Kurve}
+	\begin{theorem}
+		Jede Kurve ist homöomorph zu genau einer der folgenden Kurven \begin{enumerate}
+			\item $\mathbb{R}$
+			\item $S^1$
+		\end{enumerate}
+	\end{theorem}
+\end{document}
