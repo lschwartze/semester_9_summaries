@@ -96,6 +96,77 @@
 	\end{definition}
 	\section{Direct Methods}
 	\begin{lemma}[Poincaré-inequality]
-		$\exists C = C(\Omega)$ s.t. \[||u||_{L^2} \leq C||\nabla u||_{L^2} \, \forall u \in W_0^{1,2}(\Omega)\]
+		$\exists C = C(\Omega)$ s.t. \[||u||_{L^2} \leq C||\nabla u||_{L^2} \; \forall u \in W_0^{1,2}(\Omega)\]
 	\end{lemma}
+	\begin{lemma}
+		Define $||u||_{W_0^{1,2}(\Omega)} = ||\nabla u||_{L^2}$, then $||\cdot ||_{W^{1,2}}$ and $||\cdot ||_{W_0^{1,2}}$ are equivalent in $W_0^{1,2}(\Omega)$.
+	\end{lemma}
+	\begin{theorem}
+		Every bounded sequence in a Hilbert space admits a weakly convergent subsequence. That means given $(v_k)_{k \in \mathbb{N}} \subset H$ bounded in Hilbert space $H$ $\exists (v_{k_l})_{l \in \mathbb{N}} \exists v \in H$ s.t. \[\langle v_{k_l}, w\rangle_H \to \langle v, w\rangle_H \; \forall w \in H\]
+	\end{theorem}
+	\begin{theorem}
+		If $(u_k)_{k \in \mathbb{N}}$ converges weakly to $u$ in $H$, then \[||u||_H \leq \liminf_{k \to \infty} ||u_k||_H\]
+	\end{theorem}
+	\begin{remark}
+		A functional $T:X\to Y$ is compact if $\forall (x_k)_{k \in \mathbb{N}}$ bounded in $X$, the sequence $(Tx_n)_{n \in \mathbb{N}} \subset Y$ admits a convergent subsequence.
+	\end{remark}
+	\begin{theorem}
+		The inclusion map $W_0^{1,2} \rightarrow L^2(\Omega)$ that maps $u \mapsto u$ is compact.
+	\end{theorem}
+	\subsection{Some concepts from functional analysis}
+	Let $X$ be a $\mathbb{R}$-Banach space.\\
+	\begin{definition}
+		We define the dual space \[X' = L(X,\mathbb{R}) = \{T: X \to \mathbb{R} \text{ linear and continuous}\}\]
+	\end{definition}
+	\begin{lemma}
+		For linear maps, the following are equivalent:
+		\begin{enumerate}
+			\item continuity
+			\item continuity at 0
+			\item boundedness
+		\end{enumerate}
+	\end{lemma}
+	\begin{definition}
+		Similarly, the bidual space \[X'' = L(X', \mathbb{R})\] is also a Banach space. There exists a canonical map \[i_X: X \to X''\] For $x \in X$ we define the \underline{canonical map} \[i_x: X \to X''\] by \[i_X(x)(T) = Tx \text{ for } T \in X'\] $i_X$ is well-defined and $i_X(x)$ is an element of the bidual space. Moreover, the map is injective and an isometry. Spaces $X$ where $i_X$ is also surjective are also called \underline{reflexive spaces}.
+	\end{definition}
+	\begin{example}
+		All Hilbert spaces, $L^p$ spaces and all Sobolev spaces are reflexive for $1<p<\infty$.
+	\end{example}
+	\begin{definition}
+		Let $(x_k)_{k \in \mathbb{N}} \subset X$. $x_k$ converges weakly to $x \in X$ if for all $T \in X'$ \[T(x_k) \to T(x) \text{ for } k \to \infty\] 
+	\end{definition}
+	\begin{theorem}
+		Every bounded sequence in a reflexive space admits a weakly convergent subsequence.
+	\end{theorem}
+	\begin{theorem}
+		Let $(X, ||\cdot ||)$ be a reflexive Banach space. Let $M\subset X$ and $M\neq \varnothing$ a weakly sequentially closed subset $X$. Let $E:M \to \mathbb{R}$ s.t. \begin{enumerate}
+			\item $E(y) \to \infty$ if $||y||_X \to \infty$
+			\item $E$ is sequentially weakly lower semi-continuous that is if $x_k$ converges weakly to $x \in X$, than $E(x) \leq \liminf_{k \to \infty} E(x_k)$
+		\end{enumerate}
+		Then, $E$ is bounded from below and $\exists x \in M$ s.t. \[E(x) = \inf\{E(y): \; y \in M\}\]
+	\end{theorem}
+\section{A partition problem and functions of bounded variation}
+	Given $\Omega \subset \mathbb{R}^n$ bounded and smooth, is there an $E \subseteq \Omega$ s.t. \[\left|E\right| = \left|\Omega \setminus E\right|\]
+	and $H^{n-1}(\partial E\cap \Omega)$ is minimal?
+	\subsection{Motivation}
+	\begin{definition}
+		If $E \subset \Omega$ is smooth, then \[H^{n-1}(\partial E \cap \Omega) = \int_{\partial E \cap \Omega} 1 dS(x) = \int_{\partial E \cap \Omega} \langle v(x), v(x) \rangle dS(x)\]
+		Let $\varphi \in C:0^\infty(\Omega; \mathbb{R}^n)$ s.t. $\varphi(x) = \lambda(x)v(x)$ where $\lambda(x) \in [0,1]$ and $x \in \partial E$. Then $$H^{n-1}(\partial E \cap \Omega) \geq \int_{\partial E \cap \Omega} \langle \varphi(x), v(x)\rangle dS(x) = \int_{\partial E} \langle \varphi(x), v(x)\rangle dS(x) = \int_\Omega \chi_E div(\varphi(x))dx$$
+		Since $D$ is smooth, $\exists \psi: \mathbb{R}^n \to \mathbb{R}^n$ with \begin{itemize}
+			\item $\psi(x) = v(x)$ on $\partial E \cap \Omega$
+			\item $\psi(x) = 0$ ``some bit away from $\Omega$''
+			\item $||\psi(x)||_2 \leq 1 \; \forall x \in \mathbb{R}^n$ and $||\psi||_\infty \leq 1$.
+		\end{itemize}
+		Now, let $\xi_\varepsilon$ be the bump function on $\Omega$ which converges to $\chi_\Omega$ for $\varepsilon \to 0$. Then $\varphi_\varepsilon = \xi_\varepsilon \psi$ satisfies $\varphi_\varepsilon \in C_0^\infty(\Omega, \mathbb{R}^n)$ and $||\varphi_\varepsilon||_\infty \leq 1$. Now \[H^{n-1}(\partial E \cap \Omega) \overset{\varepsilon \searrow 0}{\to} \int_{\partial E \cap \Omega} dS(x) = H^{n-1}(\partial E \cap \Omega)\]
+		Hence \[H^{n-1}(\partial E \cap \Omega) = \sup\{\int_\Omega \chi_E div \varphi dx \; | \; \varphi \in C_0^\infty(\Omega, \mathbb{R}^n), \; ||\varphi||_\infty \leq 1\}\]
+		The idea is to use this expression for non-smooth $E$.
+	\end{definition}
+	\subsection{Functions of bounded variations}
+	Let $\Omega \subset \mathbb{R}^n$ be open and bounded. 
+	\begin{definition}
+		We define for $v \in L^1(\Omega)$
+		$$\int_\Omega \left|Dv\right| = \sup\{\int_\Omega v(x) div \varphi(x) dx \; | \; \varphi \in C_0^\infty(\Omega; \mathbb{R}^n), \; ||\varphi||_\infty \leq 1\}$$ the total variation of $v$.\\
+		We say that $v$ is of bounded variation, if \[\int \left|Dv\right| < \infty\]
+		Finally, we define $BV(\Omega) = \{v \in L^1(\Omega): \; \int_\Omega \left|Dv\right| < \infty\}$
+	\end{definition}
 \end{document}

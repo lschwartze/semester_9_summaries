@@ -86,4 +86,74 @@
 	\begin{corollary}
 		Every deterministic distributed algorithm to compute a maximal independent set on a directed ring needs at least $\log^*(\frac{n}{2}) - \mathcal{O}(1)$ rounds.
 	\end{corollary}
+	\subsection{MIS}
+	The following randomized algorithm gives a good solution to the maximum independent set.
+	\begin{enumerate}
+		\item the algorithm operates in synchronous rounds grouped into phases
+		\item each node marks itself with probability $\frac{1}{2d(v)}$
+		\item if no higher degree neighbour of $v$ is marked, node $v$ unmarks itself again
+		\item delete all nodes that joined the MIS and their neighbours as the cannot join the MIS any more
+	\end{enumerate}
+	\begin{lemma}
+		A node $v$ joins the MIS in step 3 with probability $p \geq \frac{1}{4d(v)}$
+	\end{lemma}
+	\begin{lemma}
+		A node is called good if \[\sum_{w \in N(v)} \frac{1}{2d(v)} \geq \frac{1}{6}\]
+		A good node will be removed in Step 4 with probability $p \geq \frac{1}{36}$.
+	\end{lemma}
+	\begin{lemma}
+		An edge is called bad if both its endvertices are bad. Otherwise it's called good. At any time at least half of the edges are good.
+	\end{lemma}
+	\begin{lemma}
+		A bad node has out-degree at least twice its in-degree.
+	\end{lemma}
+	\begin{lemma}
+		The algorithm terminates in expectation in $\mathcal{O}(\log n)$ rounds.
+	\end{lemma}
+	\section{Consensus}
+	In a distributed system with each node starting with input $x_i$, we speak of consensus if an algorithm can achieve the following properties 
+	\begin{enumerate}
+		\item Agreement: all alive nodes decide on a single value $x$
+		\item Validity: the decided value $x$ is one of the initial inputs
+		\item Termination: each vertex terminates at some point (either voting for one value or crashing)
+	\end{enumerate}
+	The following randomized consensus algorithm works in an asynchronous setting with less than half the nodes crashing
+	\begin{enumerate}
+		\item input bit $v_i \in \{0,1\}$, $round = 1$, decided = false
+		\item broadcast $(v_i, round)$
+		\item while true
+		\item wait until majority of messages of current round arrived
+		\item if all messages contain the same value $v$:  
+		\item propose $(v,round)$, decided = true
+		\item else: 
+		\item propose $(\bot, round)$ //$\bot$ is a signal of disagreement
+		\item end if 
+		\item wait until a majority of proposals of current round arrived
+		\item if all messages propose the same value $v$:
+		\item $v_i = v$, decide = true
+		\item else if there is at least one proposal for $v$:
+		\item $v_i = v$
+		\item else:
+		\item choose $v_i$ uniformly at random
+		\item end if
+		\item $round = round +1$
+		\item broadcast $(v_i,round)$
+		\item end while
+	\end{enumerate}
+	\begin{theorem}
+		The above algorithm satisfies validity, termination and comes to an agreement. In expectation it takes exponential time.
+	\end{theorem}
+	\subsection{shared coin}
+	The following algorithm allows a dynamic network to use the same coin for all vertices at the same time. Here $f$ is the number of nodes that can turn byzantine. It should hold that $f \leq \frac{n}{3}$.
+	\begin{enumerate}
+		\item choose local coin $c_u = 0$ with probability $\frac{1}{n}$
+		\item broadcast $c_u$
+		\item wait for $n-f$ coins and store them in the local coin set $C_u$
+		\item broadcast $C_u$
+		\item wait for $n-f$ coin sets
+		\item if at least one coin is 0 among all coins in $C_u$:
+		\item return 0
+		\item return 1
+		\item end if
+	\end{enumerate}
 \end{document}

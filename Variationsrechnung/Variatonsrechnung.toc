@@ -4,3 +4,7 @@
 \contentsline {section}{\numberline {2}First variation and convexity}{3}{}%
 \contentsline {subsection}{\numberline {2.1}First variation}{3}{}%
 \contentsline {section}{\numberline {3}Direct Methods}{5}{}%
+\contentsline {subsection}{\numberline {3.1}Some concepts from functional analysis}{5}{}%
+\contentsline {section}{\numberline {4}A partition problem and functions of bounded variation}{6}{}%
+\contentsline {subsection}{\numberline {4.1}Motivation}{7}{}%
+\contentsline {subsection}{\numberline {4.2}Functions of bounded variations}{7}{}%

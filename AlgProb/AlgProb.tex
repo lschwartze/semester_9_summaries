@@ -1,0 +1,104 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage[explicit]{titlesec}
+\usepackage{ulem}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{amsthm}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Satz}[section] % reset theorem numbering for each chapter
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition} % definition numbers are dependent on theorem numbers
+\theoremstyle{lemma}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Bemerkung}
+
+\theoremstyle{corollary}
+\newtheorem{corollary}[theorem]{Korollar}
+
+\theoremstyle{example}
+\newtheorem{example}[theorem]{Beispiel}
+
+\titleformat{\subsection}
+{\small}{\thesubsection}{1em}{\uline{#1}}
+\begin{document}
+	\begin{titlepage} 
+		\title{Algorithmen für schwierige Probleme}
+		\clearpage\maketitle
+		\thispagestyle{empty}
+	\end{titlepage}
+	\tableofcontents
+	\newpage
+	\section{3-SAT und Vertex Cover}
+	\subsection{Vertex Cover}
+	\begin{definition}
+		Ein Vertex Cover für einen Graphen $G$ ist eine Teilmenge $C \subseteq V$ der Knoten, sodass $\forall e = (u,v) \in E$ gilt $u \in C$ oder $v \in C$. 
+	\end{definition}
+	\begin{definition}
+		Für zwei Probleme $A$, $B$ schreiben wir $A \preceq B$, wenn man $A$ effizient auf $B$ transformieren kann.
+	\end{definition}
+	\begin{theorem}
+		Der Greedy Algorithmus, der immer den Knoten höchsten Grades wählt, kann beliebig schlechte Ergebnisse liefern.
+	\end{theorem}
+	\begin{theorem}
+		Der folgende Algorithmus liefert eine 2-Faktor-Approximation an das optimale Vertex Cover.
+		\begin{enumerate}
+			\item setze $C= \varnothing$
+			\item WHILE $E \neq \varnothing$
+			\item wähle eine Kante $(u,v)$
+			\item setze $V = V\setminus \{u,v\}$, $E = {e = (w,x) \in E \; | \; w,x \notin \{u,v\}}$ und $C = C \cup \{u,v\}$.
+		\end{enumerate}
+	\end{theorem}
+	\begin{theorem}
+		Der folgenden Ansatz benutzt außerdem einen Parameter $k$ als Eingabe und entscheidet, ob es ein Vertex Cover der Größe $\leq k$ gibt.
+		\begin{enumerate}
+			\item FUNCTION VCover($G,C,l$)
+			\item if $E = \varnothing$ return True
+			\item if $l = k$ return False
+			\item Wähle eine Kante $(u,v)$ in $G$
+			\item if VCover($G\setminus \{u\}, C \cup \{u\}, l+1$)
+			\item return True
+			\item else return VCover($G\setminus \{v\}, C\cup \{v\}, l+1$)
+		\end{enumerate}
+	Die Laufzeit ist offensichtlich $2^k \mathcal{O}(n)$.
+	\end{theorem}
+	\subsection{SAT}
+	Eine Formel $F$ ist in KNF gegeben, also als Konjunktion von Disjunktionen von Literalen. Eine Belegung ist eine Funktion, die jeder Variable einen Wert zuweist. Eine partielle Belegung weist nur einer Teilmenge aller Variablen Werte zu und lässt die restlichen undefiniert.
+	\begin{lemma}
+		Reduktion von 3-Färbbarkeit auf SAT.\\
+		Für einen Graphen $G$ wollen wir eine Formel $F$ konstruieren. Zunächst definieren wir die Menge der Variablen von $F$ als \[VAR = \{x_v^1, x_v^2, x_v^3: \; v \in V\}\] für drei verschiedene Farben. In einer Lösung muss jeder Knoten eine Farbe bekommen, d.h wir brauchen die $\left|V\right|$ Klauseln \[(x_v^1 \lor x_v^2 \lor x_v^3)\] Außerdem dürfen zwei benachbarte Knoten nicht dieselbe Farbe bekommen, das heißt, es ergeben sich die $3\left|E\right|$ Klauseln \[(\lnot {x_v^1} \lor \lnot {x_w^1}) \land (\lnot {x_v^2} \lor \lnot {x_w^2}) \land (\lnot {x_v^3} \lor \lnot {x_w^3})\] 
+	\end{lemma}
+	\begin{theorem}
+		Der folgende \underline{Backtracking} Algorithmus bietet einen guten Ansatz, um eine Formel $F$ auf Erfüllbarkeit zu überprüfen.
+		\begin{enumerate}
+			\item FUNCTION search($F, \alpha$ partielle Belegung)
+			\item if $\alpha$ belegt alle Variablen: return $\alpha(F)$
+			\item if $\alpha$ belegt eine Klausel mit 0: return False
+			\item if search($F, \alpha0$) = True: return True
+			\item else: return search($F,\alpha1$)
+		\end{enumerate}
+		Dieser Algorithmus kann sogar noch weiter verbessert werden, indem zuerst nach Klauseln mit nur einem Literal gesucht wird und dann diese belegt werden. Wenn diese nicht existieren, wird nach Klauseln mit zwei Literalen gesucht und diese werden belegt. Erst dann wird eine beliebige Klausel (bzw. ein beliebiges Literal) gewählt. Die Laufzeit ist beschränkt durch $\mathcal{O}(7^{\frac{n}{3}})$.
+	\end{theorem}
+	Das Erfüllbarkeitsproblem, in dem jede Klausel aus maximal zwei Variablen besteht, wird 2-SAT genannt. Dieses Problem kann in polynomieller Zeit gelöst werden.
+	\begin{theorem}
+		Im folgenden wird ein probabilistischer Algorithmus für 2-SAT eingeführt.
+		\begin{enumerate}
+			\item $\alpha := (0,0,...,0)$
+			\item for $i = 0$ to $f(F)$
+			\item if $\alpha(F) = 1$: return True
+			\item wähle eine zufällige Klausel $C$ mit $\alpha(C) = 0$
+			\item wähle ein zufälliges Literal $x$ aus $C$
+			\item setze $\alpha(x) = \overline{\alpha(x)}$
+		\end{enumerate}
+		Die Funktion $f: F \mapsto n \in \mathbb{N}$ wird später definiert.\\
+		Ist $F$ unerfüllbar, so funktioniert der Algorithmus korrekt. Ist $F$ erfüllbar, so findet der Algorithmus eine erfüllende Belegung mit Wahrscheinlichkeit $p \geq \frac{1}{2}$.\\
+		Ist $\alpha^*$ eine erfüllende Belegung und $\alpha$ eine beliebige andere Belegung, mit Hamming-Abstand $i$ zu $\alpha^*$, so definieren wir uns $T(i)$ als die erwartete Anzahl an Bit-Flips, die nötig sind, um $\alpha$ in eine erfüllende Belegung zu transformieren. Man kann sehen, dass $T(n) = n^2$. Die erwartete Anzahl an Bitflips ist also $\mathcal{O}(n^2)$. Wählt man nun $f(F) = 2n^2$, so ist die Erfolgswahrscheinlichkeit von $\frac{1}{2}$ garantiert.
+	\end{theorem}
+\end{document}

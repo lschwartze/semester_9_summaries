@@ -1,3 +1,6 @@
 \babel@toc {english}{}
 \contentsline {section}{\numberline {1}Dynamic Networks}{2}{}%
 \contentsline {subsection}{\numberline {1.1}Almost constant message-passing vertex colouring in a tree}{2}{}%
+\contentsline {subsection}{\numberline {1.2}MIS}{3}{}%
+\contentsline {section}{\numberline {2}Consensus}{4}{}%
+\contentsline {subsection}{\numberline {2.1}shared coin}{5}{}%

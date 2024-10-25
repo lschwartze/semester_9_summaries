@@ -24,7 +24,7 @@
 \newtheorem{corollary}[theorem]{Korollar}
 
 \theoremstyle{example}
-\newtheorem{example}[theorem]{Beispirl}
+\newtheorem{example}[theorem]{Beispiel}
 
 \titleformat{\subsection}
 {\small}{\thesubsection}{1em}{\uline{#1}}
@@ -54,4 +54,30 @@
 			\item $S^1$
 		\end{enumerate}
 	\end{theorem}
+	\begin{example}
+		Sei $X = \{(x,y) \in \mathbb{C}^2 : \; y^2 = x^3 - x\}$. Das wichtigste Hilfsmittel, um die Topologie von $X$ zu verstehen, ist die Projektion \[\pi: X \to \mathbb{C}\] mit \[\pi(x,y) = x\] Für $a \in {0, \pm 1}$ hat $a$ genau ein Urbild, ansonsten 2.
+	\end{example}
+	\begin{definition}
+		Eine stetige Abbildung $\pi:Y \to X$ heißt Überlagerung, wenn jeder Punkt $x \in X$ eine offene Umgebung $U \subseteq X$ besitzt, sodass \[\pi^{-1}(U) = \bigcup_{i \in I} V_i\] \[\pi|_{V_i} : V_i \tilde{\rightarrow} U\] ein Homöomorphismus $\forall i$. 
+	\end{definition}
+	\begin{definition}
+		Sei $K$ ein Körper, $n \in \mathbb{N}$. Sei \[\mathbb{P}^n(K) = K^{n+1}\setminus\{(0,0,...,0)\}/\sim\]
+		mit \[(z_0,...,z_n) \sim (z_0',...,z_n')\] genau dann, wenn \[\exists t \in K^* : \; z_i' = tz_i\]
+	\end{definition}
+	\begin{example}
+		$\mathbb{P}^1(\mathbb{C}) = \{[z_0:z_1] \in \mathbb{C}^2 \setminus \{(0,0)\}\} \tilde{=} \mathbb{C} \cup \{\infty\}$ durch die Bijektion \[[z:1] \leftarrow z\]
+		\[[1:0] \leftarrow \infty\]
+	\end{example}
+	\subsection{Klassifizierung der kompakten Flächen}
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{c | c | c}
+			$g$ & orientierbar & nicht orientierbar\\
+			\hline \hline
+			0 & $S^2$ & $\mathbb{P}^2(\mathbb{R})$\\
+			1 & Torus & Klein'sche Flasche\\
+			2 & Doppeltorus & \vdots\\
+			3 & Tripeltorus & \vdots
+		\end{tabular}
+	\end{table}
 \end{document}

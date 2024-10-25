@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  24 OCT 2024 13:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  24 OCT 2024 11:26
 entering extended mode
-**./Variatonsrechnung.tex
-(Variatonsrechnung.tex
+**./AlgProb.tex
+(AlgProb.tex
 LaTeX2e <2020-10-01> patch level 4
 L3 programming layer <2021-02-18>
 (C:\Users\lauri\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
@@ -190,8 +190,8 @@ File: l3backend-dvips.def 2021-03-18 L3 backend support: dvips
 \g__pdf_backend_annotation_int=\count270
 \g__pdf_backend_link_int=\count271
 \g__pdf_backend_link_sf_int=\count272
-) (Variatonsrechnung.aux)
-\openout1 = `Variatonsrechnung.aux'.
+) (AlgProb.aux)
+\openout1 = `AlgProb.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
 LaTeX Font Info:    ... okay on input line 31.
@@ -225,28 +225,18 @@ LaTeX Warning: No \author given.
 [1
 
 
-] (Variatonsrechnung.toc)
+] (AlgProb.toc)
 \tf@toc=\write3
-\openout3 = `Variatonsrechnung.toc'.
+\openout3 = `AlgProb.toc'.
 
- [1] [2] [3] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 117--118
-
- []
-
-[5]
-Overfull \hbox (1.08766pt too wide) in paragraph at lines 148--148
-|[]\OT1/cmr/bx/n/17.28 A par-ti-tion prob-lem and func-tions of bounded vari-
- []
-
-[6] [7] [8] (Variatonsrechnung.aux) ) 
+ [1] [2] [3] [4] (AlgProb.aux) ) 
 Here is how much of TeX's memory you used:
- 2898 strings out of 479322
- 39830 string characters out of 2856609
- 350462 words of memory out of 3000000
- 20347 multiletter control sequences out of 15000+600000
- 413677 words of font info for 66 fonts, out of 8000000 for 9000
+ 2889 strings out of 479322
+ 39542 string characters out of 2856609
+ 350443 words of memory out of 3000000
+ 20341 multiletter control sequences out of 15000+600000
+ 412639 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,9n,74p,515b,212s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 67i,9n,74p,646b,234s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Variatonsrechnung.dvi (9 pages, 24472 bytes).
+Output written on AlgProb.dvi (5 pages, 11732 bytes).
