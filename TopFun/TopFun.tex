@@ -68,7 +68,7 @@
 		$\mathbb{P}^1(\mathbb{C}) = \{[z_0:z_1] \in \mathbb{C}^2 \setminus \{(0,0)\}\} \tilde{=} \mathbb{C} \cup \{\infty\}$ durch die Bijektion \[[z:1] \leftarrow z\]
 		\[[1:0] \leftarrow \infty\]
 	\end{example}
-	\subsection{Klassifizierung der kompakten Flächen}
+	\section{Klassifizierung der kompakten Flächen}
 	\begin{table}[h]
 		\centering
 		\begin{tabular}{c | c | c}
@@ -80,4 +80,60 @@
 			3 & Tripeltorus & \vdots
 		\end{tabular}
 	\end{table}
+	\subsection{Triangulierung}
+	\begin{definition}
+		Sei $\mathbb{A}$ ein reeller Vektorraum.
+		\begin{enumerate}
+			\item $v_0,...,v_n \in \mathbb{A}$ heißt \underline{affin unabhängig}, wenn $v_1-v_0, ..., v_n - v_0$ linear unabhängig sind
+			\item Für $v_0,...,v_n \in \mathbb{A}$ affin unabhängig heißt \[\sigma = [v_0...,v_n] = \{t_0v_0 + \dots t_n v_n \mid t_i \geq 0, \; t_0 + \dots t_n = 1\}\] der von den $v_i$ aufgespannte \underline{Simplex} der Dimension $\dim(\sigma) = n$
+			\item ist $\{v_{i_0}, ..., v_{i,k}\} \subseteq \{v_0,...,v_n\}$ eine Teilmenge mit $k+1$ Elementen, dann heißt das davon erzeugte $k$-Simplex eine \underline{$k$-Seite} von $\sigma$
+			\item $\partial \sigma = \bigcup_{\delta \subsetneqq \sigma} \delta$ heißt \underline{Rand} von $\sigma$ und $\overset{\circ}{\sigma} = \sigma \setminus \partial \sigma$ ist das \underline{Innere}
+		\end{enumerate}
+	\end{definition}
+	\begin{definition}
+		Ein \underline{abstrakter Simplicialkomplex} ist ein Paar $K = (V, S)$, wobei $V \neq \varnothing$ und $S$ eine Menge von endlichen Teilmengen von $V$. Anschaulich ist $K$ ein Graph mit $V$ der Menge der Ecken von $K$ und $S$ die Menge der Simplizes von $K$.\\
+		$S$ muss folgende Bedingungen erfüllen: \begin{enumerate}
+			\item jede Ecke $v \in V$ liegt in mindestens einem und höchstens endlich vielen Simplizes
+			\item $s \in S$ und $s'\subseteq s$, dann ist $s' \in S$
+		\end{enumerate}
+	\end{definition}
+	Sei $K = (V,S)$ ein Simplicialkomplex. Sei $$\mathbb{A} = \mathbb{R}^{\left|V\right|} = \{(t_v)_{v \in V} \in \mathbb{R}^{\left|V\right|} \mid t_v = 0 \text{ für alle bis auf endliche viele } v \in V\}$$ und $$\left|K\right| = \{(t_v)_{v \in V} \in \mathbb{A} \mid t_v \geq 0 \; \land \sum_{v \in V} t_v = 1 \land \; s = \{v \in V \mid t_v > 0\} \in S\}$$
+	\begin{definition}
+		$\left|K\right|$ heißt die geometrische Realisierung von $K$. Für $s \in S$ heißt $\sigma = \left|s\right| = \{(t_v)_{v \in V} \mid t_v = 0 \; \forall v \notin s\} = [v_0,...,v_n]$ die geometrische Realisierung von $s$. 
+	\end{definition}
+	\begin{definition}
+		Basis der Topologie sind Mengen $U \subseteq \left|K\right|$ der Form \begin{itemize}
+			\item $U \cap \left|s\right| \subseteq \left|s\right|$ offen für alle $s \in S$
+			\item $U \cap \left|s\right| \neq \varnothing$ für alle $s$ bis auf endlich viele
+		\end{itemize}
+	\end{definition}
+	\begin{lemma}
+		Die Topologie hat folgende Eigenschaften
+		\begin{enumerate}
+			\item Für $v \in V$ heißt $st(v) = \bigcup_{s \in S, \, v \in s}  \overset{\circ}{\left|s\right|}$ der Stern von $v$. Das ist eine offene Umgebung von $v$ mit Abschluss $\overline{st(v)} = \bigcup_{s \in S, \; v \in S} \left|s\right|$
+			\item $(st(v))_{v \in V}$ bilden eine offene Überdeckung von $\left|K\right|$ 
+			\item $\overline{st(v)}$ ist kompakt, wegzusammenhängend 
+			\item $\left|K\right|$ ist lokal kompakt, lokal wegzusammenhängend und Hausdorffsch
+			\item $\left|K\right|$ ist zusammenhängend $\Leftrightarrow$ $\left|K\right|$ ist wegzusammenhängend $\Leftrightarrow$ $K$ zusammenhängend $\Rightarrow$ $V$ ist abzählbar und $\left|K\right|$ ist \textit{second countable}.
+		\end{enumerate}
+	\end{lemma}
+	\begin{definition}
+		Für $v \in V$ definiert $L_K(v) = (V_v, S_v)$ einen \underline{Link} von $v$ mit \[S_v = \{s\setminus v \mid s \in S : \; v \in s\}\]
+	\end{definition}
+	\begin{theorem}
+		Sei $K$ ein zusammenhängender Simlicialkomplex, $n \geq 1$. Dann ist $\left|K\right|$ eine $n$-Mannigfaltigkeit genau dann, wenn \begin{enumerate}
+			\item alle maximalen Simplizes haben Dimension $n$ ($K$ ist von reiner Dimension $n$)
+			\item jeder $(n-1)$-Simplex ist eine Seite von genau zwei $n$-Simplizes
+			\item $\left|L_K(v)\right| \cong S^{n-1}$
+		\end{enumerate}
+	\end{theorem}
+	\begin{definition}
+		Sei $X$ ein topologischer Raum. Eine \underline{Triangulierung} von $X$ ist ein Homöomorphismus $\left|K\right| \cong X$ wobei $K$ ein Simplicialkomplex ist.
+	\end{definition}
+	\begin{theorem}
+		Jede Fläche ist triangulierbar.
+	\end{theorem}
+	\begin{remark}
+		Die Aussage ist noch wahr für $n=3$ aber falsch ab $n=4$.
+	\end{remark}
 \end{document}

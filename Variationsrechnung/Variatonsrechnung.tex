@@ -169,4 +169,22 @@
 		We say that $v$ is of bounded variation, if \[\int \left|Dv\right| < \infty\]
 		Finally, we define $BV(\Omega) = \{v \in L^1(\Omega): \; \int_\Omega \left|Dv\right| < \infty\}$
 	\end{definition}
+	\begin{remark}
+		It holds that $W^{1,1}(\Omega) \subset BV(\Omega)$. For $v \in W^{1,1}(\Omega)$ it holds that \[\int_\Omega \left|Dv\right| = \int_\Omega\left|\nabla v\right| \; dx\] Finally, above inclusion is even strict: $W^{1,1}(\Omega) \subsetneq BV(\Omega)$
+	\end{remark}
+	\begin{lemma}
+		Let $\Omega$ be a bounded domain. Define $||\cdot ||_{BV(\Omega)}: BV(\Omega) \to \mathbb{R}$ via \[||u||_{BV(\Omega)} = ||u||_{L^1} + \int_\Omega \left|Du\right|\] This is a norm and $(BV(\Omega), ||\cdot||_{BV(\Omega)})$ is a Banach space.
+	\end{lemma}
+	\begin{definition}
+		Let $E\subset \mathbb{R}^n$ be measurable. \[P(E, \Omega) = \int_\Omega \left|D\chi_{E\cap \Omega}\right|\] is called the perimeter of $E$ in $\Omega$. 
+	\end{definition}
+	\begin{remark}
+		If $\partial E$ is smooth, then $P(E,\Omega) = H^{n-1}(\partial E \Cap \Omega)$
+	\end{remark}
+	\noindent\underline{QUESTION:} For $\Omega \subset \mathbb{R}^n$ bounded domain, define \[M = \{E \subset \Omega \mid \lambda^n(E) = \lambda^n(\Omega\setminus E) = \frac{1}{2} \lambda^n(\Omega)\}\] Is \[\inf \{P(E,\Omega) \mid E \in M\}\] attained?\\
+	\underline{IDEA:} Take $(E_n)_{n \in \mathbb{N}} \subset \Omega$ a minimizing sequence, that is \[P(E_n, \Omega) = \int_\Omega \left|D\chi_{E_n \cap \Omega}\right| \;\searrow\; \inf\{P(E,\Omega) \mid E \in M\}\]
+	\subsection{Lower semicontinuity in $BV(\Omega)$}
+	\begin{theorem}
+		Let $\Omega$ be a bounded domain. Let $(v_k)_{k \in \mathbb{N}} \subset BV(\Omega)$ s.t. $v_k \to v$ in $L^(\Omega)$. Then \[\int_\Omega \left|Dv\right| \leq \liminf \int_\Omega \left|Dv_k\right|\] In particular, if $\liminf_{k \to \infty} \int_\Omega \left|Dv_k\right| < \infty$ then $v \in BV(\Omega)$.
+	\end{theorem}
 \end{document}

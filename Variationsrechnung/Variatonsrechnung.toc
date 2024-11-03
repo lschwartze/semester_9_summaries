@@ -8,3 +8,4 @@
 \contentsline {section}{\numberline {4}A partition problem and functions of bounded variation}{6}{}%
 \contentsline {subsection}{\numberline {4.1}Motivation}{7}{}%
 \contentsline {subsection}{\numberline {4.2}Functions of bounded variations}{7}{}%
+\contentsline {subsection}{\numberline {4.3}Lower semicontinuity in $BV(\Omega )$}{8}{}%

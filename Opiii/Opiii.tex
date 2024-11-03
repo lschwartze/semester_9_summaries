@@ -156,4 +156,28 @@
 		\item return 1
 		\item end if
 	\end{enumerate}
+	\subsection{byzantine consensus}
+	\begin{definition}
+		A node which can have arbitrary or malicious behaviour is called \underline{byzantine}. This includes not sending messages, sending wrong messages, sending different messages to different neighbours and many more. A node that is not byzantine is called \underline{correct} or \underline{truthful}.
+	\end{definition}
+	The following probabilistic algorithm achieves consensus in an asynchronous setting with $<\frac{n}{9}$ byzantine nodes.
+	\begin{enumerate}
+		\item $x_i \in \{0,1\}$, $r = 1$, decided = false
+		\item propose($x_i,r$)
+		\item while not decided
+		\item wait until $n-f$ proposals of current round $r$ arrived
+		\item if at least $n-2f$ proposals contain the same value $x$: $x_i=x$ decided = true
+		\item elseif at least $n-4f$ proposals contain the same value $x$: $x_i=x$
+		\item else: choose $x_i$ randomly with $\mathbb{P}[x_i=0] = \mathbb{P}[x_i=1] = \frac{1}{2}$
+		\item endif
+		\item $r = r+1$, propose($x_i, r$)
+		\item endwhile
+		\item decision = $x_i$
+	\end{enumerate}
+	\begin{lemma}
+		Let $f y \frac{n}{9}$. If a correct node chooses value $x$ in line 6, then no other correct node chooses value $y\neq x$ in line 6.
+	\end{lemma}
+	\begin{theorem}
+		The algorithm solves binary agreement for up to $f<\frac{n}{9}$ byzantine nodes. 
+	\end{theorem}
 \end{document}

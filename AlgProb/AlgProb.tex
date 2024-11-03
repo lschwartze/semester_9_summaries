@@ -101,4 +101,18 @@
 		Ist $F$ unerfüllbar, so funktioniert der Algorithmus korrekt. Ist $F$ erfüllbar, so findet der Algorithmus eine erfüllende Belegung mit Wahrscheinlichkeit $p \geq \frac{1}{2}$.\\
 		Ist $\alpha^*$ eine erfüllende Belegung und $\alpha$ eine beliebige andere Belegung, mit Hamming-Abstand $i$ zu $\alpha^*$, so definieren wir uns $T(i)$ als die erwartete Anzahl an Bit-Flips, die nötig sind, um $\alpha$ in eine erfüllende Belegung zu transformieren. Man kann sehen, dass $T(n) = n^2$. Die erwartete Anzahl an Bitflips ist also $\mathcal{O}(n^2)$. Wählt man nun $f(F) = 2n^2$, so ist die Erfolgswahrscheinlichkeit von $\frac{1}{2}$ garantiert.
 	\end{theorem}
+	\subsection{Min-Cut}
+	Dieses Problem ist in P. Eine effiziente Lösung ist durch den Ford-Fulkerson Algorithmus mithilfe dem Max-Flow/Min-Cut Lemmas möglich. Im Folgenden wird ein effizienter probabilistischer Algorithmus besprochen.
+	\begin{enumerate}
+		\item WHILE $\left|V\right| > 2$ DO
+		\item wähle $(u,v) \in_R E$
+		\item kontrahiere $(u,v)$
+		\item ENDWHILE
+	\end{enumerate}
+	\begin{theorem}
+		Der Algorithmus hat Laufzeit $\mathcal{O}(n^2 (\log n)^2)$. Der Algorithmus findet immer einen Schnitt. Der Algorithmus benötigt für jede Instanz $n-1$ Schritte. Für einen gegebenen minimalen Schnitt $C$ ist die Wahrscheinlichkeit, dass der Algorithmus $C$ findet ist $\geq \frac{2}{n(n-1)}$. Es genügen also $\mathcal{O}(n^2)$ Wiederholungen für eine konstant kleine Fehlerwahrscheinlichkeit.
+	\end{theorem}
+	In jedem Schritt des Algorithmus wird gehofft, dass keine Kante $e$ aus dem minimal cut $C$ gezogen wird. Im letzten Schritt beträgt die Fehlerwahrscheinlichkeit dafür aber $\frac{2}{3}$. Um dem entgegen zu wirken, ist die Idee, den Algorithmus ein wenig umzubauen. Nach etwa $n\left(\frac{\sqrt{2} - 1}{\sqrt{2}}\right)$ Schritten wird der bisher erzeugte Teilgraph $H$ von $G$ bestimmt. Für diesen Graphen wird der Algorithmus zwei separate Male ausgeführt und der kleinere der beiden Cuts wird gewählt. Eine Kontraktion ist in $\mathcal{O}(n)$ mithilfe der Adjazenzmatrix möglich, also wird die Laufzeit \[T(n) = \underbrace{\left(1-\frac{1}{\sqrt{2}}\right)n}_{\text{Anzahl Runden}} \cdot \underbrace{cn}_{\text{Laufzeit Kontraktion}} + \underbrace{2T\left(\frac{n}{\sqrt{2}}\right)}_{\text{Laufzeit Rekursion}}\]
+	Mittels Master-Theorem lässt sich die Laufzeit bestimmen als $T(n) = \mathcal{O}(n^2 \log n)$.\\
+	Die Wahrscheinlichkeit, dass $C$ nun die ersten $n\left(1-\frac{1}{\sqrt{2}}\right)$ Schritte überlebt, ist nun $\approx \frac{1}{2}$. Mittels induktivem Einsetzen kann überprüft werden, dass die Erfolgswahrscheinlichkeit $p(n) \geq \frac{1}{\log n}$ ist. Es genügen daher $\log n$ Wiederholungen für eine konstante Fehlerwahrscheinlichkeit. Die gesamte Laufzeit ist daher $\mathcal{O}(n^2 (\log n)^2)$.
 \end{document}

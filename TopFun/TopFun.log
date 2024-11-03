@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  21 OCT 2024 11:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  28 OCT 2024 11:35
 entering extended mode
 **./TopFun.tex
 (TopFun.tex
@@ -229,14 +229,21 @@ LaTeX Warning: No \author given.
 \tf@toc=\write3
 \openout3 = `TopFun.toc'.
 
- [1] [2] [3] (TopFun.aux) ) 
-Here is how much of TeX's memory you used:
- 2890 strings out of 479322
- 39534 string characters out of 2856609
- 348441 words of memory out of 3000000
- 20342 multiletter control sequences out of 15000+600000
- 412639 words of font info for 63 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 67i,9n,74p,309b,212s stack positions out of 5000i,500n,10000p,200000b,80000s
+ [1] [2] [3]
+Overfull \hbox (1.21823pt too wide) in paragraph at lines 117--118
+[][]$[]$ \OT1/cmr/m/it/12 ist zusam-menhangend $\OMS/cmsy/m/n/12 ,$ $[]$ \OT1/
+cmr/m/it/12 ist wegzusam-menhangend $\OMS/cmsy/m/n/12 ,$ $\OML/cmm/m/it/12 K$ 
+\OT1/cmr/m/it/12 zusam-menhangend
+ []
 
-Output written on TopFun.dvi (4 pages, 7260 bytes).
+[4] [5] (TopFun.aux) ) 
+Here is how much of TeX's memory you used:
+ 2894 strings out of 479322
+ 39581 string characters out of 2856609
+ 354441 words of memory out of 3000000
+ 20345 multiletter control sequences out of 15000+600000
+ 412976 words of font info for 64 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 67i,9n,74p,387b,246s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on TopFun.dvi (6 pages, 15264 bytes).

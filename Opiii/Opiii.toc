@@ -4,3 +4,4 @@
 \contentsline {subsection}{\numberline {1.2}MIS}{3}{}%
 \contentsline {section}{\numberline {2}Consensus}{4}{}%
 \contentsline {subsection}{\numberline {2.1}shared coin}{5}{}%
+\contentsline {subsection}{\numberline {2.2}byzantine consensus}{6}{}%
