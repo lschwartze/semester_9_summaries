@@ -4,3 +4,4 @@
 \contentsline {subsection}{\numberline {1.2}Klassifikation der Kurve}{2}{}%
 \contentsline {section}{\numberline {2}Klassifizierung der kompakten Flächen}{3}{}%
 \contentsline {subsection}{\numberline {2.1}Triangulierung}{3}{}%
+\contentsline {subsection}{\numberline {2.2}Zellkomplexe}{5}{}%

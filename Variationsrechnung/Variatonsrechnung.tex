@@ -179,7 +179,7 @@
 		Let $E\subset \mathbb{R}^n$ be measurable. \[P(E, \Omega) = \int_\Omega \left|D\chi_{E\cap \Omega}\right|\] is called the perimeter of $E$ in $\Omega$. 
 	\end{definition}
 	\begin{remark}
-		If $\partial E$ is smooth, then $P(E,\Omega) = H^{n-1}(\partial E \Cap \Omega)$
+		If $\partial E$ is smooth, then $P(E,\Omega) = H^{n-1}(\partial E \cap \Omega)$
 	\end{remark}
 	\noindent\underline{QUESTION:} For $\Omega \subset \mathbb{R}^n$ bounded domain, define \[M = \{E \subset \Omega \mid \lambda^n(E) = \lambda^n(\Omega\setminus E) = \frac{1}{2} \lambda^n(\Omega)\}\] Is \[\inf \{P(E,\Omega) \mid E \in M\}\] attained?\\
 	\underline{IDEA:} Take $(E_n)_{n \in \mathbb{N}} \subset \Omega$ a minimizing sequence, that is \[P(E_n, \Omega) = \int_\Omega \left|D\chi_{E_n \cap \Omega}\right| \;\searrow\; \inf\{P(E,\Omega) \mid E \in M\}\]
@@ -187,4 +187,28 @@
 	\begin{theorem}
 		Let $\Omega$ be a bounded domain. Let $(v_k)_{k \in \mathbb{N}} \subset BV(\Omega)$ s.t. $v_k \to v$ in $L^(\Omega)$. Then \[\int_\Omega \left|Dv\right| \leq \liminf \int_\Omega \left|Dv_k\right|\] In particular, if $\liminf_{k \to \infty} \int_\Omega \left|Dv_k\right| < \infty$ then $v \in BV(\Omega)$.
 	\end{theorem}
+	\subsection{Lipschitz continuity}
+	\begin{definition}
+		A function $v: \bar{\Omega} \to \mathbb{R}$ is called Lipschitz continuous if \[[v]_{0,1} = \sup_{x,y \in \Omega, x \neq y} \frac{\left|v(x)-v(y)\right|}{\left|x-y\right|} < \infty\]
+		Using this, one defines $Lip(\Omega) = \{v: \bar{\Omega} \to \mathbb{R}: v \text{ is Lipschitz}\} = C^{0,1}(\Omega)$.\\
+		$Lip_{loc}(\Omega) = \{v: \Omega \to \mathbb{R}: v \in Lip(K)\;  \forall K \subset \Omega \text{ compact}\}$
+	\end{definition}
+	\begin{lemma}
+		$||\cdot||_{Lip}: Lip(\Omega) \to \mathbb{R}$ defined by \[||u||_{Lip} = [u]_{0,1} + ||u||_{C^0}\] makes $Lip(\Omega)$ a Banach space.
+	\end{lemma}
+	\begin{theorem}
+		Let $v \in Lip(\mathbb{R}^n)$. Then $v$ is a.e. classically differentiable. If $\Omega$ is a domain, then $v \in Lip_{loc}(\Omega) \Leftrightarrow v \in W_{loc}^{1,\infty}(\Omega)$. If $\partial \Omega$ is $C^1$, then $v \in Lip(\Omega) \Leftrightarrow v \in W^{1,\infty}(\Omega)$. In this case $[v]_{0,1} = ||\nabla v||_{L^\infty}$.
+	\end{theorem}
+	\begin{definition}
+		$Lip(\Omega, g) = \{u \in Lip(\Omega) \mid u \equiv g \text{ on } \partial \Omega\}$\\
+		$Lip(\Omega, g, K) = \{u \in Lip(\Omega,g) \mid [u]_{0,1} \leq K\}$
+	\end{definition}
+	The aim is now to minimize $F$ in $Lip(\Omega, g)$ where \[F(u) = \int_\Omega \sqrt{1 + \left|\nabla u\right|^2} \, dx\]
+	\underline{Method}: Solve minimization in $Lip(\Omega, g, K)$ and then show that the minimizer satisfies $[u]_{0,1} < K$ strictly for a large enough $K$ and conclude that $u$ minimizes $F$ in $Lip(\Omega, g)$.
+	\begin{lemma}
+		Let $\Omega$ be a bounded $C^1$-domain, $g \in Lip(\Omega)$ with $[g]_{0,1} \leq K$. Then $\exists u \in Lip(\Omega, g, K)$ s.t. \[F(u) \leq F(v) \; \forall v \in Lip(\Omega, g, K)\]
+	\end{lemma}
+	\begin{lemma}
+		Let $u^k$ be a minimizer of $F$ in $Lip(\Omega, g, k)$. If $[u^k]_{0,1} <k$ then $u^k$ minimizes $F$ in $Lip(\Omega,g)$.
+	\end{lemma}
 \end{document}

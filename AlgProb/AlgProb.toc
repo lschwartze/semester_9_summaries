@@ -3,3 +3,5 @@
 \contentsline {subsection}{\numberline {1.1}Vertex Cover}{2}{}%
 \contentsline {subsection}{\numberline {1.2}SAT}{3}{}%
 \contentsline {subsection}{\numberline {1.3}Min-Cut}{4}{}%
+\contentsline {subsection}{\numberline {1.4}All pairs shortest paths (APSP)}{5}{}%
+\contentsline {subsection}{\numberline {1.5}Boolean Product Witness}{7}{}%

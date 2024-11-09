@@ -115,4 +115,96 @@
 	In jedem Schritt des Algorithmus wird gehofft, dass keine Kante $e$ aus dem minimal cut $C$ gezogen wird. Im letzten Schritt beträgt die Fehlerwahrscheinlichkeit dafür aber $\frac{2}{3}$. Um dem entgegen zu wirken, ist die Idee, den Algorithmus ein wenig umzubauen. Nach etwa $n\left(\frac{\sqrt{2} - 1}{\sqrt{2}}\right)$ Schritten wird der bisher erzeugte Teilgraph $H$ von $G$ bestimmt. Für diesen Graphen wird der Algorithmus zwei separate Male ausgeführt und der kleinere der beiden Cuts wird gewählt. Eine Kontraktion ist in $\mathcal{O}(n)$ mithilfe der Adjazenzmatrix möglich, also wird die Laufzeit \[T(n) = \underbrace{\left(1-\frac{1}{\sqrt{2}}\right)n}_{\text{Anzahl Runden}} \cdot \underbrace{cn}_{\text{Laufzeit Kontraktion}} + \underbrace{2T\left(\frac{n}{\sqrt{2}}\right)}_{\text{Laufzeit Rekursion}}\]
 	Mittels Master-Theorem lässt sich die Laufzeit bestimmen als $T(n) = \mathcal{O}(n^2 \log n)$.\\
 	Die Wahrscheinlichkeit, dass $C$ nun die ersten $n\left(1-\frac{1}{\sqrt{2}}\right)$ Schritte überlebt, ist nun $\approx \frac{1}{2}$. Mittels induktivem Einsetzen kann überprüft werden, dass die Erfolgswahrscheinlichkeit $p(n) \geq \frac{1}{\log n}$ ist. Es genügen daher $\log n$ Wiederholungen für eine konstante Fehlerwahrscheinlichkeit. Die gesamte Laufzeit ist daher $\mathcal{O}(n^2 (\log n)^2)$.
+	\subsection{All pairs shortest paths (APSP)}
+	Wird jeder Pfad explizit ausgegeben, so kann die Ausgabe sehr groß sein. Man kann leicht ein Beispiel konstruieren, wo die gesamte Länge aller kürzesten Pfade $\Omega(n^3)$ ist. In diesem Fall wäre ein effizienter Algorithmus rein akademisch, da die Ausgabe ohnehin hohe Laufzeit benötigt.\\
+	\begin{definition}
+		Das Problem wird gelöst mithilfe der \underline{Shortest Path Matrix} $S \in \mathbb{R}^{n\times n}$. Diese ist definiert als $S_{i,j} = k \in V$, wenn $k$ Nachbar von $i$ in einem kürzesten $i-j$ Pfad ist. Bemerke, dass $S$ nicht eindeutig ist, da es mehrere kürzeste Wege geben kann. Mittels Dijkstra kann diese Matrix in $\mathcal{O}(n^3)$ berechnet werden. 
+	\end{definition}
+	Der folgende Algorithmus berechnet $S$ indem Matrizenmultiplikation verwendet wird. Sei $MM(n)$ die beste bekannte Laufzeit für Matrixmultiplikation, dann ist die Laufzeit von dem Algorithmus $\mathcal{O}(MM(n)\log^2 n)$. 
+	\begin{definition}
+		Wir definieren die Distanzmatrix $D$ mittels $d_{i,j}$ = Länge eines kürzesten $i-j$-Pfades. Wir schreiben $\delta(G)$ für den Durchmesser eines Graphen.
+	\end{definition}
+	\begin{lemma}
+		Für die Adjazenzmatrix eines Graphen $G$, $u,v \in V$ und $k \in \mathbb{N}$ ist $A^k$ die Matrix aller $k$-Pfade. In anderen Worten $a^k_{u,v}$ ist die Anzahl der $u-v$-Pfade der Länge $k$.
+	\end{lemma}
+	Für $Z=A^2$ kann man einen Graphen $G'$ mit Kanten $E'$ definieren, sodass \[E' = E \cup \{(i,j) \mid d_{i,j} = 2\}\] Die Adjazenzmatrix ist dann $A'$ gegeben durch \[a'_{i,j} = \begin{cases}
+		0, & i=j \lor (z_{i,j} = 0 \land a_{i,j} = 0)\\
+		1, & \text{ sonst}
+	\end{cases}\]
+	Es folgt, dass $A'$ in $MM(n)$ berechnet werden kann.\\
+	Es ist nun klar, dass falls $\delta(G) \leq 2$, dann ist $D=2A'-A$.
+	\begin{lemma}
+		Für alle $i,j \in V$ gilt $d_{i,j}$ gerade $\Rightarrow$ $d_{i,j} = 2d'_{i,j}$ und $d_{i,j}$ ungerade $\Rightarrow$ $d_{i,j} = 2d'_{i,j}-1$.
+	\end{lemma}
+	\begin{lemma}
+		Für alle $i,j \in V$ und $\forall k \in N(i)$ ist $d_{i,j} - 1 \leq d_{k,j} \leq d_{i,j}+1$ und $\exists k \in N(i)$ sodass $d_{i,j}-1 = d_{k,j}$.
+	\end{lemma}
+	\begin{lemma}
+		$\forall i,j \in V$ gilt $\forall k \in N(i)$, dass $d_{i,j}$ gerade $\Rightarrow$ $d'_{k,j} \geq d'_{i,j}$ und \\
+		$d_{i,j}$ ungerade $\Rightarrow$ $d'_{k,j} \leq d'_{i,j}$ und $\exists k \in N(i)$ sodass $d'_{k,j} < d'_{i,j}$.\\
+		Insbesondere folgt $d_{i,j}$ gerade $\Rightarrow \sum_{k \in N(i)} d'_{k,j} \geq d(i)\cdot d'_{i,j}$ und\\
+		$d_{i,j}$ ungerade $\Rightarrow \sum_{k \in N(i)} d'_{k,j} < d(i)\cdot d'_{i,j}$.\\
+		Weiter kann man sehen, dass $\sum_{k \in N(i)} d'_{k,j} = (A\cdot D')_{i,j}$.
+	\end{lemma}
+	Der Algorithmus zur Berechnung der $D$ Matrix (genannt $APD$, \underline{all pairs distance}) ist nun\\
+	\underline{Funktion APD($A$ Adjazenzmatrix von $G$):}
+	\begin{enumerate}
+		\item $Z = A^2$
+		\item Berechne $A'$
+		\item if $\forall i,j \in V, \; i\neq j$ gilt $a'_{i,j} = 1$ then return $D = 2A'-A$
+		\item $D' = APD(A')$
+		\item $F = A\cdot D'$
+		\item for each $(i,j) \in V\times V$:
+		\item if $f_{i,j} \geq d'_{i,j}-1$ then $d_{i,j} = 2d'_{i,j}$
+		\item else $d_{i,j} = 2d'_{i,j}-1$
+		\item return $D$
+	\end{enumerate}
+	Bezeichne $T(n,k)$ die Laufzeit des Algorithmus für einen Graphen auf $n$ Knoten mit Durchmesser $k$. Wir wissen, dass $T(n,2) = MM(n)$. Außerdem ist \[T(n,k) = MM(n) + \mathcal{O}(n^2) + T\left(n,\left\lceil\frac{k}{2}\right\rceil\right) + MM(n) = \mathcal{O}(MM(n)\cdot \log(n)\]
+	\subsection{Boolean Product Witness}
+	Seien $A,B \in \{0,1\}^{n\times m}$.
+	\begin{definition}
+		Wir definieren $A\odot B = C$ durch \[c_{i,j} = \lor_{k=1}^n a_{i,k} \land b_{k,j}\]
+		Die BPW Matrix ist definiert durch \[w_{i,j} = \begin{cases}
+			0, & c_{i,j} = 0\\
+			k, & c_{i,j} = 1 \text{ und } a_{i,k} \land b_{k,j} = 1
+		\end{cases}\]
+	Im zweiten Fall heißt $w_{i,j} = k$ ein Zeuge.
+	Außerdem definiert man die Matrix $\hat{A}$ durch $\hat{a}_{i,k} = k a_{i,k}$. Diese kann in $\mathcal{O}(n^2)$ berechnet werden.
+	\end{definition}
+	Gibt es für $(i,j)$ genau einen Zeugen, so gilt \[(\hat{A}\cdot B)_{i,j} = k\]
+	Sei nun $w>0$ die Anzahl der Zeugen für eine Position $(i,j)$. Sei außerdem $r = 2^s$ für ein $s \in \mathbb{N}$, sodass $$\frac{n}{2} \leq r\cdot w \leq n$$
+	Unter Gleichverteilung werden nun zufällig $r$ Elemente aus $\{1,...,n\}$ gezogen und daraus die Menge $R$ erstellt. Es gilt dann \[\mathbb{P}[\text{in $R$ gibt es genau einen Zeugen für $(i,j)$}] = p = \frac{w\binom{n-w}{r-1}}{\binom{n}{r}}\]
+	\begin{lemma}
+		$p \geq \frac{1}{2^e}$
+	\end{lemma}
+	\begin{definition}
+		Wir definieren $B^R$ als die Matrix, die aus $B$ gewonnen wird, wenn alle Zeilen $z$ mit $z \notin R$ auf 0 gesetzt werden.
+	\end{definition}
+	Falls es in $R$ genau einen Zeugen $l$ für $A,B$ gibt, so gilt $(\hat{A}B^R)_{i,j} = l$. 
+	Auf dieser Basis kann nun ein Algorithmus zur Lösung des BPW Problems konstruiert werden.
+	\begin{enumerate}
+		\item $W = -A\cdot B$
+		\item for $t=0$ to $\lfloor\log n\rfloor$
+		\item $r = 2^t$
+		\item for $l = 1$ to $\lceil2e \log n\rceil$
+		\item wähle $R \in_R \{1,...,n\}$ mit $\left|R\right| = r$
+		\item Berechne $\hat{A}$, $B^R$ und $Z = \hat{A} B^R$.
+		\item for $(i,j)$
+		\item if $w_{i,j}<0$ and $z_{i,j}$ ist Zeuge then $w_{i,j} = z_{i,j}$
+		\item endfor
+		\item endfor
+		\item endfor
+		\item for $(i,j)$ finde Zeuge $w_{i,j}$
+	\end{enumerate}
+	Die Laufzeit des Algorithmus ist beschränkt auf $\mathcal{O}(MM(n) \cdot \log^2 n)$.
+	Mit dieser Überlegung kann nun das APSP Problem gelöst werden. Dafür ist anzumerken, dass für $j \in N_G(i)$ gilt, dass die Distanz zu $k$ $d_{i,k} = d_{j,k} + s$ für $s \in \{-1,0,1\}$ erfüllt.\\
+	\begin{enumerate}
+		\item $D = APD(A)$
+		\item for $s \in \{0,1,2\}$
+		\item Berechne $D^{(s)}$ via $d_{i,j}^{(s)} = 1 \Leftrightarrow d_{i,j} = s-1 \mod 3$
+		\item $W^{(s)} = BPW(A,D^{(s)})$
+		\item endfor
+		\item Berechne $S$ via $s_{i,j} = w_{i,j}^{d_{i,j} \mod 3}$
+	\end{enumerate}
+	Die Gesamtkomplexität des Algorithmus ist $\mathcal{O}(MM(n) \log^2 n)$.
 \end{document}

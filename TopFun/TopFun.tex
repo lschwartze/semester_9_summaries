@@ -136,4 +136,42 @@
 	\begin{remark}
 		Die Aussage ist noch wahr für $n=3$ aber falsch ab $n=4$.
 	\end{remark}
+	\subsection{Zellkomplexe}
+	\begin{definition}
+		Sei $A$ eine Menge. \begin{enumerate}
+			\item Die Menge der orientierten Elemente von $A$ ist \[\tilde{A} = A \cup A^{-1}\] wobei $A^{-1} = \{a^{-1} \mid a \in A\}$
+			\item Die Menge der orientierten Zyklen in $A$ ist \[A^* = \{[a_1,...,a_n] \mid n \geq 0, \; a_i \in \tilde{A}\}\] wobei die Äquivalenzklassen definiert sind durch \[(a_1,...,a_n) \sim (a_1',...,a_n') \Leftrightarrow \; \exists k \geq 0: \; a_i' = \begin{cases}
+				a_{i+k},& i+k \leq n\\
+				a_{i+k-n},& k > n
+			\end{cases}\]
+		\end{enumerate}
+	\end{definition}
+	\begin{definition}
+		Ein Zellenkomplex ist ein Tripel $K = (F,E,\delta)$, wobei $F$ (Menge der Flächen) nicht leer und endlich, $E$ (Menge der Kanten) endlich und $\delta: \tilde{F} \to E^*$ die Randabbildung sodass \begin{enumerate}
+			\item $\delta(A^{-1}) = \delta(A)^{-1} \; \forall A \in F$
+			\item $A_1,A_2 \in F$, $A_1 \neq A_2$, dann $\partial(A_1) \neq \partial(A_2)$
+			\item jedes $a \in \tilde{E}$ kommt in genau einem oder genau zwei Rändern $\partial(A)$, $A \in \tilde{F}$ vor.
+			\item $K$ ist zusammenhängend.
+		\end{enumerate}
+	\end{definition}
+	\begin{definition}
+		Sei $K = (F,E,\delta)$ ein Zellenkomplex. Wir definieren die \underline{geometrische Realisierung} von $K$ als den Quotientenraum \[\left|K\right| = (\bigcup_{A \in F} \left|A\right|)/\sim\] wobei $\left|A\right| = \cong D = \{x \in \mathbb{R}^2 \mid ||x|| \leq 1\}$ und $\sim$ wie folgt definiert ist.\\
+		Ein Punkt $x \in \overset{\circ}{\left|A\right|}$ ist nur zu sich selbst äquivalent. Für $x \in \partial(\left|A\right|) \cong S^1$: Wir unterteilen $\partial(\left|A\right|) = S^1$ in $\underline{n}$ Segmente/Intervalle (wobei $\partial A = [a_1,...,a_{\underline{n}}])$, markieren das $i$-te Segment mit $a_i$ und identifizieren Punkte auf dem Segment mit $a_i$ markierten Segment mit Punkten auf jeden mit $a_i$ oder $a_i^{-1}$ markierten Segment von Rand von $\left|A_j\right|$ gemäß der Orientierung.
+	\end{definition}
+	\begin{theorem}
+		Für jeden Zellenkomplex $K$ ist $\left|K\right|$ eine kompakte Fläche \underline{mit Rand}. 
+	\end{theorem}
+	\begin{definition}
+		Sei $K = (F,E,\delta)$ ein Zellenkomplex und $a \in \tilde{E}$. \begin{enumerate}
+			\item Ein \underline{Nachfolger} von $a$ ist ein $b \in \tilde{E}$, sodass ab in einem Rand $\partial(A)$, $A \in \tilde{F}$ vorkommt.
+			\item $a$ heißt \underline{innere Kante}, falls $a$ in genau zwei Rändern vorkommt.
+			\item $a$ heißt \underline{äußere Kante}, falls $a$ in genau einem Rand vorkommt.
+		\end{enumerate}
+	\end{definition}
+	\begin{lemma}
+		Sei $\bar{x} \in \left|K\right|$ ein Eckpunkt, $a_1,...,a_m \in \tilde{E}$ die orientierten Kanten mit Endpunkt $\bar{x}$. \begin{enumerate}
+			\item Angenommen $a_1,...,a_m$ sind innere Kanten. Dann gibt es eine zyklische Anordnung sodass $\forall i$ gilt $a_{i-1}^{-1}$ und $a_{i+1}^{-1}$ sind Nachfolger von $a$. 
+			\item Sonst gibt es eine Ordnung $a_1,...,a_m$, sodass $a_1, a_m$ äußere und $a_2,...,a_{m-1}$ innere Kanten sind. Für $i=2,...,m-1$ gilt die gleiche Aussage wie oben und für $i=1,m$ jeweils modulo $m$.
+		\end{enumerate}
+	\end{lemma}
 \end{document}

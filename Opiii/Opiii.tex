@@ -175,9 +175,144 @@
 		\item decision = $x_i$
 	\end{enumerate}
 	\begin{lemma}
-		Let $f y \frac{n}{9}$. If a correct node chooses value $x$ in line 6, then no other correct node chooses value $y\neq x$ in line 6.
+		Let $f < \frac{n}{9}$. If a correct node chooses value $x$ in line 6, then no other correct node chooses value $y\neq x$ in line 6.
 	\end{lemma}
 	\begin{theorem}
 		The algorithm solves binary agreement for up to $f<\frac{n}{9}$ byzantine nodes. 
 	\end{theorem}
+	\begin{definition}
+		$N[u] = N(u) \cup \{u\}$
+	\end{definition}
+\section{Dominating Set}
+	The following algorithm gives an approximation to a minimal dominating set. To this end, we colour vertices white in the beginning, black if they are added to the dominating set $S$ and grey if they are covered by a neighbour in $S$. For a vertex $u$ we define $W(u) = \{v \in N[u]\mid v \text{ is white}\}$.
+	\begin{enumerate}
+		\item while $v$ has white neighbours
+		\item compute $\left|W(v)\right|$ and send it to all neighbours at distance at most 2
+		\item if $\left|W(v)\right|$ is largest among neighbours of distance 2
+		\item join $S$
+		\item endif
+		\item endwhile
+	\end{enumerate}
+	\begin{theorem}
+		Let $S^*$ be the optimal dominating set and $S$ the one returned by the algorithm. Then $\frac{\left|S\right|}{\left|S^*\right|} \leq \ln \Delta + 2$. The algorithm takes $\Theta(n)$ rounds.
+	\end{theorem}
+	In the following we try to push this runtime to sublinear.
+	\subsection{Fast Dominating Set Algorithm}
+	\begin{enumerate}
+		\item $W(v) = N[v]$, $w(v) = \left|W(v)\right|$
+		\item while $W(v) \neq \varnothing$
+		\item $w'(v) = w(v)$ rounded down to the nearest power of 2
+		\item if $w(v) = \max_{u \in N_2(v)} w'(u)$ then $v.active = true$
+		\item else $v.active = false$
+		\item endif
+		\item compute active neighbours $a(v) = \{u \in N(v) \mid u.active\}$
+		\item $v.candidate = false$
+		\item if $v.active = true$ then
+		\item $v.candidate = true$ with probability $\frac{1}{\max_{u \in W(v)}a(u)}$
+		\item endif
+		\item compute $c(v) = \left|\{u \in W(v) \mid u.candidate\}\right|$
+		\item if $v.candidate$ and $\sum_{u \in W(v)} c(u) \leq 3w(v)$ then
+		\item node $v$ joins dominating set
+		\item endif
+		\item update $W$, $w$
+		\item endwhile
+	\end{enumerate}
+	\begin{theorem}
+		The algorithm computes a dominating set of size at most $(6\ln \Delta + 12)\left|S^*\right|$.
+	\end{theorem}
+	\begin{lemma}
+		Consider an iteration of the while loop. Suppose that a node $u$ is white and that $2a(u) \geq \max_{v \in C(u)} \max_{y \in W(y)} a(y)$ where \[C(u) = \{v \in N(u) \mid v.candidate\}\] Then the probability that $u$ becomes dominated in this iteration is larger than $\frac{1}{9}$.
+	\end{lemma}
+	\section{maximal matching}
+	This section introduces a new technique called rounding. The idea is to solve a given integral problem as a continuous problem and then rounding the results to the nearest integer. This often allows for polylogarithmic time complexity.
+	\begin{definition}
+		A maximal matching is a subset $S$ of edges s.t. no vertex has two incident edges in $S$. Furthermore, there are no edges $e \in E\setminus S$ that can be added to $S$ without breaking the first condition. 
+	\end{definition}
+	This problem is a typical integer linear problem, i.e. one where variables $x_e$ for $e \in E$ are in $\{0,1\}$. The idea is now to allow continuous variables and fix the result by rounding. A non-integral result is called a fractional matching.
+	\begin{definition}
+		In a fractional matching we call a vertex $v$ loose if $c_v = \sum_{e \in E(v)} x_e \leq \frac{1}{2}$. An edge is called loose if both its vertices are loose. We call a fractional matching $f$-fraction if $c_v \geq f$ $\forall v \in V$.
+	\end{definition}
+	The following algorithm runs in $\mathcal{O}(\log n)$ time and yields a 4-approximation to for a fractional matching.\\
+	\begin{enumerate}
+		\item $x_e = 2^{-(\lceil\log \Delta \rceil)}$
+		\item while both endpoints of $e$ are loose:
+		\item $x_e = 2x_e$
+		\item endwhile
+	\end{enumerate}
+	\begin{theorem}
+		The algorithm computes a 4-approximation $\frac{1}{\Delta}$-fractional matching in $\mathcal{O}(\log \Delta)$ time.
+	\end{theorem}
+	The idea is now to get rid of the fractional edges. This works by starting to either multiply all edges of value $\frac{1}{\Delta}$ by a factor of 2 or by rounding them down to 0. In the next step this is done for edges of value $\frac{2}{\Delta}$ and so on.
+	\begin{definition}
+		We define the subgraph $G_f$ as the graph induced by all edges of value $f$ in $G$.
+	\end{definition}
+	\begin{definition}
+		Rounding the graph $G_f$ means to identify a subset of edges of value $f$ in $E_f$ which will be doubled. All other edges in (which are also of value $f$!) will be assigned value 0. The resulting graph should still be a valid $2f$-fractional matching.
+	\end{definition}
+	\begin{definition}
+		A perfect rounding of a graph $G$ is a rounding of the graph such that for all nodes $v$ half of its edges are assigned twice its value and the other half 0. Notice that $c_v$ and the size of the matching remain unchanged.
+	\end{definition}
+	We start by introducing the idea for bipartite graphs. For this, we need to construct a 2-decomposition of the graph $G_f$.
+	\begin{definition}
+		For a graph $G$ we define a decomposition $G'$ of $G$ by copying each vertex $v$ $\frac{d(v)}{2}$ times. The edges incident to $v$ are distributed among all these copies such that each copy has degree 2 (in the case that $d(v)$ is odd, one copy may have degree 1).
+	\end{definition}
+	Note that in $G'$ each vertex $v$ has $d(v) \in \{1,2\}$. I.e. $G'$ is a disjoint union of cycles and paths.
+	\begin{definition}
+		A cycle or path is called short if its length is at most $l = 24\log \Delta$ and long otherwise.
+	\end{definition}
+	Since we assumed that the starting graph is bipartite, all cycles are even. Therefore we would want the edge values to be raised and dropped alternately along the cycle. This is a perfect rounding. If the cycle is short, the following algorithm achieves this in $\mathcal{O}(\log \Delta)$.
+	\begin{enumerate}
+		\item Orient the cycle in one direction
+		\item if $e$ goes from a node with colour 1 to colour 2:
+		\item $x_e := 2x_e$
+		\item else: $x_e := 0$
+	\end{enumerate}
+	In a long cycle the first line is not easy to solve. Therefore, we contend ourselves with a common direction only on subpaths of length at least $l$ on long cycles.
+	\begin{definition}
+		Consider a cycle with an orientation of each edge. A maximal directed path is a directed path that can not be extended since both neighbouring edges have inconsistent orientation.
+	\end{definition}
+	Starting from a random orientation we can achieve long directed paths by determining the length of a subpath and compute the length of the subpath it points towards. By flipping the edges of the shorter path, we create a longer directed path.
+	\begin{enumerate}
+		\item orient $e$ arbitrarily
+		\item for $i=1,...,\log(l)$:
+		\item compute the length of the path pointing in the opposite direction and flip the edges of the shorter path
+		\item endfor
+	\end{enumerate}
+	Since we can now compute long subpaths of long cycles, we discuss rounding of long cycles in the next step.
+	\begin{enumerate}
+		\item compute long paths
+		\item if $e$ is a boundary edge or goes from a node of colour 2 to colour 1: $x_e := 0$
+		\item else: $x_e := 2x_e$
+	\end{enumerate}
+	\begin{lemma}
+		Rounding long cycles leads to a loss of $\leq \frac{3}{l} \sum_{e \in E} x_e$.
+	\end{lemma}
+	Obviously the same approach works for long paths.\\
+	The algorithm for short paths is a bit more complicated.
+	\begin{enumerate}
+		\item orient the graph with start node $s$ and end note $t$
+		\item if $e$ is first edge:
+		\item if $s$ is tight (\textit{not loose}): $x_e := 0$
+		\item else: $x_e := 2x_e$
+		\item else if $e$ is the last edge:
+		\item if $t$ is tight: $x_e := 0$
+		\item else: $x_e := 2x_e$
+		\item else if $e$ is an even edge: $x_e := 0$
+		\item else: $x_e := 2x_e$ 
+	\end{enumerate}
+	\begin{lemma}
+		Rounding short paths results in a loss $\leq 4f \sum_{e \in E} x_e$
+	\end{lemma}
+	\begin{lemma}
+		In the rounding step going from an $f$-fractional matching to a $2f$-fractional matching the matching decreases by a factor of at most $(1-\frac{3}{l} - 4f)$ and the rounding step takes $\mathcal{O}(\Delta)$ time.
+	\end{lemma}
+	\begin{lemma}
+		This results in a $\frac{1}{16}$-fractional matching which is a constant factor smaller than the initial $\frac{1}{\Delta}$ matching. 
+	\end{lemma}
+	\begin{lemma}
+		A constant factor approximation 16-fractional matching can be computed in $\mathcal{O}(\log^2 \Delta)$ in a 2-coloured bipartite graph.
+	\end{lemma}
+	\begin{lemma}
+		A constant factor approximation matching can be computed in $\mathcal{O}(\log^2 \Delta)$ time in a 2-coloured bipartite graph with maximum degree $\Delta$.
+	\end{lemma}
 \end{document}
