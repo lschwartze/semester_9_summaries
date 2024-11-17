@@ -315,4 +315,47 @@
 	\begin{lemma}
 		A constant factor approximation matching can be computed in $\mathcal{O}(\log^2 \Delta)$ time in a 2-coloured bipartite graph with maximum degree $\Delta$.
 	\end{lemma}
+	What can we say about general graphs?\\
+	The idea is to decompose the graph in a similar way to how it was done in the exercises. Assuming that the vertices are labelled, we can direct the edges from smaller to larger ID. Then each vertex is copied once. The first copy only keeps in-going edges, while the other copy only keeps out-going edges. It is clear that this construction generates a bipartite graph. This motivates the following definition.
+	\begin{definition}
+		The previous construction is called a bipartite double cover. The bipartition classes are obviously the set of vertices with in-edges or out-edges respectively. Since a vertex has only in-neighbours or only out-neighbours, it is easy to assign a 2-colouring.
+	\end{definition}
+	Since we can compute a $c$-approximation matching for bipartite graphs, the following lemma follows quickly.
+	\begin{lemma}
+		A 3c-approximation matching can be computed in $\mathcal{O}(\log^*n + \log^2\Delta)$ time in general graphs.
+	\end{lemma}
+	By repeatedly applying this lemma, we can even prove the following:
+	\begin{theorem}
+		A maximal matching can be computed in $\mathcal{O}((\log^*n + \log^2\Delta)\log n)$ time.
+	\end{theorem}
+	\section{Wireless networks}
+	In a wireless network nodes can send messages only to nodes within a given range. Even if we assume that the transmission graph is complete, multiple nodes sending messages at the same time can lead to interference. Therefore we want that in each round all but one vertex only receive messages while the remaining one is free to communicate. How can we guarantee message transmissions? Communication is possible if a vertex of ID $j$ transmits a message in round $j$ but this needs a linear number of rounds. Trough randomization this can be improved substantially.
+	\subsection{Wireless leader election}
+	\begin{enumerate}
+		\item In the first phase, the nodes transmit with probability $\frac{1}{2^{2^0}},\frac{1}{2^{2^1}},\frac{1}{2^{2^2}},...$ until no node transmits which yields a first approximation of the number of nodes
+		\item in the second phase, a binary search is performed to determine an even better approximation of $n$. The first phase returned the search window $[l,u]$ in which the number of vertices must lie.
+		\item in the third phase we use a biased random walk to give a final approximation of $n$. The second phase returned an approximation $d$ of the number of nodes. With probability $\frac{1}{2^d}$ each node now communicates. If nothing was transmitted, decrease $d$ and if more than one node communicated, increase $d$ until exactly one message was sent.
+	\end{enumerate}
+	Let $X$ denote the random variable representing the number of nodes transmitting in the same time slot.
+	\begin{lemma}
+		During phase 2, if the current approximation $j$ of $n$ is larger than $\log n + \log \log n$ or if during the first phase the current approximation $i$ is larger than $2\log n$ it holds that $\mathbb{P}[X>1] \leq \frac{1}{\log n}$. 
+	\end{lemma}
+	\begin{lemma}
+		If $j<\log n - \log \log n$ or $i < \frac{1}{2} \log n$ then $\mathbb{P}[X=0] \geq \frac{1}{n}$
+	\end{lemma}
+	\begin{lemma}
+		Let $v$ be such that $2v-1 \leq n \leq 2v$. If during the third phase the current approximation $d$ satisfies $d > v+2$ then $\mathbb{P}[X>1] \leq \frac{1}{4}$.
+	\end{lemma}
+	\begin{lemma}
+		If $d<v-2$ then $\mathbb{P}[X=0] \leq \frac{1}{4}$
+	\end{lemma}
+	\begin{lemma}
+		If $v-2 \leq d \leq v+2$ then $\mathbb{P}[X=1]$ is constant.
+	\end{lemma}
+	\begin{lemma}
+		With probability $1-\frac{1}{\log n}$ we find a leader in phase 3 in $\mathcal{O}(\log \log n)$ time.
+	\end{lemma}
+	\begin{theorem}
+		The algorithm elects a leader with probability of at least $1-\frac{\log \log n}{\log n}$ in $\mathcal{O}(\log \log n)$ time.
+	\end{theorem}
 \end{document}

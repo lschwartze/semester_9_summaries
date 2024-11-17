@@ -207,4 +207,43 @@
 		\item Berechne $S$ via $s_{i,j} = w_{i,j}^{d_{i,j} \mod 3}$
 	\end{enumerate}
 	Die Gesamtkomplexität des Algorithmus ist $\mathcal{O}(MM(n) \log^2 n)$.
+	\subsection{Perfektes Matching auf bipartiten Graphen}
+	Das Problem ist effizient deterministisch zu lösen, aber Algorithmen sind üblicherweise sehr kompliziert. Wir stellen daher stattdessen einen einfachen probabilistischen Algorithmus vor.
+	\begin{definition}
+		Sie $G = (V_1 \cup V_2, E)$ ein biparttier Graph mit $\left|V_1\right| = \left|V_2\right| = n$. Man definiert die $n\times n$ Bipartitionsmatrx $A_G$ durch \[A_G = \begin{cases}
+			x_{i,j}, & (i,j) \in E\\
+			0, & \text{ sonst}
+		\end{cases}\]
+	Die Determinante $D$ der Matrix wird wie üblich bestimmt als \[\det(A) = \sum_{\pi \in S_n} sgn(\pi) \prod_{i=1}^{n} a_{i,\pi(i)}\]
+	Es ist offensichtlich, dass $\det(A_G)$ ein Polynom in den $x_{i,j}$ ist.
+	\end{definition}
+	\begin{theorem}
+		Es gibt ein perfektes Matching in $G$ $\Leftrightarrow$ $\det(A_G) \not \equiv 0$.
+	\end{theorem}
+	Zu bestimmen, ob die Determinante der Matrix das Null-Polynom ist, kann im Allgemeinen sehr aufwändig sein. Ein probabilistischer Ansatz ist es, zufällige Werte in das Polynom einzusetzen und zu überprüfen, ob die Funktion 0 ausgibt. Dabei hilft das folgende Lemma.
+	\begin{lemma}
+		Sei $g$ ein Polynom mit $m$ Variablen und Grad $\leq d$. Dann hat $p$ $\leq mdM^{m-1}$, wenn die Parameter $a_1,...,a_m \in \{0,1,...,M-1\}$.
+	\end{lemma}
+	Für das Polynom der Determinanten gilt $m\leq n^2, d=1$. Der Algorithmus zum Überprüfen, ob das Polynom dem Nullpolynom entspricht, besteht nun daraus, zufällige Werte für die $x_{i,j}$ zu wählen und die Determinante der daraus entstandenen Matrix zu berechnen.
+	\begin{enumerate}
+		\item Berechne $A_G$
+		\item belege $x_{i,j} \in_R \{0,...,M-1\}$ für alle $i,j$
+		\item setze diese Werte in $A_G$ ein und bezeichne das Resultat als $A_G'$
+		\item if $\det(A_G') \neq 0$: es gibt perfektes Matching
+		\item else: es gibt (wahrscheinlich) kein perfektes Matching
+	\end{enumerate}
+	Der Algorithmus hat eine Fehlerwahrscheinlichkeit $\leq \frac{n^2}{M}$. Wählt man $M = 2n^2$, so ist die Fehlerwahrscheinlichkeit $\leq \frac{1}{2}$.
+	\subsection{Perfektes Matching auf allgemeinen Graphen}
+	Sei $G = (V,E)$ ein Graph mit $\left|V\right| = n$ gerade. Es sei weiter eine Totalordnung auf $V$ definiert.
+	\begin{definition}
+		Wir definieren die Matrix $A_G$ via \[(A_G)_{i,j} = \begin{cases}
+			x_{i,j}, & (i,j) \in E \land i<j\\
+			-x_{i,j}, & (i,j) \in E \land j<i\\
+			0, & \text{ sonst}
+		\end{cases}\]
+	\end{definition}
+	Bemerke, dass ein perfektes Matching in $G$ eine Permutation $\pi$ von $V$ ist, die aus disjunkten Zwei-Zyklen besteht, wobei $\pi(i) \neq i \; \forall i \in V$.
+	\begin{lemma}
+		$G$ hat ein perfektes Matching $\Leftrightarrow$ $\det(A_G) \not \equiv 0$.
+	\end{lemma}
 \end{document}

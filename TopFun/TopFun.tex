@@ -166,6 +166,9 @@
 			\item Ein \underline{Nachfolger} von $a$ ist ein $b \in \tilde{E}$, sodass ab in einem Rand $\partial(A)$, $A \in \tilde{F}$ vorkommt.
 			\item $a$ heißt \underline{innere Kante}, falls $a$ in genau zwei Rändern vorkommt.
 			\item $a$ heißt \underline{äußere Kante}, falls $a$ in genau einem Rand vorkommt.
+			\item Die Relation $\sim$ ist eine Relation auf $\tilde{E}$ definiert als $a\sim b$ $\Leftrightarrow b^{-1}$ ist ein Nachfolger von $a$
+			\item Sei $\approx$ die gröbste Äquivalenzrelation mit $a \sim b \Rightarrow a \approx b$
+			\item Eine Ecke von $K$ ist eine Äquivalenzklasse $v = {a_1,...,a_n}$ von $\approx$, $v \in V = \tilde{E}/\approx$.
 		\end{enumerate}
 	\end{definition}
 	\begin{lemma}
@@ -174,4 +177,52 @@
 			\item Sonst gibt es eine Ordnung $a_1,...,a_m$, sodass $a_1, a_m$ äußere und $a_2,...,a_{m-1}$ innere Kanten sind. Für $i=2,...,m-1$ gilt die gleiche Aussage wie oben und für $i=1,m$ jeweils modulo $m$.
 		\end{enumerate}
 	\end{lemma}
+	\begin{definition}
+		Die beiden Fälle des vorherigen Lemmas definieren \underline{innere} und \underline{äußere} Ecken.
+	\end{definition}
+	\begin{remark}
+		$\left|K\right|$ ist eine triangulierte Fläche mit Rand $\Leftrightarrow$
+		\begin{enumerate}
+			\item $a,b \in \tilde{E}$, $a \sim b \Rightarrow a^{-1} \not \sim b^{-1}$.
+			\item $\forall A \in \tilde{F}$: $\partial A = [a_1,a_2,a_3]$ 
+		\end{enumerate}
+	\end{remark}
+	\begin{theorem}
+		Jede kompakte Fläche mit Rand $X$ besitzt eine Darstellung $X \cong \left|K\right|$ für einen Zellkomplex $K$.
+	\end{theorem}
+	Es stellt sich nun die Frage, wie man für zwei Zellkomplexe $K_1,K_2$ entscheiden kann, ob $\left|K_1\right| \cong \left|K_2\right|$.\\
+	\underline{Schritte}: \begin{enumerate}
+		\item Definiere eine kombinatorische Äquivalenzrelation auf der Menge der Zellkomplexe, sodass $K_1\sim K_2 \Rightarrow\left|K_1\right| \cong \left|K_2\right|$
+		\item Finde eine Liste von Zellkomplexen $K_1,K_2,...$, sodass für jeden Zellkomplex $K$ gilt $\left|K\right| \sim \left|K_i\right|$ für genau ein $i$.
+		\item zeige $\left|K_i\right| \not \cong \left|K_j\right|$
+	\end{enumerate}
+	\begin{definition}
+		Seine $K,K'$ Zellkomplexe. Dann heißt $K'$ eine \underline{elementare Verkleinerung} von $K$, wenn $K'$ aus $K$ durch eine Reihe von den folgenden Operationen entsteht
+		\begin{enumerate}
+			\item Unterteilung einer Randkante $a$ in zwei Kanten $b,c$ mit gleicher Orientierung
+			\item Ergänzung einer inneren Kante durch eine Fläche $A$
+		\end{enumerate} 
+	\end{definition}
+	Nun definiert man $\sim$ auf der Menge der Isomorphie-Klassen der Zellkomplexe durch \begin{definition}
+		$\sim$ ist die gröbste Äquivalenzrelation mit $K'$ ist eine elementare Verfeinerung von $K$ $\Rightarrow$ $K' \sim K$
+	\end{definition}
+	\begin{lemma}
+		Ist $K'$ eine elementare Verfeinerung von $K$, so gilt $\left|K'\right| \cong \left|K\right|$.
+	\end{lemma}
+	Für die weiteren Überlegungen müssen wir uns Invarianten von $K$ überlegen, die unter den beiden Operationen erhalten bleiben.
+	\begin{definition}
+		Sei $K = (F,E,\partial)$ ein Zellkomplex. Eine Orientierung von $K$ ist eine Teilmenge $O\subset \tilde{F}$, sodass \begin{enumerate}
+			\item $\tilde{F} = O \cup O^{-1}$
+			\item $\forall a \in \tilde{E}$ gibt es höchstens ein $A \in O$ mit $\partial(A) = [...,a,...]$
+		\end{enumerate}
+	\end{definition}
+	\begin{definition}
+		$K=(F,E,\partial)$ heißt orientierbar, wenn eine Orientierung existiert.
+	\end{definition}
+	\begin{lemma}
+		Sei $K'$ eine elementare Verfeinerung von $K$. Dann ist $K$ orientierbar, genau dann, wenn $K'$ orientierbar ist.
+	\end{lemma}
+	\begin{corollary}
+		$K_1 \sim K_2 \Rightarrow$ $K_1$ ist orientierbar, genau dann, wenn $K_2$ ist orientierbar.
+	\end{corollary}
 \end{document}

@@ -211,4 +211,23 @@
 	\begin{lemma}
 		Let $u^k$ be a minimizer of $F$ in $Lip(\Omega, g, k)$. If $[u^k]_{0,1} <k$ then $u^k$ minimizes $F$ in $Lip(\Omega,g)$.
 	\end{lemma}
+	\begin{definition}
+		Let $v \in Lip(\Omega,K)$. We call $v$ a \underline{superminimum} (resp. \underline{subminimum}) for $F$ if $\forall w \in Lip(\Omega, v, K)$ s.t. $w \geq v$ in $\Omega$ then $F(v) \leq F(w)$ (resp. $w\leq v$).
+	\end{definition}
+	\begin{theorem}[Maximum principle]
+		Let $\Omega \subset \mathbb{R}^n$ be open and bounded. Let $v \in Lip(\Omega,K)$ be a superminimum, $w \in Lip(\Omega,K)$ be a subminimum s.t. $v \geq w$ on $\partial \Omega$. Then $v \geq w$ in $\Omega$.
+	\end{theorem}
+	\begin{corollary}
+		Let $\Omega\subset \mathbb{R}^n$ open and bounded. Let $v \in Lip(\Omega, K)$ be a superminimum and $w \in Lip(\Omega, K)$ a subminimum. Then \[\sup_{\partial \Omega} w-v = \sup_{\Omega} w-v\]
+	\end{corollary}
+	\begin{corollary}
+		If $u, \tilde{u} \in Lip(\Omega,g,K)$ are minima of $F$ in $Lip(\Omega,f,K)$ then $u \equiv \tilde{u}$.
+	\end{corollary}
+	\underline{Goal}: Prove that $u^k$ satisfies \[\sup_{x,y \in \Omega, x \neq y} \frac{\left|u^k(x) - u^k(y)\right|}{\left|x-y\right|} = [u^k]_{0,1} < K\]
+	\begin{lemma}
+		Let $\Omega \subset \mathbb{R}^n$ bounded and open. Let $u \in Lip(\Omega,g,K)$ be a minimum of $F$. Then \[[u]_{0,1} = \sup_{x \in \Omega, y \in \partial \Omega, x \neq y} \frac{\left|u(x)-u(y)\right|}{\left|x-y\right|}\]
+	\end{lemma}
+	\begin{lemma}
+		Let $a \in \mathbb{R}$, $z \in \mathbb{R}^n$ and $w:\mathbb{R}^n \to \mathbb{R}$ via $w(c) = a+zx$. Then $w$ minimizes $F$ in $Lip(\Omega,w)$. 
+	\end{lemma}
 \end{document}
