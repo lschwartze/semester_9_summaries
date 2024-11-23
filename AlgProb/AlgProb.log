@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  11 NOV 2024 13:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  21 NOV 2024 11:38
 entering extended mode
 **./AlgProb.tex
 (AlgProb.tex
@@ -230,12 +230,12 @@ LaTeX Warning: No \author given.
 \openout3 = `AlgProb.toc'.
 
  [1] [2] [3] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 119--120
+Underfull \hbox (badness 10000) in paragraph at lines 120--121
 
  []
 
 [5] [6] [7]
-Overfull \hbox (1.23552pt too wide) in paragraph at lines 199--201
+Overfull \hbox (1.23552pt too wide) in paragraph at lines 200--202
 []\OT1/cmr/m/n/12 Die Laufzeit des Al-go-rith-mus ist beschrankt auf $\OMS/cms
 y/m/n/12 O\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 MM\OT1/cmr/m/n/12 (\OML/cmm/m/it/12
  n\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12  [][] \OML/cmm/m/it/12 n\OT1/cmr/m/n/12 )
@@ -243,18 +243,18 @@ $. Mit dieser []Uberlegung
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 199--201
+Underfull \hbox (badness 10000) in paragraph at lines 200--202
 
  []
 
-[8] [9] [10] (AlgProb.aux) ) 
+[8] [9] [10] [11] [12] (AlgProb.aux) ) 
 Here is how much of TeX's memory you used:
- 2894 strings out of 479322
- 39588 string characters out of 2856609
- 353443 words of memory out of 3000000
- 20344 multiletter control sequences out of 15000+600000
- 413284 words of font info for 66 fonts, out of 8000000 for 9000
+ 2899 strings out of 479322
+ 39637 string characters out of 2856609
+ 354443 words of memory out of 3000000
+ 20347 multiletter control sequences out of 15000+600000
+ 413985 words of font info for 68 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,10n,74p,877b,234s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 67i,13n,74p,876b,234s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on AlgProb.dvi (11 pages, 37576 bytes).
+Output written on AlgProb.dvi (13 pages, 46160 bytes).

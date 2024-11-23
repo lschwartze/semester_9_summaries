@@ -230,4 +230,34 @@
 	\begin{lemma}
 		Let $a \in \mathbb{R}$, $z \in \mathbb{R}^n$ and $w:\mathbb{R}^n \to \mathbb{R}$ via $w(c) = a+zx$. Then $w$ minimizes $F$ in $Lip(\Omega,w)$. 
 	\end{lemma}
+	\section{Obstacle problems}
+	Let $\Omega \subset \mathbb{R}^n$ be a bounded convex domain with $\partial \Omega \in C^1$. Let $h \in Lip(\Omega)$ s.t. $h|_{\partial \Omega} <0$ and $h>0$ somewhere in $\Omega$.\\
+	\underline{Problem}: Is $\inf\{F(u): u \in Lip(\Omega), u|_{\partial \Omega} = 0, u \geq h\}$ attained? As before $F(u) = \int_\Omega \sqrt{1+\left|\nabla u\right|^2}$. That is, does a $u \in M = \{v \in Lip(\Omega): v|_{\partial \Omega} = 0, v \geq h\}$ s.t. \[F(u) \leq F(v) \; \forall v \in M\] exist?\\
+	We call $h$ the obstacle.\\
+	The difference of this problem to the previous problems is in the first variation. If $u$ is a minimizer in the previous problems, then $\frac{d}{dt} F(u+t\varphi)|_{t=0} = 0$ $\forall \varphi \in C_0^\infty(\Omega)$. Here we have only information form some directions. Since $M$ is convex for all $v \in M$ $tu+(1-t)v$ is again in $M$ for $t \in [0,1]$. Hence, if $u$ is a minimizer, $t \mapsto F(tu+(1-t)v)$ has a minimum at $t=1$. Hence \[\frac{d}{dt} F(tu+(1-t)v)|_{t=1} = \int_\Omega \frac{\langle\nabla(tu+(1-t)v),\nabla(u-v)\rangle}{1+\left|\nabla(tu + (1-t)v)\right|^2} \, dx |_{t=1}\leq 0\]
+	This can be rearranged to \[\int_\Omega\frac{\nabla u}{\sqrt{1+\left|\nabla u\right|^2}} \nabla(u-v) \, dx \geq 0 \, \forall v \in M\] This is called a variational inequality.\\
+	The strategy to show the existence of a minimizer consists of the following steps
+	\begin{enumerate}
+		\item add another constraint $[u]_{0,1} \leq k$
+		\item if minimizer satisfies this with strict inequality then it is a minimizer without the additional constraint
+	\end{enumerate}
+	Let $M^k = \{u \in M: [u]_{0,1} \leq k\}$ for $k > [h]_{0,1}$ and note that $\max\{0,h\} \in M^k$. Notice that $M^k$ is also convex.
+	\begin{lemma}
+		$\exists u \in M^k$ s.t. $F(u) \leq F(v) \; \forall v \in M^k$.
+	\end{lemma}
+	\begin{lemma}
+		Let $u^k$ be a minimizer for $F$ in $M^k$ s.t. $[u^k]_{0,1} <k$. Then $u^k$ minimizes $F$ in $M$.
+	\end{lemma}
+	Our aim is now to find an a-priori estimate for solutions of variational inequalities of the following type \[\int_\Omega a(\nabla u) \cdot (\nabla(v-u))\, dx \geq 0 \, \forall v \in M \cup M^k\] where $a$ satisfies the following strong ellipticity condition \[(a(p)-a(q)) \cdot (p-q) > 0 \, \forall penis,q \in \mathbb{R}^n, p \neq q\]
+	\begin{theorem}
+		Let $u \in M^k$ be a solution of \[\int_\Omega a(\nabla u) \cdot \nabla(v-u) \, dx \geq 0 \; \forall v \in M^k\] where $a$ satisfies the strong ellipticity. Then \[\sup_{x\neq y \in \Omega} \frac{\left|u(x)-u(y)\right|}{\left|x-y\right|} \leq \max\left\{[h]_{0,1}, \sup_{x \in \Omega. y \in \partial \Omega} \frac{\left|u(x)-u(y)\right|}{\left|x-y\right|}\right\}\]
+	\end{theorem}
+	\begin{theorem}
+		Let $\Omega \subset \mathbb{R}^n$ be a convex, bounded domain with $\partial \Omega \in C^1$. Let $a:\mathbb{R}^n \to \mathbb{R}^n$ satisfy the strong ellipticity and $h \in Lip(\Omega)$, $h|_{\partial \Omega} <0$ but $h>0$ somewhere in $\Omega$. Let $k > [h]_{0,1}$ and $u \in M^k$ be a solution of \[\int_\Omega a(\nabla u)\cdot \nabla(v-u) dx \geq 0 \; \forall v \in M^k\]
+		Then \begin{enumerate}
+			\item $u \geq 0$
+			\item $u$ is unique
+			\item $[u]_{0,1} \leq [h]_{0,1} < k$
+		\end{enumerate}
+	\end{theorem}
 \end{document}

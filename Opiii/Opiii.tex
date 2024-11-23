@@ -358,4 +358,76 @@
 	\begin{theorem}
 		The algorithm elects a leader with probability of at least $1-\frac{\log \log n}{\log n}$ in $\mathcal{O}(\log \log n)$ time.
 	\end{theorem}
+	\subsection{Advice Algorithms}
+	In an asynchronous deterministic setting with at least one crash it is not possible to solve consensus. In the following we will see that in a deterministic setting that allows for advice we can achieve different results.\\
+	There are two possibilities for consensus. In the first case we have advice from the beginning on. That means, we always have some kind of trustworthy information. In case two, we deal with eventual advice. That means there will be a point in time at which there is secure information on which we can fall back on.\\
+	The following chapter deals with an asynchronous message-passing system. At most $f$ processes may fail by halting. Each process has access to a failure detector. This is an unreliable oracle that gives the vertex continuous updates about the status of other processes. For each node the oracle can tell its process if it suspects the node to have crashed. If not, that node is considered trusted. A correct process never fails and a non-faulty one may fail but has not as of this point in time. A variant of this are limited-scope failure detectors. These can only give an answer to process that are ``reachable'' what ever that may mean.
+	\begin{definition}[configuration]
+		We say that a system is fully defined at any point in time by its configuration $C$. This includes the state of every node and all messages that are in transit.
+	\end{definition}
+	\begin{definition}[univalent]
+		We call a configuration $C$ univalent if the decision value (think consensus) is determined independently of what happens later on. 
+	\end{definition}
+	\begin{remark}
+		\begin{itemize}
+			\item a configuration $C$ that is univalent with value $v$ is called $v$-valent
+			\item $C$ can be univalent even though no node knows about it
+		\end{itemize}
+	\end{remark}
+	\begin{definition}
+		A configuration $C$ that is not univalent is called bivalent (assuming that the decision space is $\{0,1\}$).
+	\end{definition}
+	\begin{lemma}
+		There is at least one selection of input vales such that the according initial configuration $C_0$ is bivalent if the number of crashes is $f\geq 1$.
+	\end{lemma}
+	\begin{definition}[transition]
+		A transition from a configuration $C$ to a following configuration $C_\tau$ is characterized by an event $\tau = (u,m)$ meaning that node $u$ receives message $m$.
+	\end{definition}
+	\begin{remark}
+		\begin{itemize}
+			\item A transition $\tau = (u,m)$ is only applicable to configuration $C$ if $m$ was still in transit in $C$.
+			\item The difference between $C$ and $C_\tau$ is that in $C_\tau$ $u$ might have a different state, $m$ is no longer in transit and there are potentially new messages in transit sent from $u$.
+		\end{itemize}
+	\end{remark}
+	\begin{remark}
+		\begin{enumerate}
+			\item the set of configurations can be viewed as vertices of a graph and the transitions can be viewed as edges. The resulting graph is the so-called transition tree
+			\item leaves are configurations where the execution terminates
+		\end{enumerate}
+	\end{remark}
+	\begin{lemma}
+		Assume two transitions $\tau_1,\tau_2$ for $u_1\neq u_2$ are both applicable to to $C$. Let $C_{\tau_1\tau_2}$ be the configuration that follows $C$ by first applying $\tau_1$ and then $\tau_2$ and define $C_{\tau_2\tau_1}$ analogously. Then $C_{\tau_1\tau_2} = C_{\tau_2\tau_1}$. 
+	\end{lemma}
+	\begin{definition}[critical configuration]
+		We say that a configuration $C$ is critical, if $C$ is bivalent but all configurations that are direct children of $C$ in the configuration tree are univalent.
+	\end{definition}
+	\begin{lemma}
+		In a system with bivalent configurations, it has to reach a critical point in finite time otherwise it does not reach consensus.
+	\end{lemma}
+	\begin{lemma}
+		If a configuration tree contains a critical configuration, crashing a single node can create a bivalent leaf, i.e. a crash prevents the algorithm from reaching an agreement.
+	\end{lemma}
+	\begin{theorem}
+		There is no deterministic algorithm which always achieves consensus in the asynchronous model with $f>0$.
+	\end{theorem}
+	Here, we are considering a system that clusters the vertices. Each cluster includes one correct process that is never suspected to have failed by any other process. However, that may only be the case after a time period $t$. A model with $q$ clusters can be understood as a network composed of $w$ disjoint LANs. 
+	\begin{definition}[strong completeness]
+		At some point every crashed participant will be suspected to be permanently dead.
+	\end{definition}
+	\begin{definition}[$k$-set agreement]
+		In a network where every vertex starts with an initial value that is not necessarily binary, the vertices should agree on at most $k$ different values. For $k=1$ this is simply consensus.
+	\end{definition}
+	The solvability of $k$-set agreement now depends on $q,k$ and $x = \left|\bigcup_{j=1}^Q q_j\right|$ the total size of all clusters. This system satisfies the above strong completeness and one of the following two weak accuracies.
+	\begin{definition}[perpetual weak $(x,q)$-accuracy]
+		Some correct process in each cluster is never suspected by any process in that cluster.
+	\end{definition}
+	\begin{definition}[eventual weak $(x,y)$-accuracy]
+		There is a time after which some correct process in each cluster is never suspected by any process in that cluster.
+	\end{definition}
+	We focus on two different classes of failure detection:
+	\begin{itemize}
+		\item $S_{x,q}$: strong completeness and perpetual weak $(x,q)$-accuracy
+		\item $\diamond S_{x,q}$: strong completeness ad eventual weak $(x,q)$-accuracy
+	\end{itemize}
+	Under the first system, it is possible to solve $k$-set agreement with up to $f<k-1+x-q$ failures if $q<k$ and $f<x$ otherwise. Under the second system however, $f<\min\{\lceil\frac{n+1}{2}\rceil,k-1+x-q\}$ failures can be tolerated.
 \end{document}

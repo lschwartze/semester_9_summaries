@@ -10,3 +10,4 @@
 \contentsline {subsection}{\numberline {4.2}Functions of bounded variations}{7}{}%
 \contentsline {subsection}{\numberline {4.3}Lower semicontinuity in $BV(\Omega )$}{8}{}%
 \contentsline {subsection}{\numberline {4.4}Lipschitz continuity}{9}{}%
+\contentsline {section}{\numberline {5}Obstacle problems}{10}{}%

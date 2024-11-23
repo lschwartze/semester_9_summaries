@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  12 NOV 2024 11:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  21 NOV 2024 13:07
 entering extended mode
 **./Variatonsrechnung.tex
 (Variatonsrechnung.tex
@@ -239,7 +239,7 @@ Overfull \hbox (1.08766pt too wide) in paragraph at lines 148--148
 |[]\OT1/cmr/bx/n/17.28 A par-ti-tion prob-lem and func-tions of bounded vari-
  []
 
-[6] [7] [8] [9] [10] (Variatonsrechnung.aux) ) 
+[6] [7] [8] [9] [10] [11] [12] (Variatonsrechnung.aux) ) 
 Here is how much of TeX's memory you used:
  2903 strings out of 479322
  39914 string characters out of 2856609
@@ -247,6 +247,6 @@ Here is how much of TeX's memory you used:
  20352 multiletter control sequences out of 15000+600000
  414925 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,9n,74p,515b,212s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 67i,9n,74p,662b,212s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Variatonsrechnung.dvi (11 pages, 34808 bytes).
+Output written on Variatonsrechnung.dvi (13 pages, 41264 bytes).

@@ -101,6 +101,7 @@
 		Ist $F$ unerfüllbar, so funktioniert der Algorithmus korrekt. Ist $F$ erfüllbar, so findet der Algorithmus eine erfüllende Belegung mit Wahrscheinlichkeit $p \geq \frac{1}{2}$.\\
 		Ist $\alpha^*$ eine erfüllende Belegung und $\alpha$ eine beliebige andere Belegung, mit Hamming-Abstand $i$ zu $\alpha^*$, so definieren wir uns $T(i)$ als die erwartete Anzahl an Bit-Flips, die nötig sind, um $\alpha$ in eine erfüllende Belegung zu transformieren. Man kann sehen, dass $T(n) = n^2$. Die erwartete Anzahl an Bitflips ist also $\mathcal{O}(n^2)$. Wählt man nun $f(F) = 2n^2$, so ist die Erfolgswahrscheinlichkeit von $\frac{1}{2}$ garantiert.
 	\end{theorem}
+	\section{Probabilistische Algorithmen}
 	\subsection{Min-Cut}
 	Dieses Problem ist in P. Eine effiziente Lösung ist durch den Ford-Fulkerson Algorithmus mithilfe dem Max-Flow/Min-Cut Lemmas möglich. Im Folgenden wird ein effizienter probabilistischer Algorithmus besprochen.
 	\begin{enumerate}
@@ -234,16 +235,55 @@
 	\end{enumerate}
 	Der Algorithmus hat eine Fehlerwahrscheinlichkeit $\leq \frac{n^2}{M}$. Wählt man $M = 2n^2$, so ist die Fehlerwahrscheinlichkeit $\leq \frac{1}{2}$.
 	\subsection{Perfektes Matching auf allgemeinen Graphen}
-	Sei $G = (V,E)$ ein Graph mit $\left|V\right| = n$ gerade. Es sei weiter eine Totalordnung auf $V$ definiert.
+	Aus offensichtlichen Gründen gehen wir davon aus, dass $n$ gerade ist.
 	\begin{definition}
-		Wir definieren die Matrix $A_G$ via \[(A_G)_{i,j} = \begin{cases}
+		Wir definieren wieder eine leicht veränderte Adjazenzmatrix
+		\[(A_G)_{i,j} = \begin{cases}
+			0, & (i,j) \notin E\\
 			x_{i,j}, & (i,j) \in E \land i<j\\
-			-x_{i,j}, & (i,j) \in E \land j<i\\
-			0, & \text{ sonst}
+			-x_{i,j}, & (i,j) \in E \land j<i
 		\end{cases}\]
 	\end{definition}
-	Bemerke, dass ein perfektes Matching in $G$ eine Permutation $\pi$ von $V$ ist, die aus disjunkten Zwei-Zyklen besteht, wobei $\pi(i) \neq i \; \forall i \in V$.
-	\begin{lemma}
-		$G$ hat ein perfektes Matching $\Leftrightarrow$ $\det(A_G) \not \equiv 0$.
+	Ein Matching ist dann eine Permutation $\pi$ mit $\pi^2 = id$ und $\pi(i) \neq i$. Die Idee ist nun, wieder über die Determinante der Matrix zu argumentieren. Es gilt \[\det(A_G) = \sum_{\pi \in S_n} sgn(\pi) \prod_{i=1}^{n} a_{i,\pi(i)}\] Es gilt wieder das selbe Resultat wie für bipartite Graphen. \begin{lemma}
+		$G$ hat ein perfektes Matching $\Leftrightarrow \det(A_G) \not\equiv 0$.
 	\end{lemma}
+	Es ist klar, dass der Algorithmus für bipartite Graphen dann auch für allgemeine Graphen funktioniert.
+	\subsection{Perfektes Matching finden}
+	Mit den vorherigen Teilen kann nun bestimmt werden, ob in einem Graphen ein Matching existiert. Ein solches zu finden, benötigt aber zunächst einige Überlegungen.
+	\begin{definition}
+		Sei $S = \{x_1,...,x_n\}$ eine endliche Menge. $F = \{S_1,...,S_k\}$ sodass $S_j \subseteq S$ heißt Mengensystem. Es ist klar, dass $\left|F\right| \leq 2^n$\\
+		Sei $w:S \to \{1,2,...,2n\}$ eine Funktion die jedem Element aus $S$ ein Gewicht zuordnet. $w(S_j)$ sei eine verkürzte Schreibweise für $\sum_{x \in S_j} w(x)$.
+	\end{definition}
+	\begin{lemma}[Isolierungslemma]
+		Ist $w$ zufällig und unter Gleichverteilung gewählt, so ist \[\mathbb{P}[\exists ! S_i \in F : w(S_i) \text{ minimal }] \geq \frac{1}{2}\]
+	\end{lemma}
+	Die Idee ist nun, mit diesem Lemma einen Algorithmus zur Bestimmung eines perfekten Matchings in bipartiten Graphen zu konstruieren. Auf Existenz eines perfekten Matchings können wir bereits überprüfen.\\
+	Sei nun $G = (U\cup V,E)$ ein bipartiter Graph mit perfektem Matching und $\left|U\right| = \left|V\right|$. Wir statten die Kanten mit Gewichten $w$ in $\{1,2,...,2m\}$ aus. Im Rahmen des Lemmas sein $S = E$ und $F$ die Menge der perfekten Matchings. Wir definieren $A \in \mathbb{R}^{n\times n}$ mit \[a_{i,j} = \begin{cases}
+		1, & (u_i,v_j) \in E\\
+		0, & \text{ sonst}
+	\end{cases}\]
+	Daraus definieren wir eine zweite Matrix $B$ mit \[b_{i,j} = \begin{cases}
+		2^{w_{i,j}}, & (u_i,v_j) \in E\\
+		0, & \text{ sonst}
+	\end{cases}\]
+	\begin{lemma}
+		Falls $G$ genau ein perfektes Matching mit minimalem Gewicht $w$ hat, so ist $\det(B) \neq 0$ und $2^w$ ist die größte Zweierpotenz die $\det(B)$ teilt.
+	\end{lemma}
+	\begin{lemma}
+		Gibt es in $G$ genau ein perfektes Matching $M$ minimalen Gewichts $w$, dann gilt \[(u_i,v_j) \in M \Leftrightarrow \frac{\det(B_{i,j})}{2^w} \mod 2 = 0\] Dabei ist $B_{i,j}$ die Matrix $B$ mit 0 an der Stelle $(i,j)$.
+	\end{lemma}
+	Der Algorithmus ist nun klar. Man überprüft einfach für jede Kante, ob das obige Lemma erfüllt ist. Wenn ja, wird sie in das Matching aufgenommen.
+	\subsection{Rot-Blau-perfektes Matching}
+	Das folgende Problem kann mit einem probabilistischen Algorithmus effizient gelöst werden. Ein polynomieller deterministischer Algorithmus ist hingegen nicht bekannt.\\
+	Gegeben sei ein bipartiter Graph $G=(U\cup V, E)$ mit $\left|U\right| = \left|V\right| = n$ und mit einer Färbung $c$ der Kanten $c:E \to \{r,b\}$, jede Kante ist also rot oder blau. Außerdem gibt es ein $k\leq n$. Die Frage ist nun, gibt es ein perfektes Matching mit genau $k$ roten Kanten?\\
+	Die Idee ist wieder, das Isolationslemma zu verwenden. Dafür wählen wir $S=E$ und $F$ als die Menge der perfekten Matchings mit genau $k$ roten Kanten. Weiter definieren wir uns $f:E \to \{p,2p\}$ durch \[f(e) = \begin{cases}
+		2p, & c(e) = r\\
+		p, & c(e) = b
+	\end{cases}\] wobei $p=3n^3$.
+	Daraus wird nun wieder eine Matrix gebaut, $B \in \mathbb{R}^{n\times n}$ mit \[b_{i,j} = \begin{cases}
+		2^{w_{i,j} + f((i,j))}, & (i,j) \in E\\
+		0, & \text{ sonst}
+	\end{cases}\]
+	Für ein perfektes Matching $\sigma$ mit genau $k$ roten Kanten gilt nun $$\prod_{i=1}^n b_{i,\sigma(i)} = 2^{w(\sigma) + (n+k)p} \leq 2^{n\cdot 2m + (n+k)p} \leq 2^{2n^3 + (n+k)p} \leq 2^{(n+k+1)p}$$ Es folgt, dass die Terme in $\det(B)$, die ein perfektes Matching mit mehr als $k$ roten Kanten implizieren, diesen Term nicht annullieren können. Es gibt außerdem höchstens $n!$ viele perfekte Matchings mit weniger als $k$ roten Kanten. Die Summe solcher Terme ist kleiner als $2^{n^2+(n+k-1)p+2n^3}$ was wiederum kleiner als $2^{w(\sigma)+(n+k)p}$ ist. Diese Summe kann den Term also auch nicht annullieren.\\
+	Der Algorithmus wählt die Gewichtsfunktion $w$ zufällig und berechnet $\det(B)$. Das ist eine Summe von Zweierpotenzen. Der Algorithmus gibt aus, dass es ein perfektes Matching mit $k$ roten Kanten gibt, genau dann, wenn in dieser Summe eine Zweierpotenz $2^r$ vorkommt, sodass $2^{(k+1)p} <2^r <2^{(k+n)p}$.
 \end{document}
