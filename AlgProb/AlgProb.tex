@@ -285,5 +285,34 @@
 		0, & \text{ sonst}
 	\end{cases}\]
 	Für ein perfektes Matching $\sigma$ mit genau $k$ roten Kanten gilt nun $$\prod_{i=1}^n b_{i,\sigma(i)} = 2^{w(\sigma) + (n+k)p} \leq 2^{n\cdot 2m + (n+k)p} \leq 2^{2n^3 + (n+k)p} \leq 2^{(n+k+1)p}$$ Es folgt, dass die Terme in $\det(B)$, die ein perfektes Matching mit mehr als $k$ roten Kanten implizieren, diesen Term nicht annullieren können. Es gibt außerdem höchstens $n!$ viele perfekte Matchings mit weniger als $k$ roten Kanten. Die Summe solcher Terme ist kleiner als $2^{n^2+(n+k-1)p+2n^3}$ was wiederum kleiner als $2^{w(\sigma)+(n+k)p}$ ist. Diese Summe kann den Term also auch nicht annullieren.\\
-	Der Algorithmus wählt die Gewichtsfunktion $w$ zufällig und berechnet $\det(B)$. Das ist eine Summe von Zweierpotenzen. Der Algorithmus gibt aus, dass es ein perfektes Matching mit $k$ roten Kanten gibt, genau dann, wenn in dieser Summe eine Zweierpotenz $2^r$ vorkommt, sodass $2^{(k+1)p} <2^r <2^{(k+n)p}$.
+	Der Algorithmus wählt die Gewichtsfunktion $w$ zufällig und berechnet $\det(B)$. Das ist eine Summe von Zweierpotenzen. Der Algorithmus gibt aus, dass es ein perfektes Matching mit $k$ roten Kanten gibt, genau dann, wenn in dieser Summe eine Zweierpotenz $2^r$ vorkommt, sodass $2^{(k+1)p} <2^r <2^{(k+n)p}$.\\
+	Interessant an diesem Problem ist, dass es ein NP Problem ist. Das heißt, man kann es probabilistisch zwar effizient lösen, ein deterministischer, polynomieller Algorithmus ist aber nicht bekannt.
+	\subsection{Probabilistische Algorithmen in exponentieller Zeit}
+	\subsubsection{3-Färbbarkeit}
+	Das Problem ist NP-vollständig. Wir werden zeigen, dass es einen probabilistischen Algorithmus mit Laufzeit $\mathcal{O}(p(n)c^n) := \mathcal{O}^*(c^n)$ gibt.\\
+	Die Idee des Algorithmus ist es, das Graphenproblem in ein SAT Problem umzuschreiben. Für jeden Knoten $v \in V$ und jede Farbe $j \in \{1,2,3\}$ wählen wir eine boole'sch Variable $x_{v,j}$, die 1 ist, genau dann, wenn $v$ Farbe $j$ bekommt. In der Formel $F_G$ gibt es nun zwei Arten von Klauseln.
+	\begin{enumerate}
+		\item $\forall v \in V$: $(x_{v,1} \lor x_{v,2} \lor x_{v,3})$
+		\item $\forall (u,v) \in E$: $(\overline{x_{v,1}} \lor \overline{x_{u,1}}) \land (\overline{x_{v_2}} \lor \overline{x_{u,2}}) \land (\overline{x_{v,3}} \lor \overline{x_{u,3}})$
+	\end{enumerate}
+	Eine erfüllende Belegung der Formel impliziert nun eine Färbung des Graphen.\\
+	Der Algorithmus wählt für jeden Knoten $v$ eine Farbe $j$, die für $v$ ausgeschlossen wird. D.h. $v$ wird nicht mir $j$ gefärbt und $x_{v,j}=0$. Die Klauseln von Typ 1 werden dadurch reduziert auf zwei Literale und dadurch ist $F_G$ reduziert auf eine Formel in der Familie 2-SAT. Diese lässt sich effizient lösen. Wir berechnen nun die Wahrscheinlichkeit, dass die reduzierte Formel $F_G$ lösbar ist, wenn gegeben ist, dass $G$ 3-färbbar ist. Sei $f$ eine korrekte 3-Färbung für $G$. Die Wahrscheinlichkeit, dass der Algorithmus für einen beliebigen Knoten $v$ genau die Farbe $f(v)$ ausschließt, ist $\frac{1}{3}$. Die Wahrscheinlichkeit, dass kein Knoten seine Farbe verliert, ist also $\left(\frac{2}{3}\right)^n$. Um die Wahrscheinlichkeit für einen Fehler gering zu halten, wird der Algorithmus einfach $l$ mal wiederholt. Bei $l=100\left(\frac{3}{2}\right)^n$ ist der die Fehlerwahrscheinlichkeit $\leq 2^{-100}$. Die Laufzeit ist demnach $\mathcal{O}(p(n)\left(\frac{3}{2}\right)^n) = O^*(\left(\frac{3}{2}\right)^n)$.
+	\subsubsection{Random Walk Algorithmus für 3-SAT}
+	Der folgende Algorithmus versucht, 3-SAT zu lösen.
+	\begin{enumerate}
+		\item beginne mit einer zufälligen Belegung $\alpha$
+		\item if $\alpha(F)\neq 1$, dann wähle eine Klausel $C$, sodass $\alpha(C) = 0$
+		\item wähle ein Literal $u_l$ in $C$ und verändere $\alpha$, sodass $u_l$ erfüllt (und damit $C$ erfüllt)
+		\item wiederhole $n$ mal
+		\item wenn $\alpha$ nicht zu einer erfüllenden Belegung umgewandelt werden konnte, wähle eine neue
+		\item wiederhole $t$ mal
+	\end{enumerate}
+	Sei $\alpha_0$ eine erfüllende Belegung, die Hamming-Distanz $p$ zur initialen Belegung $\alpha$ hat. Dann transformiert der random walk $\alpha$ in $\alpha_0$ mit Wahrscheinlichkeit $3^{-p}$. Wird die Laufzeit nun aber verlängert auf (zum Beispiel) $3p$ Schritte, dann dürfen $p$ Schritte des random walks falsch sein, wenn dafür $2p$ richtig sind. Die Wahrscheinlichkeit, dass $\alpha_0$ gefunden wird, ist damit $\binom{3p}{2p}\left(\frac{1}{3}\right)^{2p}\left(\frac{2}{3}\right)^p \approx 2^{-p}$. Man kann zeigen, dass die Annahme $p=\frac{n}{3}$ optimal ist. Deswegen wird im Algorithmus der random walk auf eine Länge von $n=3p$ beschränkt.\\
+	Zur weiteren Untersuchung definieren wir
+	\begin{itemize}
+		\item $E_1$ ist das Zufallsereignis, dass $d(\alpha_0,\alpha) = \frac{n}{3}$
+		\item $E_2$ ist das Zufallsereignis, dass der Algorithmus $\frac{2n}{3}$ Schritte in die richtige und $\frac{n}{3}$ Schritte in die falsche Richtung macht.
+	\end{itemize}
+	Es gilt dann, dass die Erfolgswahrscheinlichkeit $\geq \mathbb{P}[E_1\land E_2]$ ist. Es gilt \[\mathbb{P}[E_1] = \binom{n}{\frac{n}{3}}\cdot 2^{-n}\] und \[\mathbb{P}[E_2] = \binom{n}{\frac{n}{3}}\left(\frac{1}{3}\right)^{\frac{2n}{3}}\left(\frac{2}{3}\right)^\frac{n}{3}\]
+	Damit sieht man, dass die Erfolgswahrscheinlichkeit $\geq \frac{1}{q(n)}\left(\frac{3}{4}\right)^n$ ist. Wählt man $t = 20\cdot \left(\frac{4}{3}\right)^n$, so ergibt sich insgesamt eine Fehlerwahrscheinlichkeit von $\leq e^{-20}$. Die Laufzeit ist $\mathcal{O}^*(\left(\frac{4}{3}\right))^n$.
 \end{document}

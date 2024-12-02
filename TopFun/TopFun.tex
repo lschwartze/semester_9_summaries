@@ -209,11 +209,12 @@
 	\begin{lemma}
 		Ist $K'$ eine elementare Verfeinerung von $K$, so gilt $\left|K'\right| \cong \left|K\right|$.
 	\end{lemma}
-	Für die weiteren Überlegungen müssen wir uns Invarianten von $K$ überlegen, die unter den beiden Operationen erhalten bleiben.
+	Für die weiteren Überlegungen müssen wir uns Invarianten von $K$ überlegen, die unter den beiden Operationen erhalten bleiben. Ab diesem Punkt wollen wir die Annahme treffen, dass alle Kanten innere Kanten sind. Das heißt, jedes $a \in \tilde{E}$ kommt genau zwei mal im Rand vor. Damit ist $\left|K\right|$ eine kompakte Fläche ohne Rand.
 	\begin{definition}
-		Sei $K = (F,E,\partial)$ ein Zellkomplex. Eine Orientierung von $K$ ist eine Teilmenge $O\subset \tilde{F}$, sodass \begin{enumerate}
+		Sei $K = (F,E,\partial)$ ein Zellkomplex. Eine Orientierung von $K$ ist eine Teilmenge $O\subset \tilde{F}$, sodass
+		\begin{enumerate}
 			\item $\tilde{F} = O \cup O^{-1}$
-			\item $\forall a \in \tilde{E}$ gibt es höchstens ein $A \in O$ mit $\partial(A) = [...,a,...]$
+			\item jedes $a \in \tilde{E}$ kommt genau ein Mal in den Rändern $\partial(A)$, $A \in O$ vor
 		\end{enumerate}
 	\end{definition}
 	\begin{definition}
@@ -224,5 +225,35 @@
 	\end{lemma}
 	\begin{corollary}
 		$K_1 \sim K_2 \Rightarrow$ $K_1$ ist orientierbar, genau dann, wenn $K_2$ ist orientierbar.
+	\end{corollary}
+	\begin{definition}
+		Die Euler-Charakteristik von $K$ ist \[\chi(K) = \left|F\right| - \left|E\right| + \left|V\right|\]
+	\end{definition}
+	\begin{lemma}
+		Sei $K_1 \sim K_2$. Dann ist $\chi(K_1) = \chi(K_2)$.
+	\end{lemma}
+	\begin{definition}
+		Für Zellkomplexe werden zwei Normalformen definiert.
+		\begin{enumerate}
+			\item $F = \{A\}$, $E = \{a_1,b_1,...,a_p,b_p\}$, $p \geq 0$ mit $$\partial(A) = a_1b_1a_1^{-1}b_1^{-1}...a_pb_pa_p^{-1}b_p^{-1}$$
+			\item $F = \{A\}$, $E = \{a_1,...,a_p\}$, $p \geq 1$ mit $$\partial(A) = a_1a_1...a_pa_p$$
+		\end{enumerate}
+	\end{definition}
+	\begin{remark}
+		\begin{itemize}
+			\item Ist in Fall 1. $p=0$, dann ist $\left|K\right| \cong S^1$.
+			\item Fall 1. ist orientierbar, Fall 2. nicht.
+			\item In Fall 1. ist $\chi(K) = 2-2p$, in Fall 2. ist $\chi(K) = 2-p$.
+		\end{itemize}
+	\end{remark}
+	\begin{corollary}
+		Die Zellkomplexe in Normalform sind paarweise nicht äquivalent.
+	\end{corollary}
+	Man kann sich überlegen, dass die beschriebene Ebene in Fall 2 ein $p$-Torus ist. Deswegen wird der Teil $aba^{-1}b^{-1}$ des Randes eines Zellkomplexes auch Henkel. Analog nennt man die Teile des Randes einer Fläche in zweiter Normalform eine Kreuzhaube.
+	\begin{theorem}
+		Jeder Zellenkomplex ist äquivalent zu genau einem Zellkomplex in Normalform
+	\end{theorem}
+	\begin{corollary}
+		Jede kompakte Fläche ist homöomorph zu einer der Flächen in Normalform ($\left|K\right|, K$ in NF), d.h. eine zusammenhängede Summe von $p \geq 0$ Henkeln oder $p \geq 1$ Kreuzhauben.
 	\end{corollary}
 \end{document}

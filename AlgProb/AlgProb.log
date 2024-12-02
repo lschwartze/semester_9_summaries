@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  21 NOV 2024 11:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  25 NOV 2024 13:45
 entering extended mode
 **./AlgProb.tex
 (AlgProb.tex
@@ -247,14 +247,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 200--202
 
  []
 
-[8] [9] [10] [11] [12] (AlgProb.aux) ) 
+[8] [9] [10] [11] [12] [13] [14] (AlgProb.aux) ) 
 Here is how much of TeX's memory you used:
- 2899 strings out of 479322
- 39637 string characters out of 2856609
+ 2905 strings out of 479322
+ 39735 string characters out of 2856609
  354443 words of memory out of 3000000
- 20347 multiletter control sequences out of 15000+600000
- 413985 words of font info for 68 fonts, out of 8000000 for 9000
+ 20352 multiletter control sequences out of 15000+600000
+ 414322 words of font info for 69 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,13n,74p,876b,234s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 67i,13n,74p,1065b,234s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on AlgProb.dvi (13 pages, 46160 bytes).
+Output written on AlgProb.dvi (15 pages, 55632 bytes).

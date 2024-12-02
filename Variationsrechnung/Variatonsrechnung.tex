@@ -260,4 +260,38 @@
 			\item $[u]_{0,1} \leq [h]_{0,1} < k$
 		\end{enumerate}
 	\end{theorem}
+	\begin{theorem}
+		Let $\Omega \subset \mathbb{R}^n$ be a bounded convex domain with $\partial \Omega \in C^1$. Let $h \in Lip(\Omega)$, $h|_{\partial \Omega} <0$ and $h>0$ somewhere in $\Omega$. Then $\exists! u \in Lip(\Omega)$, $u|_{\partial \Omega} = 0$ and $u \geq h$ in $\Omega$. \[F(u) \leq F(v) \forall v \in Lip(\Omega), \; v|_{\partial \Omega) = 0}\]
+		where $F(u) = \int_\Omega \sqrt{1+\left|\nabla u\right|^2} \, dx$. Moreover, $u$ solves \[\int_\Omega \frac{\nabla u}{1+\left|\nabla u\right|^2} \nabla (v-u)\, dx \geq 0\] and $u$ satisfies $[u]_{0,1} \leq [h]_{0,1}$ and $||u||_{L^\infty} \leq [h]_{0,1} diam(\Omega)$.\\
+		Moreover, define $I = \{x \in \Omega: u(x) = h(x)\}$ the coincidence set, then \[\int_\Omega \frac{\nabla u}{\sqrt{1+\left|\nabla u\right|^2}} \nabla \varphi \, dx = 0 \; \forall \varphi \in Lip(\Omega), \, supp(\varphi) \subset \Omega \setminus I\]
+	\end{theorem}
+	\begin{remark}
+		Is $I\neq \varnothing$? Is it connected and what is its measure? 
+	\end{remark}
+	\section{The Schrödinger equation}
+	We describe an electron in a universe with only one nucleus that attracts the electron. Motivated by the uncertainty principle of Heisenberg, the electron is described by a function $\psi: \mathbb{R}^n \to \mathbb{C}$, $||\psi||_{L^2(\mathbb{R}^n)}=1$ a wave function.\\
+	Idea: $\Omega \subset \mathbb{R}^n$ open, $\int_\Omega \left|\psi(x)\right|^2 \, dx$ is the probability that the electron is in $\Omega$.\\
+	We consider $n \geq 3$. Define \begin{itemize}
+		\item \underline{Kinetic energy}: $\int_{\mathbb{R}^n} \left|\nabla \psi\right|^2 \, dx = T(\psi)$
+		\item \underline{potential energy}: $V(\psi) = \int_{\mathbb{R}^n} v(x) \left|\psi(x)\right|^2 \, dx$. Typical choice would be $n=3$ (for obvious reasons), $v(x) = -\frac{z}{\left|x\right|}$ with a nucleus of charge $z$ at the origin.
+		\item \underline{Total energy}: $E(\psi) = T(\psi) + V(\psi)$
+	\end{itemize}
+	\underline{Question:} Is \[E_0 = \inf\{E/\psi): \psi \in W^{1,2}(\mathbb{R}^n), \; ||\psi||_{L^2(\mathbb{R}^n)} = 1\}\] attained? $E_0$ is called the ground state energy. If a minimum exists, it is called ground state.
+	\begin{definition}
+		Let $f:\mathbb{R}^n \to \mathbb{C}$ then we say that $f$ \underline{vanishes at $\infty$} if $\forall a > 0$ \[\lambda^n(\{x \in \mathbb{R}^n: \left|f(x)\right| > a\}) < \infty\]
+		We define \[D^1(\mathbb{R}^n) = \{f: \mathbb{R}^n \to \mathbb{C} \mid \nabla f \in L^2(\mathbb{R}^n), \text{ and $f$ vanishes at } \infty\}\]
+	\end{definition}
+	\begin{theorem}
+		Let $n\geq 3$. Then $\exists S_n > 0$ s.t. $\forall f\in D^1(\mathbb{R}^n)$ \[S_n||f||_{L^\frac{2n}{n-2}(\mathbb{R}^n)} \leq ||\nabla f||_{L^2(\mathbb{R}^n)}\]
+	\end{theorem}
+	\begin{remark}
+		Let $n \geq 3$, $V \in L^{\frac{n}{2}} + L^\infty(\mathbb{R}^n)$. That means $v=v_1+v_2$ where $v_1 \in L^{\frac{n}{2}}$, $v_2 \in L^\infty(\mathbb{R}^n)$. Then $\exists \lambda \in \mathbb{R}$ s.t. $\forall \psi \in W^{1,2}(\mathbb{R}^n)$ with $||\psi||_{L^2} = 1$ \[E(\psi) \geq \frac{1}{2} \int_{\mathbb{R}^n} \left|\nabla \psi\right|^2 - \lambda - ||v_2||_{L^2} \geq -\lambda - ||v_2||_{L^2}\]
+	\end{remark}
+	Using this result, we can conclude that the potential energy is even continuous. That is \[\int_{\mathbb{R}^n} V(x)\left|\psi_j(x)\right|^2 \, dx \to \int_{\mathbb{R}^n} V(x) \left|\psi_0(x)\right|^2 \, dx\] for a convergent subsequence of a minimizing sequence $\psi_j$.
+	\begin{lemma}
+		If $f_k \to f$ weakly in $W^{1,2}(\mathbb{R}^n)$, let $A\subset \mathbb{R}^n$ measurable s.t. $\lambda^n(A) < \infty$. Then \[\chi_A f_k \to \chi_A f \text{ in } L^{p}(\mathbb{R}^n)\] for $1\leq p \leq \frac{2n}{n-2}$.
+	\end{lemma}
+	\begin{lemma}
+		Under the same assumptions as in the previous Lemma, and the additional one that $v$ vanishes at $\infty$, i.e. $\forall a >0$ it holds that $\lambda^n(\{\left|V(x)\right|>a\}) < \infty$, then if $\psi_j \to \psi$ weakly in $W^{1,2}(\mathbb{R}^n)$, $||\psi_j||_{L^2} = 1 \; \forall j$ then \[\int_{\mathbb{R}^n} V(x) \left|\psi_j(x)\right|^2 \, dx \to \int_{\mathbb{R}^n} V(x) \left|\psi(x)\right|^2 \, dx\]
+	\end{lemma}
 \end{document}

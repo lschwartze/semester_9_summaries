@@ -430,4 +430,73 @@
 		\item $\diamond S_{x,q}$: strong completeness ad eventual weak $(x,q)$-accuracy
 	\end{itemize}
 	Under the first system, it is possible to solve $k$-set agreement with up to $f<k-1+x-q$ failures if $q<k$ and $f<x$ otherwise. Under the second system however, $f<\min\{\lceil\frac{n+1}{2}\rceil,k-1+x-q\}$ failures can be tolerated.
+	\subsection{$k$-set-agreement with advice}
+	\begin{definition}
+		Suppose each vertex $i$ starts with a value $x_i$. A solution to the $k$-set agreement problem satisfies
+		\begin{itemize}
+			\item \underline{agreement}: all vertices agree on at most $k$ many distinct values
+			\item \underline{all-same-validity}: the $k$ values must be a subset of the initial values
+			\item \underline{termination}: every correct node eventually decides
+		\end{itemize}
+	\end{definition}
+	The following algorithm works for th $S_{x,q}$ failure detector.
+	\begin{enumerate}
+		\item $r= 1; s= 0; e=x_i; if q \leq k, b= \min\{n, k - 1 + x - q\} else b= \min\{n, x - 1\}$
+		\item for each set $S$ of size $b$ do
+		\item if $i \in S$
+		\item for each $X\subset S$ of size $\min\{k,q\}$ do
+		\item if $i \in X$ then $\forall p \in S$ broadcast $(e,r,s)$
+		\item else $e=e'$ from $(r,s)$-broadcast where $e'$ is from $p \in X$ not suspected
+		\item $s=s+1$
+		\item endfor
+		\item broadcast $(e,r)$
+		\item else $e=e'$ from some other broadcast
+		\item $r=r+1$
+		\item endfor
+	\end{enumerate}
+	\begin{theorem}
+		This algorithm solves $k$-set agreement in an asynchronous setting with a failure tolerance of up to $f<\min \{n,k-1+x-q\}$ if $q\leq k$ and $f<\min\{n,x-1\}$ otherwise.
+	\end{theorem}
+	The following algorithm can solve $k$-set-agreement with $\diamond S_{x,q}$ fault detection.
+	\begin{enumerate}
+		\item $r=1$, $e=x_i$
+		\item while TRUE do
+		\item $h=\varnothing$
+		\item $e=S_{x,q}(id,e)$
+		\item for all permutations $t$ of $[n]$ do
+		\item broadcast $(r,t,i,e,h)$, $r=r+1$
+		\item define $M,S,H$ as the sets of messages, participants and histories of the first $\lceil\frac{n+1}{2}\rceil$ messages received
+		\item $e=$ message received by the participant in the first permutation $t$ of $[n]$
+		\item $E=$ estimates of $S$ from last round and last permutation in $H$
+		\item if $0<\left|E\right| \leq k$ broadcast $e$, return $e$
+		\item if $e'$ received, then $e=e'$ and broadcast $e$, return $e$
+		\item endfor
+		\item endwhile
+	\end{enumerate}
+	\begin{theorem}
+		This algorithm solves $k$-set-agreement asynchronously while tolerating up to $fy\min\{\frac{n}{2},k-1+x-q\}$ if $q\leq k$ and $f<\min\{\frac{n}{2}, x-1\}$ otherwise.
+	\end{theorem}
+	\section{Sorting and Counting Networks}
+	\begin{definition}
+		A comparator is a device with two inputs, $x$ and $y$ and two outputs $x',y'$ such that $x'=\min\{x,y\}$ and $y'=\max\{x,y\}$. We construct so-called comparison networks that consist of wires that connect comparators.
+	\end{definition}
+	\begin{definition}
+		The depth of an input wire is 0. Teh depth of a comparator is the maximum depth of its input wires plus one. The depth of an output wire is the depth of the previous comparator. The depth of a comparison network is the maximum depth of the output wires.
+	\end{definition}
+	\begin{definition}
+		A bitonic sequence s a sequence of numbers that first monotonically increases and then monotonically decreases or vice versa.
+	\end{definition}
+	\begin{definition}[half-cleaner]
+		A half-cleaner is a comparison network of depth 1 that compares wire $i$ with wire $i+\frac{n}{2}$.
+	\end{definition}
+	In the following, we will consider binary bitonic sequences, that is of the form $0^j1^k0^l$ or $1^j0^k1^l$.
+	\begin{lemma}
+		Feeding a bitonic sequence into a half-cleaner will clean either the upper or the lower half of the $n$-wires. That is, it makes half the sequence all 0 (or all 1 respectively). The other half is bitonic.
+	\end{lemma}
+	\begin{definition}[Bitonic sequence sorter]
+		A bitonic sequence sorter of width $n (=2^k)$ consists of a half cleaner of width $n$ and then two bitonic sequence sorters of width $\frac{n}{2}$ wach.
+	\end{definition}
+	\begin{lemma}
+		A bitonic sequence sorter of width $n$ has depth $\log n$.
+	\end{lemma}
 \end{document}

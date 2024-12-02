@@ -10,3 +10,6 @@
 \contentsline {subsection}{\numberline {2.5}Perfektes Matching auf allgemeinen Graphen}{10}{}%
 \contentsline {subsection}{\numberline {2.6}Perfektes Matching finden}{10}{}%
 \contentsline {subsection}{\numberline {2.7}Rot-Blau-perfektes Matching}{11}{}%
+\contentsline {subsection}{\numberline {2.8}Probabilistische Algorithmen in exponentieller Zeit}{12}{}%
+\contentsline {subsubsection}{\numberline {2.8.1}3-Färbbarkeit}{12}{}%
+\contentsline {subsubsection}{\numberline {2.8.2}Random Walk Algorithmus für 3-SAT}{13}{}%
