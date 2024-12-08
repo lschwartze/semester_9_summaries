@@ -285,13 +285,76 @@
 		Let $n\geq 3$. Then $\exists S_n > 0$ s.t. $\forall f\in D^1(\mathbb{R}^n)$ \[S_n||f||_{L^\frac{2n}{n-2}(\mathbb{R}^n)} \leq ||\nabla f||_{L^2(\mathbb{R}^n)}\]
 	\end{theorem}
 	\begin{remark}
+		\label{rem: potential}
 		Let $n \geq 3$, $V \in L^{\frac{n}{2}} + L^\infty(\mathbb{R}^n)$. That means $v=v_1+v_2$ where $v_1 \in L^{\frac{n}{2}}$, $v_2 \in L^\infty(\mathbb{R}^n)$. Then $\exists \lambda \in \mathbb{R}$ s.t. $\forall \psi \in W^{1,2}(\mathbb{R}^n)$ with $||\psi||_{L^2} = 1$ \[E(\psi) \geq \frac{1}{2} \int_{\mathbb{R}^n} \left|\nabla \psi\right|^2 - \lambda - ||v_2||_{L^2} \geq -\lambda - ||v_2||_{L^2}\]
 	\end{remark}
 	Using this result, we can conclude that the potential energy is even continuous. That is \[\int_{\mathbb{R}^n} V(x)\left|\psi_j(x)\right|^2 \, dx \to \int_{\mathbb{R}^n} V(x) \left|\psi_0(x)\right|^2 \, dx\] for a convergent subsequence of a minimizing sequence $\psi_j$.
 	\begin{lemma}
-		If $f_k \to f$ weakly in $W^{1,2}(\mathbb{R}^n)$, let $A\subset \mathbb{R}^n$ measurable s.t. $\lambda^n(A) < \infty$. Then \[\chi_A f_k \to \chi_A f \text{ in } L^{p}(\mathbb{R}^n)\] for $1\leq p \leq \frac{2n}{n-2}$.
+		If $f_k \rightharpoonup f$ in $W^{1,2}(\mathbb{R}^n)$, let $A\subset \mathbb{R}^n$ measurable s.t. $\lambda^n(A) < \infty$. Then \[\chi_A f_k \to \chi_A f \text{ in } L^{p}(\mathbb{R}^n)\] for $1\leq p \leq \frac{2n}{n-2}$.
 	\end{lemma}
 	\begin{lemma}
-		Under the same assumptions as in the previous Lemma, and the additional one that $v$ vanishes at $\infty$, i.e. $\forall a >0$ it holds that $\lambda^n(\{\left|V(x)\right|>a\}) < \infty$, then if $\psi_j \to \psi$ weakly in $W^{1,2}(\mathbb{R}^n)$, $||\psi_j||_{L^2} = 1 \; \forall j$ then \[\int_{\mathbb{R}^n} V(x) \left|\psi_j(x)\right|^2 \, dx \to \int_{\mathbb{R}^n} V(x) \left|\psi(x)\right|^2 \, dx\]
+		Under the same assumptions as in \ref{rem: potential}, and the additional one that $v$ vanishes at $\infty$, i.e. $\forall a >0$ it holds that $\lambda^n(\{\left|V(x)\right|>a\}) < \infty$, then if $\psi_j \rightharpoonup \psi$ in $W^{1,2}(\mathbb{R}^n)$, $||\psi_j||_{L^2} = 1 \; \forall j$ then \[\int_{\mathbb{R}^n} V(x) \left|\psi_j(x)\right|^2 \, dx \to \int_{\mathbb{R}^n} V(x) \left|\psi(x)\right|^2 \, dx\]
+	\end{lemma}
+	\begin{theorem}[existence of the minimizer]
+		Let $v \in L^{\frac{n}{2}} + L^\infty$ and let $v$ vanish at $\infty$. If $E_0 = \inf\{E(\psi) \mid \psi \in W^{1,2}(\mathbb{R}^n), ||\psi||_{L^2(\mathbb{R}^n)}\} <0$, then $\exists \psi_0 \in W^{1,2}(\mathbb{R}^n)$, $||\psi_0||=1$ s.t. $E(\psi_0) = E_0$. Moreover, $\psi_0$ is a weak solution of \[-\Delta \psi_0 + v\psi_0 = E_0\psi_0\] i.e. $\forall \varphi \in C_0^\infty(\mathbb{R}^n)$ \[\int_{\mathbb{R}^n} \nabla \psi_0 \nabla \varphi + v\psi_0 \varphi = E_0 \int_{\mathbb{R}^n} \psi_0 \varphi\]
+	\end{theorem}
+	\begin{remark}
+		\begin{enumerate}
+			\item $E_0$ in the Euler-Lagrange equation can be considered as a Lagrange-multiplier ensuring that the constraint $||\psi||_{L^2}=1$.
+			\item We can write \[E_0 = \inf_{\substack{\psi \in W^{1,2}\\ \psi \neq 0}} \frac{E(\psi)}{||\psi||_{L^2}^2}\]
+			\item The first condition is important to ensure existence of a minimizer. Indeed, if $v\equiv 0$ there is no ground state $\psi_0$.\\
+			Let $u \in C_0^\infty(\mathbb{R}^n)$ s.t. $||u||_{L^1} = 1$. Then for $\lambda > 0$ $u_\lambda(x) = \lambda^{\frac{n}{2}}u(\lambda x)$ is a wave function. $$E(u\lambda) = T(u_\lambda)=\lambda^2T(u) \overset{\lambda \searrow 0}{\to} 0$$ Hence $E_0=0$ and $\not \exists \psi \in W^{1,2}(\mathbb{R}^n)$ with $||\psi||_{L^2}=1$ s.t. $E(\psi) = 0$. So a minimizer does not exist.
+		\end{enumerate}
+	\end{remark}
+	\begin{remark}
+		If $E_0 < 0$, one can look at excited states. With the same ideas, if \[E_1 = \inf\{E(\psi)\mid \psi \in W^{1,2}(\mathbb{R}^n), ||\psi||_{L^2} = 1, \langle\psi, \psi_0\rangle_{L^2} = 0\} <0\] there exists $\psi_1 \in W^{1,2}$, $||\psi_1||_{L^2} = 1$, $\langle\psi_1,\psi_0\rangle_{L^2} = 0$ s.t. \[E(\psi_1) = E_1\] and one can continue \[0 > E_k = \inf\{E(\psi) \mid \psi \in W^{1,2}, ||\psi||_{L^2}=1, \langle \psi, \psi_j \rangle_{L^2} = 0, \; 0 \leq j \leq k-1\}\]
+		$\psi_k$ satisfies \[-\Delta \psi_k + v\psi_k = E_k\psi_k, \; E_k = E(\psi_k)\] and \[E_k = \inf_{\substack{\psi \in W^{1,2} \\ \psi \bot_{L^2} \psi_j \\ 0 \leq j \leq k-1}} \frac{E(\psi)}{||\psi||_{L^2}^2}\]
+	\end{remark}
+	\section{Parametric minimal surfaces (the plateau problem)}
+	Let $B=B_1(0) \subset \mathbb{R}^2$ be the unit disk and \[\gamma: S^1 \to \mathbb{R}^m, \; m \geq 3\]
+	a $C^2$ curve that is simple, i.e. $\gamma$ has no self intersection.\\
+	\underline{Aim:} find a surface of disk type whose boundary is given by $\gamma$ and with minimal area.
+	\subsection{Some basic concepts from differential geometry}
+	\begin{definition}
+		A surface $S \subset \mathbb{R}^m$, $m \geq 3$ is a 2-dimensional $C^l$-submanifold of $\mathbb{R}^m$ where $l\geq 1$, that is $\forall p \in S$ $\exists (U,F,V)$ where $U \subset \mathbb{R}^2$ open. $V\subset \mathbb{R}^m$ open, $p \in V\cap S$ and $F:U \to V\cap S$, $F \in C^2$ is a homeomorphismus and $\forall u \in U$ is $rank(DF(u)) = 2$.
+	\end{definition}
+	\begin{remark}
+		The definition implies that locally the graph can be described by the graph of a $u:U \to \mathbb{R}^{m-2}$ and locally the surface can be described as a level set $S\cap V = \{x \in V: g(x)=0\}$.
+	\end{remark}
+	\begin{definition}[tangential space]
+		Let $S$ be a surface in $\mathbb{R}^m$, $p \in S$, \[T_pS = \{v \in \mathbb{R}^m: \exists c: (-\varepsilon, \varepsilon) \to S \in C^1 \text{ s.t. } c(0)=p, C'(0) = v\}\] $T_pS$ is the tangential space to $S$ at $p$ with $\dim T_pS = 2$.
+	\end{definition}
+	If $(U,F,V)$ is a local chart at $p \in S$, then \[T_pS = span\left\{\frac{\partial F}{\partial u}(u,v), \frac{\partial F}{\partial v}(u,v)\right\}\] $U \subset \mathbb{R}^2$, $F U \to V \subset \mathbb{R}^m$.
+	\underline{Aim:} define a scalar product in $T_pS$. The first fundamental form is \[g_p: T_pS \times T_pS \to \mathbb{R}\] with \[(u,v) \mapsto \langle u,v\rangle_{\mathbb{R}^m}\]
+	If $(U,F,V)$ is a local chart at $p$, for $w_1,w_2 \in T_pS$, $w_1 = w_1^1 \frac{\partial F}{\partial u} + w_1^2 \frac{\partial F}{\partial V}$, $w_2 = w_2^1 \frac{\partial F}{\partial u} + w_2^2 \frac{\partial F}{\partial v}$ so that we can represent the first fundamental form with respect to this basis via the matrix $(g_{i,j}(u,v))^2_{i,j=1}$ by 
+	\begin{itemize}
+		\item $g_{1,1}(u,v) = \langle \frac{\partial F}{\partial u}(u,v), \frac{\partial F}{\partial v}(u,v)\rangle$, 
+		\item $g_{1,2}(u,v) = g_{2,1}(u,v) = \langle \frac{\partial F}{\partial u}(u,v), \frac{\partial F}{\partial v}(u,v) \rangle$
+		\item $g_{2,2}(u,v) = \langle \frac{\partial F}{\partial v}(u,v), \frac{\partial F}{\partial }(u,v) \rangle$.
+	\end{itemize}
+	We want to define for \[f: S \to \mathbb{R}\] continuous $\int_S f(x) dS(x)$\\
+	\underline{First step}: Let $(U,F,V)$ be a local chart and consider $f$ such that $supp(f) \subset V \cap S$. \[\int_S f(x) dS(x) = \int_u f(F(u,v)) \sqrt{\det(g_{i,j}(u,v))^2_{i,j=1}} \, du \, dv\]
+	\underline{Second step}: If $S$ is compact, hen $\exists$ finitely many charts $(U_i,F_i,V_i)_{i=1}$ s.t. $S \subset \bigcup_{i=^1}^N (V_i \cap S)$. Then consider $(\psi_i)_{i=1}^N$ a partition of unity associated to this cover. \[\psi_i \in C_0^\infty(\mathbb{R}^m; [0,1]), supp(\psi_i) \subset V_i, \; \forall i=1,...,N \text{ and } 1 = \sum_{i=1}^N \psi_i(x) \; \forall x \in S\]
+	Then for $fS \to \mathbb{R}$ continuous, \[\int_S f(x) \, dS(x) = \sum_{i=1}^N \int_s (f\psi_i)(x) \; dS(x)\] If $S$ is described by only one chart, one can see that \[area(S) = \int_U \sqrt{\left|\frac{\partial F}{\partial u}\right|^2 \left|\frac{\partial F}{\partial v}\right|^2 - \left(\frac{\partial F}{\partial u} \cdot \frac{\partial F}{\partial v}\right)^2} \, d(u,v)\]
+	\begin{remark}
+		The area is well-defined for $F\in W^{1,2}(B,\mathbb{R}^m)$. 
+	\end{remark}
+	\begin{definition} \label{def: D(F)}
+		\[D(F) = \frac{1}{2} \int_B \left|\frac{\partial F}{\partial u}\right|^2 + \left|\frac{\partial F}{\partial v}\right|^2 \; d(u,v)\] is called the Dirichlet energy of $F$.
+	\end{definition}
+	\subsection{Setup for the problems}
+	Define for $\gamma: \partial B_1(0) \to \mathbb{R}^m$, $m \geq 3$, a closed and simple curve \[K(\gamma) = \{F \in W^{1,2} (B,\mathbb{R}^m): F|_{\partial B} \in C^0(\partial B, \mathbb{R}^m) \text{ is a monotone parametrization of } \gamma\}\]
+	\underline{Question 1}: $\exists F \in K(\gamma)$ s.t. $A(F) \leq A(\tilde F)$ $\forall \tilde F \in K(\gamma)$? This is a difficult question.\\
+	\underline{Question 2}: $\exists F \in K(\gamma)$ s.t. \[D(F) \leq D(\tilde F) \; \forall \tilde F \in K(\gamma)\] where $D(F)$ is defined in \ref{def: D(F)}.\\
+	As we shall see, these two questions are equivalent.
+	\begin{remark}
+		$K(\gamma) \neq \varnothing$.
+	\end{remark}
+	\subsection{Euler-Lagrange equation for question 2}
+	\begin{lemma}
+		Let $F \in K(\gamma)$ be a minimizer of the Dirichlet energy in $K(\Gamma)$. Then $\Delta F = 0$ on $B$ i.e. $F$ is harmonic and $F \in C^\infty(B)$.
+	\end{lemma}
+	\begin{lemma}
+		If $f \in L^1_{loc}(\Omega)$ such that $\int_\Omega f \Delta \varphi \, dx = 0$ $\forall \varphi \in C_0^\infty(\Omega)$. Then $f \in C^\infty(\Omega)$ and $\Delta f = 0$.
 	\end{lemma}
 \end{document}

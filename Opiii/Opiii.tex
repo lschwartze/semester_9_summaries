@@ -223,7 +223,7 @@
 	\begin{lemma}
 		Consider an iteration of the while loop. Suppose that a node $u$ is white and that $2a(u) \geq \max_{v \in C(u)} \max_{y \in W(y)} a(y)$ where \[C(u) = \{v \in N(u) \mid v.candidate\}\] Then the probability that $u$ becomes dominated in this iteration is larger than $\frac{1}{9}$.
 	\end{lemma}
-	\section{maximal matching}
+	\section{Maximal matching}
 	This section introduces a new technique called rounding. The idea is to solve a given integral problem as a continuous problem and then rounding the results to the nearest integer. This often allows for polylogarithmic time complexity.
 	\begin{definition}
 		A maximal matching is a subset $S$ of edges s.t. no vertex has two incident edges in $S$. Furthermore, there are no edges $e \in E\setminus S$ that can be added to $S$ without breaking the first condition. 
@@ -476,6 +476,14 @@
 	\begin{theorem}
 		This algorithm solves $k$-set-agreement asynchronously while tolerating up to $fy\min\{\frac{n}{2},k-1+x-q\}$ if $q\leq k$ and $f<\min\{\frac{n}{2}, x-1\}$ otherwise.
 	\end{theorem}
+	\subsection{combinatoric topology}
+	\begin{definition}
+		An $n$-simplex $S$ is a space spanned by a collection of $n+1$ affine independent points $\{v_1,...,v_{n+1}\}$. That is \[S = \left\{\sum_{i=1}^{n+1} c_i v_i \mid \sum_{i=1}^{n+1} c_i = 1, \; c_i \geq 0 \; \forall i\right\}\]
+		A simplicial subdivision of $S$ is a partition of $S$ into smaller sub-simplices such that two of them are either disjoint or share a full face. Finally, a Sperner-colouring of a simplicial subdivision of $S$ is one that assigns different colours to all of the initial $n+1$ vertices of $S$ and assigns each subdivision vertex of a face $F$ of $S$ one of the colours of the boundary vertices of $F$. There are no restrictions on the colours of internal vertices.
+	\end{definition}
+	\begin{lemma}
+		A simplicial complex of an $n$-simplex $S$ as in the previous definition together with a Sperner-colouring always admits a simplicial cell with $n+1$ differently coloured vertices.
+	\end{lemma}
 	\section{Sorting and Counting Networks}
 	\begin{definition}
 		A comparator is a device with two inputs, $x$ and $y$ and two outputs $x',y'$ such that $x'=\min\{x,y\}$ and $y'=\max\{x,y\}$. We construct so-called comparison networks that consist of wires that connect comparators.
@@ -494,9 +502,60 @@
 		Feeding a bitonic sequence into a half-cleaner will clean either the upper or the lower half of the $n$-wires. That is, it makes half the sequence all 0 (or all 1 respectively). The other half is bitonic.
 	\end{lemma}
 	\begin{definition}[Bitonic sequence sorter]
-		A bitonic sequence sorter of width $n (=2^k)$ consists of a half cleaner of width $n$ and then two bitonic sequence sorters of width $\frac{n}{2}$ wach.
+		A bitonic sequence sorter of width $n (=2^k)$ consists of a half cleaner of width $n$ and then two bitonic sequence sorters of width $\frac{n}{2}$ each.
 	\end{definition}
 	\begin{lemma}
 		A bitonic sequence sorter of width $n$ has depth $\log n$.
 	\end{lemma}
+	In order to sort arbitrary sequences, we now need to introduce another concept, called merging networks.
+	\begin{definition}[merger]
+		A merger is a network of depth 1 that compares wire $i$ with wire $n-i+1$.
+	\end{definition}
+	\begin{definition}
+		A merging network is a merger of depth 1 followed by two bitonic sequence sorters of depth $\frac{n}{2}$ each. That is, it is a bitonic sequence sorter where we replace the first half-cleaner by a merger.
+	\end{definition}
+	\begin{lemma}
+		A merging network of depth $n$ merges two sorted input sequences of length $\frac{n}{2}$ each into one sorted sequence of length $n$.
+	\end{lemma}
+	It should now be obvious that applying the previous lemma recursively allows us to fully sort any sequence.
+	\begin{definition}[Batcher's network]
+		A Batcher's sorting network of width $n$ consists of two Batcher's sorting networks of width $\frac{n}{2}$ followed by a merger. A network of width 1 is empty. 
+	\end{definition}
+	\begin{lemma}
+		In order to sort a sequence of length $n$ we need a sorting network of depth $\mathcal{O}(\log^2 n)$.
+	\end{lemma}
+	\section{Minimum Spanning Tree}
+	The idea is to use an approach similar to Kruskal. We start with $n$ components. In each round we can merge components by picking the smallest edge leaving a component. This however, may create very large components along the way. Therefore, it is smart to restrict the size of components to $\sqrt{n}$. This ensures that communication is sublinear in each round. 
+	\begin{definition}
+		Consider a graph $G$ and a partition of $V$ into disjoint subsets $S_1,...,S_N$ inducing connected subgraphs $G[S_1],...,G[S_n]$.. We define an $\alpha$-congestion shortcut with dilation $\beta$ to be a set of subgraphs $H_1,...,H_N$ one for each set $S_i$ such that \begin{enumerate}
+			\item for each $i$ the diameter of the subgraph $G[S_i]+H_i$ is at most $\beta$
+			\item for each $e \in E$ the number of subgraphs $G[S_i]+H_i$ containing $e$ is at most $\alpha$.
+		\end{enumerate}
+	\end{definition}
+	\begin{theorem}
+		Suppose that the graph family $\mathcal{G}$ is such that for each graph $G \in \mathcal{G}$ and any partition of $G$ into vertex-disjoint connected subsets $S_1,...,S_N$ we can find an $\alpha$-congestion $\beta$-dilation shortcut such that $\max\{\alpha,\beta\}\leq K$. Here, $K$ can be a function of the family $\mathcal{G}$. 
+	\end{theorem}
+	\section{Dynamic networks}
+	\begin{definition}
+		A dynamic graph $G$ is called $T$-interval connected for $T \in \mathbb{N}$ if for all $r\in \mathbb{N}$ the static graph $G_{r,T} = \left(V, \bigcap_{i=r}^{r+T-1} E(i)\right)$ is connected. If $G$ is 1-interval connected we say that $G$ is always connected.
+	\end{definition}
+	\begin{theorem}
+		Assume that there is a single token in the network. Further assume that at time 0 at least one node knows the token and that once they know the token, all nodes broadcast it in every round. In a 1-interval connected graph $G=(V,E)$ with $n$ nodes, after $r\leq n-1$ rounds, at least $r+1$ nodes know the token. Hence, in particular after $n-1$ rounds, all nodes know the token.
+	\end{theorem}
+	Now, suppose that the graph is $T$-interval connected.
+	\begin{enumerate}
+		\item $S = \varnothing$
+		\item for $i=0,...,\lceil\frac{k}{T}\rceil-1$ do
+		\item for $r=0,...,2T-1$ do
+		\item if $S \neq A$
+		\item $t = \min\{A \setminus S\}$
+		\item broadcast $t$
+		\item $S = S \cup \{t\}$
+		\item end if
+		\item receive $t_1,...,t_s$ from neighbours
+		\item $A = A \cup \{t_1,...,t_s\}$
+		\item end for
+		\item $S = \varnothing$
+		\item end for
+	\end{enumerate}
 \end{document}

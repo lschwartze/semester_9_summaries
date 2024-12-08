@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  25 NOV 2024 13:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  5 DEC 2024 11:14
 entering extended mode
 **./AlgProb.tex
 (AlgProb.tex
@@ -247,14 +247,37 @@ Underfull \hbox (badness 10000) in paragraph at lines 200--202
 
  []
 
-[8] [9] [10] [11] [12] [13] [14] (AlgProb.aux) ) 
+[8] [9] [10] [11] [12] [13] [14]
+Overfull \hbox (27.61932pt too wide) detected at line 350
+\OML/cmm/m/it/12 f\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 F\OT1/cmr/m/n/12 ) = [] \U/
+msb/m/n/12 P\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 a \OT1/cmr/m/n/12 = \OML/cmm/m/it
+/12 \OT1/cmr/m/n/12 ] \OMS/cmsy/m/n/12  \OT1/cmr/m/n/12 #(\OML/cmm/m/it/12 F;
+ \OT1/cmr/m/n/12 ) = [] \U/msb/m/n/12 P\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 a \OT
+1/cmr/m/n/12 = 0\OML/cmm/m/it/12 \OT1/cmr/m/n/12 ] \OMS/cmsy/m/n/12  \OT1/cmr
+/m/n/12 #(\OML/cmm/m/it/12 F; \OT1/cmr/m/n/12 0\OML/cmm/m/it/12 \OT1/cmr/m/n/1
+2 ) + [] \U/msb/m/n/12 P\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 a \OT1/cmr/m/n/12 = 1
+\OML/cmm/m/it/12 \OT1/cmr/m/n/12 ] \OMS/cmsy/m/n/12  \OT1/cmr/m/n/12 #(\OML/c
+mm/m/it/12 F; \OT1/cmr/m/n/12 1\OML/cmm/m/it/12 \OT1/cmr/m/n/12 )
+ []
+
+
+Overfull \hbox (17.55743pt too wide) detected at line 352
+\OT1/cmr/m/n/12 = [] [] \U/msb/m/n/12 P\OT1/cmr/m/n/12 [[] = \OML/cmm/m/it/12 
+\OT1/cmr/m/n/12 ] \OMS/cmsy/m/n/12  []  [] \U/msb/m/n/12 P\OT1/cmr/m/n/12 [[]
+ = \OML/cmm/m/it/12 \OT1/cmr/m/n/12 ] \OMS/cmsy/m/n/12  \OT1/cmr/m/n/12 #(\OM
+L/cmm/m/it/12 F\OMS/cmsy/m/n/12 j[]\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 ) = \OML
+/cmm/m/it/12 f\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 F\OMS/cmsy/m/n/12 j[]\OT1/cmr/m
+/n/12 )
+ []
+
+[15] [16] [17] (AlgProb.aux) ) 
 Here is how much of TeX's memory you used:
- 2905 strings out of 479322
- 39735 string characters out of 2856609
+ 2910 strings out of 479322
+ 39819 string characters out of 2856609
  354443 words of memory out of 3000000
- 20352 multiletter control sequences out of 15000+600000
- 414322 words of font info for 69 fonts, out of 8000000 for 9000
+ 20357 multiletter control sequences out of 15000+600000
+ 415570 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  67i,13n,74p,1065b,234s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on AlgProb.dvi (15 pages, 55632 bytes).
+Output written on AlgProb.dvi (18 pages, 69540 bytes).

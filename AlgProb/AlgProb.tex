@@ -315,4 +315,64 @@
 	\end{itemize}
 	Es gilt dann, dass die Erfolgswahrscheinlichkeit $\geq \mathbb{P}[E_1\land E_2]$ ist. Es gilt \[\mathbb{P}[E_1] = \binom{n}{\frac{n}{3}}\cdot 2^{-n}\] und \[\mathbb{P}[E_2] = \binom{n}{\frac{n}{3}}\left(\frac{1}{3}\right)^{\frac{2n}{3}}\left(\frac{2}{3}\right)^\frac{n}{3}\]
 	Damit sieht man, dass die Erfolgswahrscheinlichkeit $\geq \frac{1}{q(n)}\left(\frac{3}{4}\right)^n$ ist. Wählt man $t = 20\cdot \left(\frac{4}{3}\right)^n$, so ergibt sich insgesamt eine Fehlerwahrscheinlichkeit von $\leq e^{-20}$. Die Laufzeit ist $\mathcal{O}^*(\left(\frac{4}{3}\right))^n$.
+	\section{Approximationsalgorithmen}
+	Sei $P$ ein Problem und $X$ eine Menge von Instanzen. Für $x \in X$ nennen wir $S_x$ die Menge der Lösungen für $x$. Auf der Menge $S = \bigcup_{x \in X} S_x$ definieren wir die Kostenfunktion $m$. Gesucht ist $opt(x)$ der minimale (bzw. maximale) Wert einer Lösung für alle Instanzen $x$.
+	\begin{definition}
+		$A$ ist ein $\varepsilon$-Approximationsalgorithmus, wenn \[m(A(x)) \geq (1-\varepsilon) opt(x)\] für Maximierungsprobleme und \[m(A(x)) \leq \frac{1}{1-\varepsilon} opt(x)\]
+	\end{definition}
+	\begin{definition}[(F)PTAS]
+		Ein Approximationsalgorithmus $A$ für ein Problem $P$ ist ein PTAS, wenn $A$ mit Eingaben $x$ und $\varepsilon$ eine $\varepsilon$-approximative Lösung für $x$ produziert und die Laufzeit polynomiell in $\left|x\right|$ ist. Hängt die Laufzeit zusätzlich von $\frac{1}{\varepsilon}$ ab, so ist $A$ ein FPTAS.
+	\end{definition}
+	\subsection{Max-Cut}
+	Gegeben $G=(V,E)$. Finde $C\subset V$, sodass \[m(C) = \left|\{(u,v) \mid u \in C \; v \notin C\}\right|\] maximal. Das Entscheidungsproblem ist NP-vollständig.
+	\begin{definition}
+		Sei $C\subseteq V$ und $v \in V$. Dann definieren wir \[C\Delta \{v\} = \begin{cases}
+			C \setminus \{v\}, & v \in C\\
+			C \cup \{v\}, & v \notin C
+		\end{cases}\]
+	\end{definition}
+	Damit können wir einen Algorithmus bauen.
+	\begin{enumerate}
+		\item $C = \varnothing$
+		\item while $\exists v \in V$ mit $m(C\Delta v) > m(C)$
+		\item $C = C\delta \{v\}$
+		\item end
+	\end{enumerate}
+	\begin{lemma}
+		Die Laufzeit ist $\mathcal{O}(n^4)$. Die gefundene Lösung $C$ erfüllt $\left|C\right| \leq \frac{1}{2}opt$. 
+	\end{lemma}
+	\subsection{Max-$k$-SAT}
+	Sei $F = C_1 \land \dots \land C_m$ eine Formel in der jede Klausel genau $k$ Literale hat. Finde eine Belegung $\alpha: Var(F) \to \{0,1\}$, die \[m(\alpha) = \left|\{C_i \mid \alpha(C_i) = 1\}\right|\] maximiert. Wir geben einen Algorithmus mit Approximationsfaktor $\varepsilon = \frac{1}{2^k}$ an.\\
+	Sei dafür $a \in_R \{0,1\}^n$ eine zufällige Belegung. Wir definieren $f(F)$ als die erwartete Anzahl an Klauseln die eine zufällige Belegung erfüllt. Dafür definieren wir die Zufallsvariable $$X_i = \begin{cases}
+		1, & \alpha \text{ erfüllt } C_i\\
+		0, & \text{ sonst}
+	\end{cases}$$ Offensichtlich ist $\mathbb{P}[X_i] = \mathbb{P}[\alpha(C_i) = 1] = 1 - \frac{1}{2^{\left|C_i\right|}} = 1-\frac{1}{2^k}$. Wir schließen \[f(F) = m\left(1-\frac{1}{2^k}\right)\]
+	Dieser Wert lässt sich aber auch anders bestimmen. Sei $\#(F,\alpha)$ die Anzahl der Klauseln in $F$m die von $\alpha$ erfüllt werden. Sei $\overline{a} = (a_2,a_3,...,a_n)$. \[f(F) = \sum_{\alpha \in \{0,1\}^n} \mathbb{P}[a = \alpha] \cdot \#(F,\alpha) = \sum_{\alpha \in \{0,1\}^{n-1}} \mathbb{P}[a = 0\alpha] \cdot \#(F,0\alpha) + \sum_{\alpha \in \{0,1\}^{n-1}} \mathbb{P}[a = 1\alpha] \cdot \#(F,1\alpha)\]
+	\[= \frac{1}{2}\left(\sum_{\alpha \in \{0,1\}^{n-1}} \mathbb{P}[\overline{a} = \alpha] \cdot \#(F,0\alpha) + \sum_{\alpha \in \{0,1\}^{n-1}} \mathbb{P}[\overline{a} = \alpha] \cdot \#(F,1\alpha)\right)\]
+	\[= \frac{1}{2} \sum_{\alpha \in \{0,1\}^{n-1}} \mathbb{P}[\overline{a} = \alpha] \cdot \left(\#(F,0\alpha) + \#(F,1\alpha)\right) \leq \sum_{\alpha \in \{0,1\}^{n-1}} \mathbb{P}[\overline{a} = \alpha] \cdot \#(F|_{x_1=0},\alpha) = f(F|_{x_1=0})\]
+	Das motiviert den Algorithmus
+	\begin{enumerate}
+		\item for $i=1$ to $n$
+		\item $p_0 = f(F|_{x_i=0})$, $p_1 = f(F|_{x_i=1})$
+		\item if $p_0 \geq p_1$: $F=F|_{x_i=0}$
+		\item else: $F=F|_{x_i=1}$
+		\item endif
+		\item endfor
+	\end{enumerate}
+	\subsection{0-1 Rucksackproblem}
+	Wir betrachten eine Menge an $n$ Objekten $i$, die jeweils mit einem Gewicht $g_i$ und einem Wert $v_i$ ausgestattet sind. Wir bezeichnen mit $G$ die Größe des Rucksacks. Für eine bestimmte Instanz $x$ des Problems bezeichne $S_x$ die Menge aller Lösungen. Wir beginnen mit einem Approximationsalgorithmus für $\varepsilon = \frac{1}{2}$.\\
+	Der \underline{Greedy-Algorithmus} sortiert die Elemente nach ihrem Kosten-Nutzen-Verhältnis \[\frac{v_1}{g_1} \geq \frac{v_2}{g_2} \geq \dots \geq \frac{v_n}{g_n}\] Ist $i$ das erste Objekt, das nicht mehr zum Rucksack ergänzt werden kann, wenn die ersten $i-1$ Elemente gewählt wurden, dann wähle die bessere der beiden Lösungen $S_1=\{1,2,\dots,i-1\}, S_2 = \{i\}$. Es ist nicht schwer zu sehen, dass der Algorithmus eine $\frac{1}{2}$-Faktor Approximation erreicht.\\
+	Für das Problem existiert außerdem ein FPTAS. Dieser basiert auf einem Ansatz der dynamischen Programmierung. Hierbei kann die Zielfunktion $w(i,h)$ rekursiv wie folgt bestimmt werden \[w(i,h) = \begin{cases}
+		0, & h=0\\
+		w(i-1,h), & g_i > h\\
+		\max\{w(i-1,h), w(i-1, h-g_i)+v_i\} & g_i \leq h
+	\end{cases}\]
+	Auf diesem Ansatz aufbauend, kann man sich eine Art duale Formulierung des Problems vorstellen. Dabei wird die Funktion \[g(i,h) = \min_{S\subseteq \{1,2,...,i\}} \{\sum_{i \in S} g_i \mid \sum_{i \in S} v_i \geq h\}\]
+	die sich wiederum rekursiv ermitteln lässt \[g(i,h) = \begin{cases}
+		0, & h=0\\
+		\infty, & \sum_{j=1}^{i} v_i < h\\
+		\min\{g(i-1,h), g(i-1, h-v_i) - g_i\}, & \text{ sonst}
+	\end{cases}\]
+	Die Tabellengröße ist dabei $n^2v_{\max}$.\\
+	Mit diesem Ansatz lässt sich nun ein FPTAS formulieren. Dafür werden zunächst die Werte $v_i$ binär gerundet. Das heißt, wir definieren \[v_i' = 2^b \lceil\frac{v_i}{2^b}\rceil\] Hierbei ist $b$ eine Konstante. Die Transformation wirkt sich auf die Binärdarstellung von $v_i$ so aus, dass die letzten $b$ Stellen auf 0 gesetzt werden. Führt man nun den obigen Algorithmus auf die Werte $(\frac{v_1'}{2^b},\frac{v_2'}{2^b},...,\frac{v_n'}{2^b})$ aus, so ist die Laufzeit nun durch $n^2\frac{v_{\max}}{2^b}$ beschränkt. Wir bezeichnen \[m(A(x)) = \sum_{i \in S'} v_i\] die vom Algorithmus gefundene Lösung und \[opt(x) = \sum_{i \in S} v_i\] die optimale Lösung. Es gilt dann \[F = \frac{opt(x) - m(A(x))}{m(A(x))} \leq \frac{n\cdot 2^b}{v_{\max}} \leq \varepsilon\] Für den FPTAS wird nun $b$ so gewählt, dass \[2^b \leq \frac{\varepsilon v_{\max}}{n} < 2^{b+1}\]
 \end{document}

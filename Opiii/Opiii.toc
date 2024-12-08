@@ -7,9 +7,12 @@
 \contentsline {subsection}{\numberline {2.2}byzantine consensus}{6}{}%
 \contentsline {section}{\numberline {3}Dominating Set}{7}{}%
 \contentsline {subsection}{\numberline {3.1}Fast Dominating Set Algorithm}{7}{}%
-\contentsline {section}{\numberline {4}maximal matching}{8}{}%
+\contentsline {section}{\numberline {4}Maximal matching}{8}{}%
 \contentsline {section}{\numberline {5}Wireless networks}{12}{}%
 \contentsline {subsection}{\numberline {5.1}Wireless leader election}{12}{}%
 \contentsline {subsection}{\numberline {5.2}Advice Algorithms}{13}{}%
 \contentsline {subsection}{\numberline {5.3}$k$-set-agreement with advice}{15}{}%
+\contentsline {subsection}{\numberline {5.4}combinatoric topology}{17}{}%
 \contentsline {section}{\numberline {6}Sorting and Counting Networks}{17}{}%
+\contentsline {section}{\numberline {7}Minimum Spanning Tree}{18}{}%
+\contentsline {section}{\numberline {8}Dynamic networks}{19}{}%

@@ -12,3 +12,7 @@
 \contentsline {subsection}{\numberline {4.4}Lipschitz continuity}{9}{}%
 \contentsline {section}{\numberline {5}Obstacle problems}{10}{}%
 \contentsline {section}{\numberline {6}The Schrödinger equation}{12}{}%
+\contentsline {section}{\numberline {7}Parametric minimal surfaces (the plateau problem)}{15}{}%
+\contentsline {subsection}{\numberline {7.1}Some basic concepts from differential geometry}{15}{}%
+\contentsline {subsection}{\numberline {7.2}Setup for the problems}{17}{}%
+\contentsline {subsection}{\numberline {7.3}Euler-Lagrange equation for question 2}{17}{}%

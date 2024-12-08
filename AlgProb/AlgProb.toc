@@ -13,3 +13,7 @@
 \contentsline {subsection}{\numberline {2.8}Probabilistische Algorithmen in exponentieller Zeit}{12}{}%
 \contentsline {subsubsection}{\numberline {2.8.1}3-Färbbarkeit}{12}{}%
 \contentsline {subsubsection}{\numberline {2.8.2}Random Walk Algorithmus für 3-SAT}{13}{}%
+\contentsline {section}{\numberline {3}Approximationsalgorithmen}{14}{}%
+\contentsline {subsection}{\numberline {3.1}Max-Cut}{14}{}%
+\contentsline {subsection}{\numberline {3.2}Max-$k$-SAT}{15}{}%
+\contentsline {subsection}{\numberline {3.3}0-1 Rucksackproblem}{16}{}%

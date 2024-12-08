@@ -251,9 +251,39 @@
 	\end{corollary}
 	Man kann sich überlegen, dass die beschriebene Ebene in Fall 2 ein $p$-Torus ist. Deswegen wird der Teil $aba^{-1}b^{-1}$ des Randes eines Zellkomplexes auch Henkel. Analog nennt man die Teile des Randes einer Fläche in zweiter Normalform eine Kreuzhaube.
 	\begin{theorem}
-		Jeder Zellenkomplex ist äquivalent zu genau einem Zellkomplex in Normalform
+		Jeder Zellenkomplex ist äquivalent zu genau einem Zellkomplex in Normalform.
 	\end{theorem}
 	\begin{corollary}
 		Jede kompakte Fläche ist homöomorph zu einer der Flächen in Normalform ($\left|K\right|, K$ in NF), d.h. eine zusammenhängede Summe von $p \geq 0$ Henkeln oder $p \geq 1$ Kreuzhauben.
 	\end{corollary}
+	\begin{theorem}
+		Sind $K_1,K_2$ in verschiedenen Normalformen, dann ist $\left|K_1\right| \not \cong \left|K_2\right|$.
+	\end{theorem}
+	Die Aussage ist eine Konsequenz des folgenden Lemmas.
+	\begin{lemma}
+		Orientierbarkeit und Euler-Charakteristik sind topologische Invarianten.
+	\end{lemma}
+	\underline{INTERMEZZO}: Dafür kann die sogenannte singuläre Homologie verwendet werden.
+	\begin{definition}
+		Sei $X$ ein topologischer Raum. Die \underline{singulären Homologiegruppen} $H_q(x)$, $q\geq 0$ sind alle abelschen Gruppen, die funktionell von $X$ abhängen. D.h. für $f:X\to Y$ enthält man abelsche Gruppen $f_{\star, q}: H_q(x) \to H_q(y)$ sodass \[(I_x)_x = I_{H_q(x)}\] und \[(f\circ g)_\star = f_\star \circ g_\star\]
+		Sei $X$ eine kompakte Fläche, dann ist
+		\begin{enumerate}
+			\item $H_0(x) \cong \mathbb{Z}$ (allgemein: $H_0$ ist freie abelsche Gruppe mit Rang gleich der Anzahl der Wegzusammenhangskomponenten)
+			\item $H_1(x) = \frac{\langle\gamma \mid \gamma: S^1 \to \to X\rangle_\mathbb{Z}}{\langle\partial A \mid A \subseteq X\rangle}$
+		\end{enumerate}
+	\end{definition}
+	\begin{lemma}
+		Ist allgemein $X$ eine kompakte Fläche in Normalform, so ist \begin{enumerate}
+			\item $H_0(x) \cong \mathbb{Z}$
+			\item $H_1(x) \cong \begin{cases}
+				\mathbb{Z}^{2p}, & (I), p \geq 0\\
+				\left(\mathbb{Z}/2\mathbb{Z}\right)^{p}, & (II), p \geq 1
+				\end{cases}$
+			\item $H_2(x) = \begin{cases}
+				\mathbb{Z}, & (I)\\
+				0, & (II)
+				\end{cases}$
+		\end{enumerate}
+	\end{lemma}
+	Alternativ lässt sich das Lemma mittels der Fundamentalgruppe beweisen.
 \end{document}
