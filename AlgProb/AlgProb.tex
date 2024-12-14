@@ -375,4 +375,67 @@
 	\end{cases}\]
 	Die Tabellengröße ist dabei $n^2v_{\max}$.\\
 	Mit diesem Ansatz lässt sich nun ein FPTAS formulieren. Dafür werden zunächst die Werte $v_i$ binär gerundet. Das heißt, wir definieren \[v_i' = 2^b \lceil\frac{v_i}{2^b}\rceil\] Hierbei ist $b$ eine Konstante. Die Transformation wirkt sich auf die Binärdarstellung von $v_i$ so aus, dass die letzten $b$ Stellen auf 0 gesetzt werden. Führt man nun den obigen Algorithmus auf die Werte $(\frac{v_1'}{2^b},\frac{v_2'}{2^b},...,\frac{v_n'}{2^b})$ aus, so ist die Laufzeit nun durch $n^2\frac{v_{\max}}{2^b}$ beschränkt. Wir bezeichnen \[m(A(x)) = \sum_{i \in S'} v_i\] die vom Algorithmus gefundene Lösung und \[opt(x) = \sum_{i \in S} v_i\] die optimale Lösung. Es gilt dann \[F = \frac{opt(x) - m(A(x))}{m(A(x))} \leq \frac{n\cdot 2^b}{v_{\max}} \leq \varepsilon\] Für den FPTAS wird nun $b$ so gewählt, dass \[2^b \leq \frac{\varepsilon v_{\max}}{n} < 2^{b+1}\]
+\subsection{Approximierbarkeit}
+	\subsubsection{Travelling Salesman}
+	Gegeben sei die Distanzmatrix $D$ eines vollständigen Graphen $G$. Gesucht ist ein kürzester Hamilton Pfad. Wir haben bereits gesehen, dass dieser als eine Permutation $\pi$ der Knoten geschrieben werden kann.
+	\begin{theorem}
+		Falls $P\neq NP$, so existiert kein $\varepsilon$-Approximationsalgorithmus für TSP in polynomieller Zeit.
+	\end{theorem}
+	\subsubsection{Clique}
+	Das Cliquen-Problem in einem Graphen $G$ besteht darin, eine maximale Clique $C$ zu finden. Auch dieses Problem lässt sich nicht approximieren.
+	\begin{theorem}
+		Falls es ein $\varepsilon$ mit einem $\varepsilon$-Approximationsalgorithmus für das Cliquen Problem gibt, so gibt es einen solchen Algorithmus für alle $\varepsilon \in (0,1)$.
+	\end{theorem}
+\subsection{$\Delta$-TSP}
+	Das $\Delta$-TSP oder metrisches TSP Problem bezeichnet die Suche nach einem minimalen Hamilton-Pfads in einem Graphen $G$, der die Dreiecksungleichung erfüllt.
+	\begin{definition}
+		Eine quadratische Matrix $D$ heißt Metrik, wenn alle ihre Einträge $\geq 0$ sind und $\forall i,j,k$ gilt \[d_{i,k} \leq d_{i,j} + d_{j,k}\]
+	\end{definition}
+	\begin{lemma}
+		HK $\leq \Delta$-TSP
+	\end{lemma}
+	Wir beschreiben nun zwei Approximationsalgorithmen für das metrische TSP.\\
+	Gegeben sei die Distanzmatrix $D$.
+	\begin{enumerate}
+		\item Finde einen minimalen Spannbaum $T$
+		\item Verdopple jede Kante in $T$, bezeichne diesen Graphen als $T_E$
+		\item Bestimme einen Euler-Kreis $C$ in $T_E$
+		\item Generiere $H$ aus $C$, indem alle Knoten $c_i$ mit $\exists j<i$ sodass $c_j=c_i$ gelöscht werden.
+	\end{enumerate}
+	\begin{theorem}
+		Es ist nicht schwer zu sehen, dass dieser Algorithmus einen Approximationsfaktor von $\frac{1}{2}$ erreicht.
+	\end{theorem}
+	Der folgende Algorithmus nach Christofides erreicht sogar eine $\frac{1}{3}$-Faktor Approximation.
+	\begin{enumerate}
+		\item Finde einen minimalen Spannbaum $T$ in $G$
+		\item Sei $V'$ die Menge der Knoten mit ungeradem Grad in $G$
+		\item Finde kleinstes perfektes Matching $M$ in $V'$
+		\item Sei $G_E = T\cup M$
+		\item Finde Euler-Kreis in $G_E$
+		\item Bestimme Hamilton-Kreis wie zuvor
+	\end{enumerate}
+	\begin{theorem}
+		Der Algorithmus erreiche eine $\frac{1}{3}$-Faktor Approximation an $\Delta$-TSP.
+	\end{theorem}
+	\subsection{PCP Theorem}
+	PCP steht für \underline{Probabilistically Checkable Proofs}. Dieses Resultat wird verwendet, um zu zeigen, dass manche Probleme nur bis zu einem bestimmten Faktor approximiert werden können. Die Klasse NP kann charakterisiert werden, als die Menge der Probleme, die polynomiell beweisbar sind.
+	\begin{definition}
+		Seien $r,q: \mathbb{N} \to \mathbb{N}$. Ein $(r,q)$-Beweis-Verfizierer für $L\subseteq \Sigma^*$ ist ein Polynomialzeit-Algorithmus $A$, der für Eingabe $x$ und einen Beweis $y$ (für $x$) $r(\left|x\right|)$ Zugallsbits generiert. $A(x,r)$ generiert eine Menge an Stellen $i_1,...,i_{p(\left|x\right|)} \in \mathbb{N}$. $A(x,r,y(i_1),... y(i_p)) \in \{0,1\}$ bestimmt of $x \in L$ oder $x \notin L$.
+	\end{definition}
+	\begin{definition}
+		Eine Sprache $L$ ist in der Komplexitätsklasse $PCP(r,q)$, wenn es einen $(r,q)$ Beweis-Verfizierer gibt mit den Eigenschaften \begin{itemize}
+			\item $x \in L \Rightarrow$ $\exists$ Beweis $B$, sodass $\mathbb{P}[A(x,r,B) = 1] = 1$
+			\item $x \notin L \Rightarrow$ $\forall$ Beweise $B$ gilt $\mathbb{P}[A(x,r,B) = 1] \leq \frac{1}{2}$.
+		\end{itemize}
+	\end{definition}
+	\begin{theorem}
+		\begin{itemize}
+			\item $NP = PCP(\mathcal{O}(\log n), \mathcal{O}(1))$
+			\item $NP = PCP(\mathcal{O}(\log n), 3)$
+			\item $P = PCP(\mathcal{O}(\log n), 2)$
+		\end{itemize}
+	\end{theorem}
+	\begin{theorem}
+		Falls $P\neq NP$, so existiert kein $\varepsilon$-Approximationsalgorithmus für Max-$k$-SAT mit $\varepsilon < \frac{1}{16}$.
+	\end{theorem}
 \end{document}

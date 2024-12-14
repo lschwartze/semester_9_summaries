@@ -5,3 +5,4 @@
 \contentsline {section}{\numberline {2}Klassifizierung der kompakten Flächen}{3}{}%
 \contentsline {subsection}{\numberline {2.1}Triangulierung}{3}{}%
 \contentsline {subsection}{\numberline {2.2}Zellkomplexe}{5}{}%
+\contentsline {section}{\numberline {3}Die Fundamentalgruppe}{10}{}%

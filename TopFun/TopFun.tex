@@ -265,7 +265,7 @@
 	\end{lemma}
 	\underline{INTERMEZZO}: Dafür kann die sogenannte singuläre Homologie verwendet werden.
 	\begin{definition}
-		Sei $X$ ein topologischer Raum. Die \underline{singulären Homologiegruppen} $H_q(x)$, $q\geq 0$ sind alle abelschen Gruppen, die funktionell von $X$ abhängen. D.h. für $f:X\to Y$ enthält man abelsche Gruppen $f_{\star, q}: H_q(x) \to H_q(y)$ sodass \[(I_x)_x = I_{H_q(x)}\] und \[(f\circ g)_\star = f_\star \circ g_\star\]
+		Sei $X$ ein topologischer Raum. Die \underline{singulären Homologiegruppen} $H_q(x)$, $q\geq 0$ sind alle abelschen Gruppen, die funktionell von $X$ abhängen. D.h. für $f:X\to Y$ enthält man abelsche Gruppen $f_{*, q}: H_q(x) \to H_q(y)$ sodass \[(I_x)_x = I_{H_q(x)}\] und \[(f\circ g)_* = f_* \circ g_*\]
 		Sei $X$ eine kompakte Fläche, dann ist
 		\begin{enumerate}
 			\item $H_0(x) \cong \mathbb{Z}$ (allgemein: $H_0$ ist freie abelsche Gruppe mit Rang gleich der Anzahl der Wegzusammenhangskomponenten)
@@ -286,4 +286,71 @@
 		\end{enumerate}
 	\end{lemma}
 	Alternativ lässt sich das Lemma mittels der Fundamentalgruppe beweisen.
+\section{Die Fundamentalgruppe}
+	\begin{definition}
+	Seien $X,Y$ topologische Räume, $A \subset X$ und $f,g: X \to Y$ stetig. Dann heißen $f,g$ homotop relativ zu $A$, wenn es eine stetige Abbildung \[F:X \times [0,1] \to Y\] gibt, sodass \begin{itemize}
+		\item $F(x,0) = f(x), F(x,1) = g(x)$
+		\item $F(x,t) = f(x) = g(x)$, $\forall x \in A, t \in [0,1]$
+	\end{itemize}
+	$F$ heißt eine Homotopie zwischen $f$ und $g$ relativ zu $A$. Man schreibt $f \cong_A g$.
+	\end{definition}
+	\begin{lemma}
+		$\cong_A$ ist eine Äquivalenzrelation auf der Menge der stetigen Abbildungen der Funktionen von $X$ nach $Y$.
+	\end{lemma}
+	\begin{definition}
+		Sei $X$ ein topologischer Raum. Ein Pfad/Weg in $X$ ist eine stetige Abbildung \[\gamma: [0,1] \to X\] Wir bezeichnen mit \begin{itemize}
+			\item $x_0 = \gamma(0)$ den Startpunkt und mit 
+			\item $x_1 = \gamma(1)$ den Endpunkt.
+		\end{itemize}
+		Zwei Pfade $\gamma_1, \gamma_2$ in $X$ heißen pfadhomotop $(\gamma_1 \cong \gamma_2)$ falls $\gamma_1, \gamma_2$ homotop relativ zu $\{0,1\}$ sind. Mit $\pi_1(X)$ bezeichnen wir die Menge der Pfadäquivalenzklassen, genannt \underline{Fundamentalgruppe}. \[\pi_1(X) = \bigcup_{(x_0,x_1) \in X^2} \pi_1(X;x_0,x_1)\] ist ein Gruppoid.\\
+		Ist $x_0=x_1$, also $\pi_1(X;x_0,x_1) = \pi_1(X;x_0)$, so nennen wir die die Fundamentalgruppe von $X$ mit Basispunkt $x_0$.
+	\end{definition}
+	\begin{definition}
+		Sei $X$ ein topologischer Raum. \begin{enumerate}
+			\item Für $x_0 \in X$ definiere $e_{x_0}$ den konstanten Pfad in $x_0$
+			\item Für einen Pfad $\gamma$, definiere $\gamma^{-1}(t) = \gamma(1-t)$
+			\item Für $\gamma,\sigma$ in $X$ mit $\gamma(1) = \sigma(0)$ definieren wir \[(\gamma * \sigma)(t) = \begin{cases}
+				\gamma(2t), & 0 \leq t \leq \frac{1}{2}\\
+				\sigma(2t-1), & \frac{1}{2} \leq t \leq 1
+			\end{cases}\]
+		\end{enumerate}
+	\end{definition}
+	\begin{lemma}
+		\begin{enumerate}
+			\item $\gamma \cong \gamma'$, $\sigma \cong \sigma'$ und $\gamma(1) = \sigma(0)$, dann ist $(\gamma * \sigma) \cong (\gamma' * \sigma')$.
+			\item Für $\gamma$ mit $x_0 = \gamma(0), x_1 0 \gamma(1)$ gilt \[e_{x_0} * \gamma \cong \gamma \cong \gamma * e_{x_0}, \; \gamma * \gamma^{-1} \cong e_{x_0}, \;  \gamma^{-1} * \gamma \cong e_{x_1}\]
+			\item Für $\gamma, \sigma, \tau$ mit $\gamma(1) = \sigma(0), \sigma(1) = \tau(0)$ gilt \[\gamma * (\sigma * \tau) \cong (\gamma * \sigma) * \tau\]
+		\end{enumerate}
+	\end{lemma}
+	\begin{definition}
+		Wir definieren \begin{enumerate}
+			\item $1_{x_0} = [e_{x_0}] = \pi_1(X;x_0)$
+			\item $* : \pi_1(X;x_0,x_1) \times \pi_1(X;,x_1,x_2) \to \pi_1(X; x_0,x_2)$ mit $[\gamma] * [\sigma] = [\gamma * \sigma]$
+			\item $[\gamma]^{-1} = [\gamma^{-1}]$
+		\end{enumerate}
+	\end{definition}
+	\begin{theorem}
+		$(\pi_1(X;x_0,x_1), 1_{x_0}, *)$ ist ein Gruppoid. Insbesondere ist $(\pi_1(X;x_0),*)$ eine Gruppe.
+	\end{theorem}
+	\begin{remark}
+		Für jede stetige Abbildung $f:X \to Y$ ist $f_* = \pi_1(f): \pi_1(X) \to \pi_1(Y)$ mit $[\gamma] \mapsto [f \circ \gamma]$ ein Morphismus von Gruppoiden. Insbesondere ist $f_*: \pi_1(X; x_0) \to \pi_1(X; f(x_0))$ ein Gruppenhomomorphismus. Für $f:X \to Y, g:Y \to Z$ gilt $f_* \circ g_* = (f\circ g)_*$ und $(Id_X)_* = Id_{\pi_1(X)}$.
+	\end{remark}
+	\begin{corollary}
+		Aus $f_ X \tilde{\to} Y$ ein Homöomorphismus folgt $f_*: \pi_1(X;x_0) \tilde{\to} \pi_1(Y;f(x_0))$ ein Gruppenhomöomorphismus.
+	\end{corollary}
+	\begin{remark}
+		Sei $X$ ein topologischer Raum, $\gamma$ ein Pfad in $X$, $x_0 = \gamma(0), x_1 = \gamma(1)$. Dann ist \[\hat{\gamma}: \pi_1(X;x-0) \to \pi_1(X;x_1), [\sigma] \mapsto [\gamma^{-1} * \sigma * \gamma]\] ein Gruppenisomorphismus, der nur von $[\gamma]$ abhängt.
+	\end{remark}
+	\begin{corollary}
+		Ist $X$ wegzusammenhängend, so hängt die Isomorphieklasse von $\pi_1(X;x_0)$ nicht von $x_0$ ab.
+	\end{corollary}
+	\begin{definition}
+		Sei $X$ ein topologischer Raum. \begin{enumerate}
+			\item $X$ ist zusammenziehbar (kontrahierbar), falls $Id_X \cong \underline{x_0}$ (konstante Abbildung) für ein $x_0 \in X$
+			\item $X$ heißt einfach zusammenhängend, falls $X$ wegzusammenhängend ist und $\pi_1(X;x_0) = \{1_{x_0}\}\; \forall x_0 \in X$. 
+		\end{enumerate}
+	\end{definition}
+	\begin{remark}
+		$X$ zusammenziehbar $\Rightarrow$ $X$ einfach zusammenhängend.
+	\end{remark}
 \end{document}

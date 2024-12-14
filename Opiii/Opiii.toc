@@ -15,4 +15,5 @@
 \contentsline {subsection}{\numberline {5.4}combinatoric topology}{17}{}%
 \contentsline {section}{\numberline {6}Sorting and Counting Networks}{17}{}%
 \contentsline {section}{\numberline {7}Minimum Spanning Tree}{18}{}%
-\contentsline {section}{\numberline {8}Dynamic networks}{19}{}%
+\contentsline {subsection}{\numberline {7.1}Aggregation Problem}{19}{}%
+\contentsline {section}{\numberline {8}Dynamic networks}{20}{}%

@@ -525,16 +525,21 @@
 		In order to sort a sequence of length $n$ we need a sorting network of depth $\mathcal{O}(\log^2 n)$.
 	\end{lemma}
 	\section{Minimum Spanning Tree}
-	The idea is to use an approach similar to Kruskal. We start with $n$ components. In each round we can merge components by picking the smallest edge leaving a component. This however, may create very large components along the way. Therefore, it is smart to restrict the size of components to $\sqrt{n}$. This ensures that communication is sublinear in each round. 
+	The idea is to use an approach similar to Kruskal. We start with $n$ components. In each round we can merge components by picking the smallest edge leaving a component. This however, may create very large components along the way. Therefore, it would be good if we were able to restrict the size of components to $\sqrt{n}$. This ensures that communication is sublinear in each round. In a general setting there can be at most $\sqrt{n}$ components of size more than $\sqrt{n}$ so this is quite the challenge. As usual, the key is randomization.\\
+	\subsection{Aggregation Problem}
+	This is a different kind of distributed problem that allows for a reduction from MST. Thus, by solving this problem in a distributed setting, we can also compute an MST.
 	\begin{definition}
-		Consider a graph $G$ and a partition of $V$ into disjoint subsets $S_1,...,S_N$ inducing connected subgraphs $G[S_1],...,G[S_n]$.. We define an $\alpha$-congestion shortcut with dilation $\beta$ to be a set of subgraphs $H_1,...,H_N$ one for each set $S_i$ such that \begin{enumerate}
-			\item for each $i$ the diameter of the subgraph $G[S_i]+H_i$ is at most $\beta$
-			\item for each $e \in E$ the number of subgraphs $G[S_i]+H_i$ containing $e$ is at most $\alpha$.
-		\end{enumerate}
+		In the problem formulation, there are $N$ so-called aggregation messages and $M$ machines that can store at most $S$ such messages. That means in each round, a machine $M_i$ can not send or receive more than $S$ messages. Further, $M \in \mathcal{O}(\frac{N}{S} \log_S N)$. An aggregation message $m$ is also given a value $v_m$, a target machine $t_m$ and a group $g_m$. Messages of one group all have the same target machine and a machine $M_i$ is target of at most one group. A solution to the problem is reached if every target machine has received a message of minimum value from its group.
 	\end{definition}
-	\begin{theorem}
-		Suppose that the graph family $\mathcal{G}$ is such that for each graph $G \in \mathcal{G}$ and any partition of $G$ into vertex-disjoint connected subsets $S_1,...,S_N$ we can find an $\alpha$-congestion $\beta$-dilation shortcut such that $\max\{\alpha,\beta\}\leq K$. Here, $K$ can be a function of the family $\mathcal{G}$. 
-	\end{theorem}
+	How does this translate to MST?\\
+	The idea is still to form clusters and merge them in the best way (i.e. using minimum weighted edges). We therefore put each machine in charge of handling one of the already computed minimum spanning tree clusters. We need to achieve the following: Each edge is stored by some machine that needs to figure out, which two (not necessarily different) clusters the endpoints of this edge lie in and each machine responsible for a cluster needs to find the edge of minimal weight leaving the cluster.\\
+	For each cluster $c$ an aggregation group is created whose target machine is the one responsible for $c$. Each machine storing an edge with exactly one endpoint in $x$ sends a message to the target machine containing some identifier of the edge and its weight (the aggregation value). The target machine know the minimal edge leaving $x$ at the end of this phase and can merge with the respective cluster $x'$. It then broadcasts the creation of the new cluster $x\cup x'$ and the next phase works similarly.\\
+	Given that $N = \mathcal{O}(n^2)$ and that $S = \mathcal{O}(n^c)$ for some constant $c$ we get that $\mathcal{O}(\log_S N) = \mathcal{O}(\frac{1}{c}) = \mathcal{O}(1)$ if the runtime to solve the aggregation problem and to do the broadcast through the tree is $\mathcal{O}(\log_S N)$. This results in a runtime of $\mathcal{O}(\log n)$ for MST. \\
+	It remains to show the runtime of the aggregation problem. We aim to find an algorithm that works in $\mathcal{O}(\log_S N)$ time and that in expectation does not require any machine to send or receive more than $\frac{S}{2}$ messages per round. We use advice to solve this. Thus, assume that there is a sufficiently long string of random bits that is accessible to all machines.\\
+	We partition the machines into different levels each of size $2\lceil\frac{N}{S}\lfloor+2$ machines which implies that there are $\mathcal{O}(\log_S N)$ levels in total. It is further assumed that the machines initially storing the aggregation messages are in the bottom-most level while the target machines are placed at the top.\\
+	Every machine in the lowest level $L_1$ belonging to an aggregation group $g$ now picks a random subset $L_{2,g}$ of machines from the next level $L_2$. This subset should be of size $N\left(\frac{S}{2}\right)^2$ and should be the same for all machines in $g$. This is possible via utilization of the advice string. Note that a machine can be part of multiple groups depending on the aggregation messages it holds. From $L_{2,g}$ each machine from group $g$ on level 1 then picks a parent machine (which is no longer the same for all machines in $g$). At this point, each machine now has a parent machine from the next level for each group it participates in. A machine on level $i$ then belongs to $g$ if it an element of $L_{i,g}$.\\
+	We inductively repeat this construction. Machines in the set $L_{i,g}$ also pick a random subset of size $N\left(\frac{S}{2}\right)^{i+1}$ from level $i+1$ and then proceed to choose a parent independently and uniformly at random from there. If $i+1=l$ the last level, it is only necessary to connect machines of group $g$ to their respective target machine. In each round, a machine of level $i$ sends the minimum valued aggregation message $m$ it knows of to its parent on level $i+1$.\\
+	This implies the correct running time and since at each level the global minimum message is relayed, it will surely reach its target proving correctness. Finally since the probability that a machine on level $i$ belongs to $L_{i,g}$ for a given $g$ is $\frac{2^{i-1}}{S^{i-1}} \geq \frac{\left|L_{i,g}\right|}{\left|L_i\right|}$ while the probability that a machine from $L_i$ is chosen as the parent of a fixed machine is $\frac{1}{L_{i,g}}$. Thus the probability that a machine is chosen as parent by a fixed machine from $L_{i-1}$ is at most $\frac{S}{2N}$. Therefore, a machine will be the parent of at most $\frac{S}{2}$ machines thus respecting the restriction on the storage space of the machines.
 	\section{Dynamic networks}
 	\begin{definition}
 		A dynamic graph $G$ is called $T$-interval connected for $T \in \mathbb{N}$ if for all $r\in \mathbb{N}$ the static graph $G_{r,T} = \left(V, \bigcap_{i=r}^{r+T-1} E(i)\right)$ is connected. If $G$ is 1-interval connected we say that $G$ is always connected.
@@ -545,7 +550,7 @@
 	Now, suppose that the graph is $T$-interval connected.
 	\begin{enumerate}
 		\item $S = \varnothing$
-		\item for $i=0,...,\lceil\frac{k}{T}\rceil-1$ do
+		\item for $i=0,...,\left\lceil\frac{k}{T}\right\rceil-1$ do
 		\item for $r=0,...,2T-1$ do
 		\item if $S \neq A$
 		\item $t = \min\{A \setminus S\}$
@@ -558,4 +563,5 @@
 		\item $S = \varnothing$
 		\item end for
 	\end{enumerate}
+	
 \end{document}

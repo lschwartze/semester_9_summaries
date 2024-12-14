@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  2 DEC 2024 11:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  9 DEC 2024 11:11
 entering extended mode
 **./TopFun.tex
 (TopFun.tex
@@ -250,14 +250,30 @@ K[]$ \OT1/cmr/m/n/12 Zel-lkom-plexe. Dann heit $\OML/cmm/m/it/12 K[]$ \OT1/cmr
 /m/n/12 eine $[]$
  []
 
-[7] [8] [9] (TopFun.aux) ) 
+[7] [8] [9] [10]
+Overfull \hbox (1.7143pt too wide) in paragraph at lines 345--346
+\OT1/cmr/bx/n/12 Korollar 3.11. []\OT1/cmr/m/it/12 Ist $\OML/cmm/m/it/12 X$ \OT
+1/cmr/m/it/12 wegzusam-menhangend, so hangt die Iso-mor-phieklasse von $\OML/
+cmm/m/it/12 []\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 X\OT1/cmr/m/n/12 ; \OML/cmm/m/
+it/12 x[]\OT1/cmr/m/n/12 )$
+ []
+
+[11]
+Overfull \hbox (11.88036pt too wide) in paragraph at lines 350--351
+[][]$\OML/cmm/m/it/12 X$ \OT1/cmr/m/n/12 heit ein-fach zusam-menhangend, fall
+s $\OML/cmm/m/it/12 X$ \OT1/cmr/m/n/12 wegzusam-menhangend ist und $\OML/cmm/m
+/it/12 []\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 X\OT1/cmr/m/n/12 ; \OML/cmm/m/it/12
+ x[]\OT1/cmr/m/n/12 ) =
+ []
+
+[12] (TopFun.aux) ) 
 Here is how much of TeX's memory you used:
  2894 strings out of 479322
  39581 string characters out of 2856609
- 354441 words of memory out of 3000000
+ 355441 words of memory out of 3000000
  20345 multiletter control sequences out of 15000+600000
  412976 words of font info for 64 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  67i,9n,74p,535b,269s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on TopFun.dvi (10 pages, 34612 bytes).
+Output written on TopFun.dvi (13 pages, 43908 bytes).

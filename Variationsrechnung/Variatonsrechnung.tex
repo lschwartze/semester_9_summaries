@@ -357,4 +357,27 @@
 	\begin{lemma}
 		If $f \in L^1_{loc}(\Omega)$ such that $\int_\Omega f \Delta \varphi \, dx = 0$ $\forall \varphi \in C_0^\infty(\Omega)$. Then $f \in C^\infty(\Omega)$ and $\Delta f = 0$.
 	\end{lemma}
+	As an abbreviation for the integral making up the Dirichlet-energy $D(F)$ we write $\left|DF\right|^2$.
+	\begin{remark}
+		Let $X: B_1(0) \to \mathbb{R}^m$ s.t. $\Delta X = 0$. Let $(u_1,u_2) \in B_1(0)$. Then the map \[z = u_1 + iu_2 \mapsto g(z) = \left|\partial_{u_1} X\right|^2 - \left|\partial_{u_2}\right|^2 - 2i \partial_{u_1} X \partial_{u_2}X\] is holomorphic. Indeed by the Cauchy-Riemann equations, $g$ is holomorphic $\iff$ $\partial_{\overline{z}} g = 0$ where \[\partial_{\overline{z}} g = \frac{1}{2}\left(\partial_{u_1}g + i \partial_{u_2}g\right)\]  
+		It is easily verifiable that $\partial_{\overline{z}} g = 4 \partial_z X \cdot \partial_{\overline{z}} \partial_z X = \partial_z X \Delta X$.
+	\end{remark}
+	\begin{theorem}
+		Let $F \in K(\gamma)$ be a critical point of the Dirichlet-energy in $K(\gamma)$. By that we mean that \begin{enumerate}
+			\item $\frac{d}{dt} D(F+t\varphi)|_{t=0} = 0$ $\forall \varphi \in C_0^\infty(B;\mathbb{R}^m)$
+			\item $\frac{d}{dt} D(F\circ \varphi^{-1}_t, B_t)|_{t=0} = 0$ where $(\varphi_t)_t$ is a family of diffeomorphisms. $\varphi_t = Id + t\psi$ with $\psi \in C^2(\overline{B_1(0)})$ and $\varphi_t: B_1(0) \to B_t = \varphi(B_1(0))$.
+		\end{enumerate}
+		Then $F$ solves the following problem:
+		\begin{itemize}
+			\item $\Delta F = 0$ in $B_1(0)$
+			\item $F|_{\partial B_1(0)}$ is a monotone parametrization of $\gamma(\partial B_1(0))$
+			\item $\left|\partial_{u_1} F\right| = \left|\partial_{u_2} F\right|$
+			\item $\langle \partial_{u_1} F, \partial_{u_2} F \rangle = 0$
+		\end{itemize}
+		The last two properties yield that $F$ is a so-called conformal parametrization.
+	\end{theorem}
+	\begin{remark}
+		If $X$ minimizes the Dirichlet-energy, then $X$ satisfies the second point in the previous theorem.
+	\end{remark}
+	
 \end{document}
