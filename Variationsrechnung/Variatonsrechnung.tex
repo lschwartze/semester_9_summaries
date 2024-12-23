@@ -379,5 +379,50 @@
 	\begin{remark}
 		If $X$ minimizes the Dirichlet-energy, then $X$ satisfies the second point in the previous theorem.
 	\end{remark}
-	
+	\begin{lemma}
+		If $u \in C^1_{b'}(B;\mathbb{R})$, $r \in (0,1)$ \[u_r: \partial B_1(0) \to \mathbb{R}\] $u_r(e^{i\varphi}) = u(re^{i\varphi})$. Then $\exists u_{bd}: \partial B_1(0) \to \mathbb{R}$ s.t. \[u_r \to u_{bd}\] in $L^2(\partial B)$.
+	\end{lemma}
+	\begin{definition}
+		Define $K^*(\gamma) = \{F\in C^1_{b'}(B;\mathbb{R}^m)\}$.
+	\end{definition}
+	Let $RF \in C^0(\partial B_1(0); \mathbb{R}^m)$ s.t. RF is a weak monotone parametrization of $\Gamma \circ \gamma(\partial B_1(0))$.\\
+	IDEA: Take $(\tilde{F_k})_{k \in \mathbb{N}} \subset K^+(\gamma)$ be a minimizing sequence, $R\tilde{F_k} \in C^0(\partial B_1(0); \mathbb{R}^m)$. We take $F_k$ s.t. \[-\Delta F_k = 0 \text{ in } B_1(0)\]
+	\[F_k = R\tilde{F_k} \text{ on } \partial B_1(0)\]
+	\subsection{The Dirichlet problem on the disk}
+	LEt $B = B_1(0) \subset \mathbb{R}^2$ and $\varphi: \partial B_1(0)  \to \mathbb{R}$. We study the problem \[\begin{cases}
+		-\Delta u = 0 & \text{ in } B\\
+		u = \varphi & \text{ on } \partial B
+	\end{cases}\]
+	Note that $\Delta u = \sum_{i=1}^{n} \frac{\partial^2 u}{\partial x_j^2}$.
+	\begin{lemma}
+		If $u \in C^0(\overline{B})$ is harmonic in $B$, then \[u(x) = \frac{1}{2\pi} (1-||x||^2) \int_{\partial B} \frac{u(y)}{\left|x-y\right|^2} d_S(y)\] for $x\in B$.
+	\end{lemma}
+	This suggests to consider \[E: L^1(\partial B) \to C^\infty(B)\] where \[\varphi \mapsto (E_\varphi)(x) = \frac{1}{2\pi}(1-||x||^2)\int_{\partial B} \frac{\varphi(y)}{\left|x-y\right|^2} \, ds(y)\] with $x\in B$. We call this the harmonic extension.
+	\begin{theorem}
+		For $\varphi \in C^0(\partial B)$, $\forall x_0 \in \partial B$ $$\exists \lim_{\substack{x \to x_0 \\ x \in B}} (E_\varphi)(x) = \varphi(x)$$ Hence $E|_{C^0(\partial B)}: C^0(\partial B) \to C^\infty(B) \cap C^0(\overline{B})$.
+	\end{theorem}
+	\begin{theorem}
+		Let $v \in C^1_{b'}(B)$ and $v_{bd} \in L^2(\partial B_1(0))$ its restriction to the boundary as before. Let $h = E(v_{bd})$ be the harmonic extension of $v_{bd}$ Then \[D(h) \leq D(v)\]
+	\end{theorem}
+	\begin{theorem}[Maximum principle]
+		Let $u \in C^0(\overline{B})$ be harmonic in $B$. Then \[\max_{x \in \overline{B}} u(x) = \max_{x \in \partial B} u(x)\] The same holds for $\min$.
+	\end{theorem}
+	\begin{theorem}[Poisson formula]
+		If $u$ is harmonic in $B$ and $K\subset B$ compact, then $\exists d > 0$ s.t. \[\sup_{K} \left|D^\alpha_u\right| \leq \left(\frac{2\left|\alpha\right|}{d}\right)^{\left|\alpha\right|} \sup_B u\] In particular, the uniform limit of harmonic functions is harmonic.
+	\end{theorem}
+	\section{Solution of the Plateau Problem}
+	Recall: We want to minimize $D(F) = \frac{1}{2}\int_B \left|D_x F\right|^2 + \left|D_y F\right|^2 d(x,y)$ for $F \in K^*(y)$.\\
+	\begin{lemma}
+		Let $\Phi \in Aut(B)$, $f \in W^{1,2}(B_1(0))$ then $D(f) = D(f\circ \Phi)$.
+	\end{lemma}
+	\begin{definition}
+		Let $P_j = \gamma(e^{i(j-1)\frac{2\pi}{3}})$ for $j=1,2,3$.
+	\end{definition}
+	\begin{lemma}
+		Let $f \in C^0(\overline{B}, \mathbb{R}^m)\cap C^1_{b'}(B, \mathbb{R}^m)$, $w_0 \in \overline{B}$ and $(r,\varphi)$ the polar coordinates centred at $w_0$. On $B_2(w_0) \cap B$ let \[\tilde{f}(r,\varphi) = f(w_0 + re^{i\varphi})\] Then $\forall \delta \in (0,1)$ $\exists \varrho \in [\delta, \sqrt{\delta}]$ s.t. on \[C_\varrho = \partial B_\varrho(w_0) \cap B\] we have \[\int_{C_\varrho} \left|\partial_\varphi \tilde{f}\right|^2 ds(\varphi) \leq \frac{4\varrho}{\left|\log \varphi\right|} D(f)\]
+	\end{lemma}
+	\begin{theorem}
+		Let $\Gamma \subset \mathbb{R}^m$ be a closed simple curve, \[\Gamma = \gamma(\partial B_1(0))\] where $\gamma: \partial(B_1(0)) \to \mathbb{R}^m$ s.t. \[K^*(\gamma) = \{F \in C^1_{b'}(B_1(0),\mathbb{R}^m) : RF \in C^0(\partial B_1(0), \mathbb{R}^m) \text{ a weak monotone partition of } \Gamma\} \neq \varnothing\]
+		Then $\exists F \in K^*(\gamma)$ s.t. $D(F) \leq D(\tilde{F})$ $\forall \tilde{F} \in K°*(\gamma)$.
+	\end{theorem}
 \end{document}

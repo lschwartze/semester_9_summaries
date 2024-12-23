@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  14 DEC 2024 14:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  20 DEC 2024 08:37
 entering extended mode
 **./Opiii.tex
 (Opiii.tex
@@ -252,7 +252,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 528--529
 
  []
 
-[18] [19] [20] [21] (Opiii.aux) ) 
+[18] [19] [20] [21] [22] (Opiii.aux) ) 
 Here is how much of TeX's memory you used:
  2898 strings out of 479322
  39635 string characters out of 2856609
@@ -260,6 +260,6 @@ Here is how much of TeX's memory you used:
  20349 multiletter control sequences out of 15000+600000
  414224 words of font info for 69 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,6n,74p,751b,212s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 67i,6n,74p,866b,212s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Opiii.dvi (22 pages, 82424 bytes).
+Output written on Opiii.dvi (23 pages, 86436 bytes).

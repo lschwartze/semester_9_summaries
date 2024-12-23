@@ -22,3 +22,4 @@
 \contentsline {subsubsection}{\numberline {3.4.2}Clique}{17}{}%
 \contentsline {subsection}{\numberline {3.5}$\Delta $-TSP}{18}{}%
 \contentsline {subsection}{\numberline {3.6}PCP Theorem}{19}{}%
+\contentsline {subsection}{\numberline {3.7}\#DNF-SAT}{19}{}%

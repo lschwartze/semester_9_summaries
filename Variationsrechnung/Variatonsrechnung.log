@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  10 DEC 2024 10:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  19 DEC 2024 12:47
 entering extended mode
 **./Variatonsrechnung.tex
 (Variatonsrechnung.tex
@@ -240,14 +240,36 @@ Overfull \hbox (1.08766pt too wide) in paragraph at lines 148--148
  []
 
 [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18]
-(Variatonsrechnung.aux) ) 
+Underfull \hbox (badness 10000) in paragraph at lines 414--415
+
+ []
+
+[19]
+Overfull \hbox (20.1127pt too wide) detected at line 425
+\OML/cmm/m/it/12 K[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 \OT1/cmr/m/n/12 ) = \OMS
+/cmsy/m/n/12 f\OML/cmm/m/it/12 F \OMS/cmsy/m/n/12 2 \OML/cmm/m/it/12 C[]\OT1/cm
+r/m/n/12 (\OML/cmm/m/it/12 B[]\OT1/cmr/m/n/12 (0)\OML/cmm/m/it/12 ; \U/msb/m/n/
+12 R[]\OT1/cmr/m/n/12 ) : \OML/cmm/m/it/12 RF \OMS/cmsy/m/n/12 2 \OML/cmm/m/it/
+12 C[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 @B[]\OT1/cmr/m/n/12 (0)\OML/cmm/m/it/12
+ ; \U/msb/m/n/12 R[]\OT1/cmr/m/n/12 )[] \OMS/cmsy/m/n/12 g 6\OT1/cmr/m/n/12 = \
+U/msb/m/n/12 ?
+ []
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 426.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 426.
+
+Missing character: There is no ° in font cmr12!
+[20] (Variatonsrechnung.aux) ) 
 Here is how much of TeX's memory you used:
- 2910 strings out of 479322
- 39987 string characters out of 2856609
+ 2913 strings out of 479322
+ 40024 string characters out of 2856609
  354462 words of memory out of 3000000
- 20357 multiletter control sequences out of 15000+600000
- 415570 words of font info for 74 fonts, out of 8000000 for 9000
+ 20359 multiletter control sequences out of 15000+600000
+ 415947 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  67i,9n,74p,662b,239s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Variatonsrechnung.dvi (19 pages, 68516 bytes).
+Output written on Variatonsrechnung.dvi (21 pages, 77712 bytes).

@@ -353,4 +353,55 @@
 	\begin{remark}
 		$X$ zusammenziehbar $\Rightarrow$ $X$ einfach zusammenhängend.
 	\end{remark}
+	\subsection{Überlagerungen}
+	\begin{definition}
+		Sei $p:Y \to X$ eine stetige Abbildung. Eine offene Teilmenge $U \subset X$ wird gleichmäßig überlagert von $p$, falls \[p^{-1}(U) = \bigcup_{i \in I} U_i, \; p|_{U_i}: U_i \tilde{\to} U\] 
+		$p$ heißt eine Überlagerung von $X$, falls $X$ eine offene Überdeckung durch $U \subseteq X$ besitzt, die gleichmäßig überlagert werden.\\
+		\begin{itemize}
+			\item $Cov(X)=$ Kategorie der Überlagerungen von $X$. 
+			\item Objekte: $p:Y \to X$ Überlagerung
+			\item Morphismus: $Hom(p_1,p_2) = \{f: y_1 \to y_2 \mid p_2 = f\circ p_1\}$
+		\end{itemize}
+	\end{definition}
+	\begin{example}
+		Sei $X=S^1 = \{z \in \mathbb{C} \mid \left|z\right| = 1\}$. Wir betrachten folgende Überlagerungen von $X$:
+		\begin{itemize}
+			\item $\varrho: \mathbb{R} \to X$, $\varrho(t) = e^{2\pi i t}$ (universelle Überlagerung)
+			\item $\forall n \in \mathbb{N}$, $\sigma_n: X \to X$, $\sigma_n(z) = z^n$
+		\end{itemize}
+	\end{example}
+	\begin{theorem}
+		$\pi_1(X,1) \cong \mathbb{Z}$.
+	\end{theorem}
+	\begin{lemma}
+		Sei $\alpha:[0,1] \to X$ ein geschlossener Pfade mit Basispunkt 1. Dann $[\alpha] \in \pi_1(X,1)$
+		\begin{itemize}
+			\item Es gibt einen eindeutig bestimmten Lift $\tilde{\alpha}: [0,1] \to \mathbb{R}$ mit $\tilde{\alpha}(0) = 0$, $f \circ \tilde{\alpha} = \alpha$
+			\item $\tilde{\alpha}(1) \in \mathbb{Z}$ hängt nur von der Klasse $[\alpha] \in \pi_1(X,\mathbb{Z})$ ab. Definiere \[\pi_1(X, 1) \to \mathbb{Z}\] durch $[\alpha]\to \tilde{\alpha}(1)$. Z.z. das ist ein Gruppenisomorphismus.
+		\end{itemize}
+	\end{lemma}
+	Sei im folgenden $p: \tilde{X} \to X$ eine Überlagerung. Für eine stetige Abbildung $f:Y \to X$ heißt $\tilde{f}: Y \to X$ mit $p \circ \tilde{f} = f$ ein Lift von $f$.
+	\begin{lemma}
+		Angenommen $Y$ ist zusammenhängend und Hausdorff'sch, $f:Y \to X$ ist stetig und $\tilde{f_1}, \tilde{f_2}: Y \to \tilde{X}$ sind Lifts von $f$. Wenn $\tilde{f_1}(y) = \tilde{f_2}(y)$ für ein $y \in Y$, dann $\tilde{f_1} = \tilde{f_2}$. 
+	\end{lemma}
+	\begin{lemma}[Homotopy lifting property of covering spaces]
+		Sei $Y$ ein topologischer Raum, $F:Y\times [0,1] \to X$ stetig. \[f:Y \to X, \; f(y) = F(Y,0), \; \tilde{f}: Y \to \tilde{X}\]
+		Dann gibt es einen eindeutig bestimmten Lift $\tilde{F}$ von $F$ mit $\tilde{F}(y,0) = \tilde{f}(y) \; \forall y \in Y$.
+	\end{lemma}
+	\begin{theorem}
+		\begin{enumerate}
+			\item Sei $\alpha: [0,1] \to X$ ein Pfad mit Anfangspunkt $x_0 = \alpha(0) \in X$ und $\tilde{x_0} \in p^{-1}(x_0)$. Dann gibt es einen eindeutig bestimmten Lift $\tilde{\alpha}_ [0,1] \to \tilde{X}$ mit $\tilde{\alpha}(0) = \tilde{x_0}$.
+			\item Seien $\alpha, \beta: [0,1] \to X$ zwei Pfade mit $x_0 = \alpha(x_0) = \beta(0)$, $\tilde{x_0} \in p^{-1}(x_0)$ und $\tilde{\alpha}, \tilde{\beta}$ die Lifts mit $\tilde{\alpha}(0) = \tilde{\beta}(0) = \tilde{x_0}$. Falls $\alpha \cong \beta$, so gilt auch $\tilde{\alpha} \cong \tilde{\beta}$, insbesondere also \[\tilde{\alpha}(1) = \tilde{\beta}(1)\]
+		\end{enumerate}
+	\end{theorem}
+	\begin{corollary}
+		Sei $p: \tilde{X} \to X$ eine Überlagerung, $\tilde{x_0}, \tilde{x_1} \in \tilde{X}$, $x_i = p(\tilde{x_i})$. Dann ist \[p_*: \pi_1(\tilde{X},; \tilde{x_0}, \tilde{x_1}) \to \pi_1(X;x_0,x_1)\] injektiv. Insbesondere ist $p_*:\pi_1(\tilde{X}, \tilde{x_0}) \to \pi_1(X;x_0)$ ist ein injektiver Gruppenhomomorphismus.
+	\end{corollary}
+	\begin{theorem}
+		Sei $X$ zusammenhängend und lokal einfach zusammenhängend, $x_0 \in X$. Für eine zusammenhängende Überlagerung $p: \tilde{X} \to X$, $\tilde{x_0} \in p^{-1}(x_0)$ sei \[H_{p,\tilde{x_0}} = p_*\pi_1(\tilde{X}, \tilde{x_0}) \subseteq \pi_1(X,x_0)\]
+		Dann induziert $(p,\tilde{x_0}) \mapsto H_{p,\tilde{x_0}}$ eine monotone Bijektion zwischen \begin{enumerate}
+			\item zusammenhängenden Überlagerungen $p: \tilde{X} \to X$ bis auf Isomorphie
+			\item Untergruppen von $\pi_1(X,x_0)$ bis auf Konjugation $H \sim \alpha^{-1} H \alpha$.
+		\end{enumerate}
+	\end{theorem}
 \end{document}

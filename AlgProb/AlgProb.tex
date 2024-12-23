@@ -438,4 +438,69 @@
 	\begin{theorem}
 		Falls $P\neq NP$, so existiert kein $\varepsilon$-Approximationsalgorithmus für Max-$k$-SAT mit $\varepsilon < \frac{1}{16}$.
 	\end{theorem}
+	\subsection{\#DNF-SAT}
+	Im folgenden betrachten wir Formeln nicht mehr wie bisher in KNF sondern in DNF. Überprüfen auf Erfüllbarkeit einer DNF ist einfach, da eine Formel $F$ in DNF nicht erfüllbar ist, genau dann, wenn jede Klausel eine Variable und ihr Komplement enthält. Das Ziel des \#DNF-SAT Problems ist es, zu ermitteln, wie viele erfüllende Belegungen existieren. 
+	\begin{definition}
+		Sei $\mathcal{D}$ die Menge aller Formeln, die in DNF vorliegen. Wir definieren \[f: \mathcal{D} \to \mathbb{N}\] \[F \mapsto \left|\{\alpha: V(F) \to \{0,1\}^n \mid \alpha(F) = 1\}\right|\] die Funktion, die einer Formel $F$ die Anzahl der erfüllenden Belegungen zuordnet. 
+	\end{definition}
+	Ziel dieser Sektion ist es, einen probabilistischen Algorithmus $A$ zu konstruieren, der \[\mathbb{P}[(1-\varepsilon)f(F) \leq A(F) \leq (1+\varepsilon)A(F)] \geq 1-\delta\] erfüllt und eine Laufzeit hat, die polynomial in $\left|F\right|, \frac{1}{\varepsilon}$ und $\log(\frac{1}{\delta})$ ist.
+	\begin{remark}
+		Ist $F$ in KNF gegeben, so kann man $f(F)$ ermitteln mittels $f(F) = 2^n - f(\lnot F)$. Es gilt $f \in SAT \Leftrightarrow f(\lnot F) < 2^n$.
+	\end{remark}
+	\begin{remark}
+		Dieses Problem ist ein Spezialfall eines allgemeineren Problems. Sei $U$ eine beliebige Menge und $\left|U\right|$ bekannt. Angenommen, es ist möglich schnell Elemente von $U$ unter Gleichverteilung zu wählen und angenommen, es gibt eine Funktion $f:U \to \{0,1\}$. Wir wollen für \[G = \{u \in U \mid f(u) = 1\}\] die Kardinalität $\left|G\right|$ ermitteln.
+	\end{remark}
+	Der folgende probabilistische Ansatz liefert eine erste Möglichkeit
+	\begin{enumerate}
+		\item $k=0$
+		\item for $i=1$ to $N$
+		\item wähle $u_i \in_R U$
+		\item if $f(u_i) = 1$ then $k=k+1$
+		\item output $\frac{\left|U\right|}{N}k$
+	\end{enumerate}
+	\begin{theorem}\label{thm: dnf sat ineq}
+		Für $0<\varepsilon, \delta < 1$ und $N \geq \frac{4\left|U\right|}{\varepsilon^2 \left|G\right|} \ln \frac{2}{\delta}$ gilt die Abschätzung \[\mathbb{P}[(1-\varepsilon)\left|G\right| \leq A(U) \leq (1+\varepsilon) \left|G\right|] \geq 1-\delta\]
+	\end{theorem}
+	\begin{remark}
+		Initial ist $\left|G\right|$ nicht bekannt, also kann man $N$ nicht passend wählen. Außerdem ist es möglich, dass $N$ nicht polynomial in $\left|F\right|$ wächst.
+	\end{remark}
+	Wir verfolgen einen besseren Ansatz. Sei dafür eine Formel in DNF \[F = I_! \lor I_2 \lor \dots \lor I_m\] mit den sogenannten Implikanten $I_i$. Definiere \begin{itemize}
+		\item $U = \{(\nu.i) \mid \nu(I_i) = 1\}$ wobei $\nu$ erfüllende Belegungen für einen Implikanten sind
+		\item $H_i = \{\nu \mid \nu(I_i) = 1\}$ und 
+		\item $G = \{\nu \mid \nu(F) = 1\}$
+	\end{itemize}
+	Es gilt $\left|G\right| \leq \left|U\right| \leq \sum_{i=1}^{m} \left|H_i\right|$.\\
+	Seien außerdem \[f(\nu, j) = \begin{cases}
+		1, & i = \min\{j \mid \nu \in H_j\}\\
+		0, & \text{ sonst}
+	\end{cases}\] und $H = \{(\nu, j) \in U \mid f(\nu, j)= 1\}$. Es gilt $\left|H\right| = \left|G\right|$. Mit diesen Überlegungen kann nun ein Algorithmus formuliert werden.
+	\begin{enumerate}
+		\item $k=0$
+		\item for $i=1$ to $N$
+		\item wähle $(\nu, j) \in_R U$
+		\item if $f(\nu, j) = 1$ then $k=k+1$
+		\item output $\left|U\right| \frac{k}{N}$
+	\end{enumerate}
+	\begin{theorem}
+		Für $N \geq \frac{4}{\varepsilon^2}m\ln\frac{2}{\delta}$ ist die Ungleichung in Satz \ref{thm: dnf sat ineq} erfüllt. Insbesondere ist die Größe von $N$ unabhängig von $\left|G\right|$.
+	\end{theorem}
+	Wieso können wir aber ein Stichprobe unter Gleichverteilung aus $U$ wählen? Dafür schreiben wir $\forall j$\[\left|H_j\right| = 2^{n-\#(\text{Literale in } H_j)}\]
+	Damit kann der Algorithmus ein wenig umformuliert werden zu
+	\begin{enumerate}
+		\item $k=0$
+		\item for $i=1$ to $N$
+		\item wähle $j \in \{1,2,\dots,m\}$ mit Wahrscheinlichkeit $\frac{\left|H_j\right|}{\left|U\right|}$
+		\item wähle $\nu \in_R H_j$
+		\item if $f(\nu, j) = 1$ then $k=k+1$
+		\item output $\left|U\right| \frac{k}{N}$
+	\end{enumerate}
+	Es folgt, dass $\mathbb{P}[(\nu,j)] = \frac{\left|H_j\right|}{\left|U\right|} \left|H_j\right| = \frac{1}{\left|U\right|}$.
+	\begin{theorem}
+		Sei $U$ eine endliche Menge und $\left|U\right|$ bekannt. Seien $H_1,H_2,\dots H_m \subseteq U$ nicht notwendigerweise disjunkte Teilmengen und \[H = \bigcup_{i=1}^m H_i\] Es gelte außerdem, dass \begin{itemize}
+			\item $\left|H_i\right|$ in polynomialer Zeit berechenbar ist
+			\item Man kann aus $H$ unter Gleichverteilung eine Stichprobe entnehmen
+			\item $\nu \in H_i$ $\forall i$ kann effizient entschieden werden
+		\end{itemize}
+		Dann folgt: $\left|H\right|$ kann in polynomieller Zeit in $n, \frac{1}{\varepsilon}, \log \frac{1}{\delta}$ approximiert werden, wobei die Ungleichung aus Satz \ref{thm: dnf sat ineq} erfüllt ist.
+	\end{theorem}
 \end{document}

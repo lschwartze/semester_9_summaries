@@ -541,27 +541,48 @@
 	We inductively repeat this construction. Machines in the set $L_{i,g}$ also pick a random subset of size $N\left(\frac{S}{2}\right)^{i+1}$ from level $i+1$ and then proceed to choose a parent independently and uniformly at random from there. If $i+1=l$ the last level, it is only necessary to connect machines of group $g$ to their respective target machine. In each round, a machine of level $i$ sends the minimum valued aggregation message $m$ it knows of to its parent on level $i+1$.\\
 	This implies the correct running time and since at each level the global minimum message is relayed, it will surely reach its target proving correctness. Finally since the probability that a machine on level $i$ belongs to $L_{i,g}$ for a given $g$ is $\frac{2^{i-1}}{S^{i-1}} \geq \frac{\left|L_{i,g}\right|}{\left|L_i\right|}$ while the probability that a machine from $L_i$ is chosen as the parent of a fixed machine is $\frac{1}{L_{i,g}}$. Thus the probability that a machine is chosen as parent by a fixed machine from $L_{i-1}$ is at most $\frac{S}{2N}$. Therefore, a machine will be the parent of at most $\frac{S}{2}$ machines thus respecting the restriction on the storage space of the machines.
 	\section{Dynamic networks}
+	In the following we are working with a dynamic network graph $G=(V,E)$ where $V$ is a static set of vertices as usual and where $E: \mathbb{N} \to \mathcal{P}\left(\binom{V}{2}\right)$ is a function mapping the round number to a set of edges. 
 	\begin{definition}
 		A dynamic graph $G$ is called $T$-interval connected for $T \in \mathbb{N}$ if for all $r\in \mathbb{N}$ the static graph $G_{r,T} = \left(V, \bigcap_{i=r}^{r+T-1} E(i)\right)$ is connected. If $G$ is 1-interval connected we say that $G$ is always connected.
 	\end{definition}
 	\begin{theorem}
-		Assume that there is a single token in the network. Further assume that at time 0 at least one node knows the token and that once they know the token, all nodes broadcast it in every round. In a 1-interval connected graph $G=(V,E)$ with $n$ nodes, after $r\leq n-1$ rounds, at least $r+1$ nodes know the token. Hence, in particular after $n-1$ rounds, all nodes know the token.
+		Suppose one vertex of a graph wants to broadcast a message. In a 1-interval connected graph $G$, it is obvious that after $r$ failure-free communication rounds, at least $r+1$ vertices are aware of the message. Thus, after at most $n-1$ rounds, the broadcast is complete.
 	\end{theorem}
-	Now, suppose that the graph is $T$-interval connected.
+	This lays the foundation for a counting algorithm. The goal is that one vertex initiates a count of the number of vertices. For vertex $v$ this algorithm achieves that
 	\begin{enumerate}
-		\item $S = \varnothing$
-		\item for $i=0,...,\left\lceil\frac{k}{T}\right\rceil-1$ do
-		\item for $r=0,...,2T-1$ do
-		\item if $S \neq A$
-		\item $t = \min\{A \setminus S\}$
-		\item broadcast $t$
-		\item $S = S \cup \{t\}$
-		\item end if
-		\item receive $t_1,...,t_s$ from neighbours
-		\item $A = A \cup \{t_1,...,t_s\}$
-		\item end for
-		\item $S = \varnothing$
-		\item end for
+		\item $r=0, A = \{v\}$
+		\item repeat
+		\item $r=r+1$, reliably broadcast $A$
+		\item receive id sets $A_1,...,A_j$ from neighbours
+		\item $A = A \cup \bigcup_{k=1}^j A_k$
+		\item if $\left|A\right| \leq r$ output $\left|A\right|$
+		\item until $\left|A\right| \leq r$
 	\end{enumerate}
-	
+	\begin{theorem}
+		In a 1-interval connected failure-free dynamic graph, this algorithm terminates and correctly outputs $n$ in round $r=n$.
+	\end{theorem}
+	\begin{theorem}
+		Asynchronous counting is impossible in 1-interval connected graphs.
+	\end{theorem}
+	It is rather obvious that 1-interval connectivity is the hard case. If the dynamic graph is $T$-interval connected for a $T>1$, there is more information about successive rounds and so the algorithm can be sped up.\\
+	The following deals with the search for a black hole in a network. For this we interpret the dynamic graph as a street network that can be traversed by so-called agents. An agent located in a vertex $v$ in round $r$ has the decision to move to a neighbouring node $u$ in round $r+1$ or to stay at $v$. Since we are dealing with dynamic graphs however, an edge $e=(u,v)$ may exist in round $r$ but is removed for round $r+1$. If the agent wanted to move through $e$ but the adversary removed it for the following round, the agent has to stay in vertex $v$. A byzantine vertex $b$ which agents can enter but never leave is called a black hole. We are now interested in finding a black hole in a dynamic graph. Specifically, we want to design algorithms that can locate a black hole in the shortest possible time while needing as few agents as possible.
+	\begin{definition}
+		If at the start of the black hole search all agents are located in a common vertex $v$, we say they are co-located.
+	\end{definition}
+	\begin{lemma}
+		Two co-located agents can not find the black hole in a 1-interval connected cycle.
+	\end{lemma}
+	\begin{lemma}
+		Three co-located agents can find the black hole in a 1-interval connected cycle in $\mathcal{O}(n^2)$ time.
+	\end{lemma}
+	\begin{definition}
+		A torus-graph is a $n\times n$ grid graph where the sides of the grid are identified with one another in the same way as in the topological construction of a torus. Let $G_{n\times n}$ be a grid graph on $n^2$ vertices and let $T_n$ be the corresponding torus graph. $T_n$ can be constructed from $G_{n \times n}$ by adding edges $(v_{1,j}, v_{n,j})$ and $(v_{i,1}, v_{i,n})$ between vertices in the top and bottom row (reps. left-most and right-most column). $T_n$ consists of $n$ row and $n$ column cycles.
+	\end{definition}
+	\begin{lemma}
+		A number of $n+2$ agents that are initially co-located ca find a single black hole in a 1-interval connected torus graph.
+	\end{lemma}
+	Switching back to static graphs, we can achieve better results.
+	\begin{theorem}
+		Two co-located agents can find the black hole asynchronously in a 2-connected static graph of known topology in $\mathcal{O}(n\log n)$. 
+	\end{theorem}
 \end{document}
