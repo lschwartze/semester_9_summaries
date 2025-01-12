@@ -503,4 +503,38 @@
 		\end{itemize}
 		Dann folgt: $\left|H\right|$ kann in polynomieller Zeit in $n, \frac{1}{\varepsilon}, \log \frac{1}{\delta}$ approximiert werden, wobei die Ungleichung aus Satz \ref{thm: dnf sat ineq} erfüllt ist.
 	\end{theorem}
+\section{Parametrisierte Algorithmen}
+	\begin{definition}
+		Ein parametrisiertes (Entscheidungs-) Problem ist ein Paar $(L,\Sigma)$ wobei \begin{enumerate}
+			\item $L \subseteq \Sigma^* \times \Sigma^*$ oder
+			\item $L \subseteq \Sigma^* \times \mathbb{N}$
+		\end{enumerate}
+	\end{definition}
+	\begin{example}
+		\label{bsp: FPT}
+		\begin{enumerate}
+			\item $L_1 = \{(G, k) \mid G \text{ hat ein Clique } \geq k\}$
+			\item $L_2 = \{(G,k) \mid G \text{ hat Maximalgrad } \Delta(G) = k \text{ und ist planar}\}$
+		\end{enumerate}
+	\end{example}
+	Für solche Probleme verwenden wir die Komplexitätsklasse FPT (Fixed Parameter Tractable). Solche Probleme sind algorithmisch lösbar in $\mathcal{O}(f(k)\cdot p(\left|x\right|))$ für ein Polynom $p$ und eine beliebige Funktion $f$ in $k$. $p$ ist unabhängig von $k$ und $f$ ist unabhängig von $n$. Für $L_1$ in Beispiel \ref{bsp: FPT} existiert ein Algorithmus mit Laufzeit $\mathcal{O}(n^kk^2)$, was die Definition für FPT nicht erfüllt. Tatsächlich ist unbekannt, ob $L_1\in$ FPT.
+	\begin{remark}
+		$P \subseteq FPT$.
+	\end{remark}
+	\subsection{Tiefenbeschränkte Suchbäume}
+	Wir führen diese Strategie anhand des Vertex Cover Problems ein. Dieses Problem lässt sich schreiben als $\{(G,k) \mid G \text{ hat ein VC der Größe } \leq k\}$.\\
+	Wir benötigen zuerst einen Suchbaum. Dieser besteht aus Knoten $(A,C)$ wobei $A$ ein Teilgraph von $G$ ist und $C \subseteq V$ mit $\left|C\right|\leq k$ eine Menge von Knoten ist. Die Strategie ist jetzt klar. Man berechnet alle möglichen Knotenmengen $C$ mit $\left|C\right|\leq k$ und dazugehörigen Teilgraphen $A = G-C$ und erhält ein Vertex Cover $C^*$, wenn ein Knoten $(A=(V_A,\varnothing), C^*)$ erreicht wird. Ansonsten existiert kein Vertex Cover der Größe $\leq k$.\\
+	Der Suchbaum beginnt in der Wurzel $(G,\varnothing)$ und jeder Kindknoten entsteht aus seinem Elternknoten indem ein $v \in V_A$ entfernt und zu $C_A$ hinzugefügt wird. Dieser Baum hat maximale Tiefe $k$ und damit höchstens $2^k$ Knoten. Die Berechnung eines Knoten im Suchbaum benötigt Laufzeit $n$ (wird ein Knoten entfernt, so auch alle inzidenten Kanten, das sind $\leq n-1$ viele). Zum Überprüfen, ob eine Knotenmenge $C_A$ ein Vertex Cover impliziert, benötigt Laufzeit $m$ (es muss überprüft werden, ob in $A$ jede Kante überdeckt wird). Die Laufzeit ist demnach $\mathcal{O}(2^k(n+m))$ und damit ist $VC \in FPT$.\\
+	
+	Ein weiteres Problem, das sich mit dieser Technik lösen lässt, ist Hitting Set. Dieses Problem beruht auf einer endlichen Menge $S = \{a_1,a_2,...,a_n\}$ und einem Mengensystem $\mathcal{P}(S)\supseteq F = \{X_1,X_2,...,X_m\}$. Die Frage ist, ob es eine Menge $H \subseteq S$ mit $\left|H\right| \leq k$ gibt, sodass $H\cap X_i \neq \varnothing$ $\forall i \in [m]$. Dafür nehmen wir außerdem an, dass $\left|X_i\right| \leq d$ für alle $i$.\\
+	Wir konstruieren wieder den Suchbaum. Die Knoten sind in diesem Fall $(F',H)$, wobei $F' = \{X_1',X_2',...,X_l'\} \subseteq F$ und $H \subseteq S$. Die Wurzel ist wieder $(F,\varnothing)$ und aus einem Knoten $(F',H)$ entstehen seine Kinder, indem ein Element $a' \in S\setminus H$ gewählt wird und $F'' = F' \setminus \{X_j \mid a' \in X_j\}$ und $H' = H \cup \{a'\}$ berechnet wird. Es existiert ein Hitting Set $H^*$ mit $\left|H^*\right|\leq k$ genau dann, wenn es einen Knoten $(\varnothing, H^*)$ gibt. Der Suchbaum hat höchstens $d^k$ Knoten und daher ein Laufzeit von $\mathcal{O}(d^k\cdot p(n,m))$.\\
+	
+	Als letztes Beispiel für diese Technik betrachten wir Independent Sets auf planaren Graphen. Wir benötigen dafür zwei einfache Resultate.
+	\begin{lemma}
+		In einem planaren Graphen $G$ mit $n$ Knoten, $m$ Kanten und $f$ Regionen gilt $n-m+f = 2$.
+	\end{lemma}
+	\begin{lemma}
+		In einem planaren Graphen $G$ gibt es einen Knoten von Grad $\leq 5$.
+	\end{lemma}
+	Der Suchbaum besteht nun aus Knoten $(H,S)$ mit planaren Teilgraphen $H$ und $S \subseteq V$. Die Wurzel ist $(G,\varnothing)$. Für jeden inneren Knoten wählen wir ein $v \in V_H$ von Grad höchstens 5 und wir konstruieren die Kinder, indem entweder $v$ oder einer seiner Nachbarn in das IS hinzugefügt wird und dieser Knoten mit allen seinen Nachbarn aus $H$ entfernt wird. Es folgt daher, dass der Suchbaum Maximalgrad 6 hat. Gibt es ein IS der Größe mindestens $k$, so muss entweder $v$ oder einer seiner Nachbarn darin enthalten sein und daher ist eine der 6 Optionen richtig. In so einem Fall gibt es also einen Knoten $(\varnothing, S^*)$ im Suchbaum und $S^*$ ist in Independent Set der Größe $k$. Die Größe des Baumes ist beschränkt durch $6^k$, also erreicht man eine Laufzeit von $\mathcal{O}(6^k p(n))$.
 \end{document}

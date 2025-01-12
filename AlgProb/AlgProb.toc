@@ -23,3 +23,5 @@
 \contentsline {subsection}{\numberline {3.5}$\Delta $-TSP}{18}{}%
 \contentsline {subsection}{\numberline {3.6}PCP Theorem}{19}{}%
 \contentsline {subsection}{\numberline {3.7}\#DNF-SAT}{19}{}%
+\contentsline {section}{\numberline {4}Parametrisierte Algorithmen}{22}{}%
+\contentsline {subsection}{\numberline {4.1}Tiefenbeschränkte Suchbäume}{22}{}%
