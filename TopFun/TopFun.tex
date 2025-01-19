@@ -390,12 +390,12 @@
 	\end{lemma}
 	\begin{theorem}
 		\begin{enumerate}
-			\item Sei $\alpha: [0,1] \to X$ ein Pfad mit Anfangspunkt $x_0 = \alpha(0) \in X$ und $\tilde{x_0} \in p^{-1}(x_0)$. Dann gibt es einen eindeutig bestimmten Lift $\tilde{\alpha}_ [0,1] \to \tilde{X}$ mit $\tilde{\alpha}(0) = \tilde{x_0}$.
+			\item Sei $\alpha: [0,1] \to X$ ein Pfad mit Anfangspunkt $x_0 = \alpha(0) \in X$ und $\tilde{x_0} \in p^{-1}(x_0)$. Dann gibt es einen eindeutig bestimmten Lift $\tilde{\alpha}: [0,1] \to \tilde{X}$ mit $\tilde{\alpha}(0) = \tilde{x_0}$.
 			\item Seien $\alpha, \beta: [0,1] \to X$ zwei Pfade mit $x_0 = \alpha(x_0) = \beta(0)$, $\tilde{x_0} \in p^{-1}(x_0)$ und $\tilde{\alpha}, \tilde{\beta}$ die Lifts mit $\tilde{\alpha}(0) = \tilde{\beta}(0) = \tilde{x_0}$. Falls $\alpha \cong \beta$, so gilt auch $\tilde{\alpha} \cong \tilde{\beta}$, insbesondere also \[\tilde{\alpha}(1) = \tilde{\beta}(1)\]
 		\end{enumerate}
 	\end{theorem}
 	\begin{corollary}
-		Sei $p: \tilde{X} \to X$ eine Überlagerung, $\tilde{x_0}, \tilde{x_1} \in \tilde{X}$, $x_i = p(\tilde{x_i})$. Dann ist \[p_*: \pi_1(\tilde{X},; \tilde{x_0}, \tilde{x_1}) \to \pi_1(X;x_0,x_1)\] injektiv. Insbesondere ist $p_*:\pi_1(\tilde{X}, \tilde{x_0}) \to \pi_1(X;x_0)$ ist ein injektiver Gruppenhomomorphismus.
+		Sei $p: \tilde{X} \to X$ eine Überlagerung, $\tilde{x_0}, \tilde{x_1} \in \tilde{X}$, $x_i = p(\tilde{x_i})$. Dann ist \[p_*: \pi_1(\tilde{X}; \tilde{x_0}, \tilde{x_1}) \to \pi_1(X;x_0,x_1)\] injektiv. Insbesondere ist $p_*:\pi_1(\tilde{X}, \tilde{x_0}) \to \pi_1(X;x_0)$ ist ein injektiver Gruppenhomomorphismus.
 	\end{corollary}
 	\begin{theorem}
 		Sei $X$ zusammenhängend und lokal einfach zusammenhängend, $x_0 \in X$. Für eine zusammenhängende Überlagerung $p: \tilde{X} \to X$, $\tilde{x_0} \in p^{-1}(x_0)$ sei \[H_{p,\tilde{x_0}} = p_*\pi_1(\tilde{X}, \tilde{x_0}) \subseteq \pi_1(X,x_0)\]
@@ -404,4 +404,27 @@
 			\item Untergruppen von $\pi_1(X,x_0)$ bis auf Konjugation $H \sim \alpha^{-1} H \alpha$.
 		\end{enumerate}
 	\end{theorem}
+	\begin{theorem}
+		Sei $p: \tilde{X} \to X$ eine Überlagerung und $f:Y\to X$ stetig. Sei $Y$ zusammenhängend und lokal wegzusammenhängend. Sei $y_0 \in Y$, $x_0 = f(y_0)$ und $\tilde{x_0} \in p^{-1}(x_0)$. Dann sind äquivalent:
+		\begin{itemize}
+			\item Es existiert ein Lift $\tilde{f}: Y \to \tilde{X}$ mit $\tilde{f}(y_0) = \tilde{x_0}$
+			\item $f_* \pi_1(Y;y_0) \subseteq p_*\pi_1(\tilde{X},\tilde{x_0})$
+		\end{itemize}
+	\end{theorem}
+	Sei $G$ eine Gruppe, $X$ eine Menge. Eine Wirkung von $G$ auf $X$ (von rechts) ist eine Abbildung \[X\times G \to X\] mit \[(x,g) \mapsto x\cdot g\] sodass \[x\cdot 1 = x, \; (x \cdot g) \cdot h = x \cdot (gh) \; \forall x \in X, g,h \in G\]
+	Eine $G$-Menge ist eine Menge $X$ mit einer Wirkung von $G$. Wir definieren uns \[SET_G = \text{ Kategorie der $G$-Menge}\]
+	Sei $X$ ein topologischer Raum, $x_0 \in X$. Für eine Überlagerung $p: \tilde X \to X \in Cov(X)$ schreibe \[F_{x_0}(p) = p^{-1}(x_0) \ni \tilde{x_0}\]
+	Sei $\alpha : [0,1] \to X$ ein geschlossener Weg mit Basispunkt $x_0$, $\tilde{\alpha}$ der Lift von $\alpha$ mit Anfangspunkt $\tilde{\alpha}(0) = \tilde{x_0}$. Setze \[\tilde{x_0}^\alpha = \tilde{\alpha}(1)\]
+	\begin{lemma}
+		\begin{enumerate}
+			\item $(\tilde{x_0},[x]) \mapsto \tilde{x_0}^\alpha$ definiert eine Wirkung von $\pi_1(X;x_0)$ auf $F_{x_0}(p)$
+			\item Sei $q:\tilde Y \to X$ eine weitere Überlagerung. Dann ist die induzierte Abbildung $f|_{F_{x_0}(p)}: F_{x_0}(p) = p^{-1}(x_0) \to F_{x_0}(p) = q^{-1}(x_1)$ $\pi_1(X;x_0)$-äquivariant.
+ 		\end{enumerate}
+	\end{lemma} 
+	\begin{remark}
+		Die Aussage des Lemmas ist, dass \[F_{x_0}: \begin{cases}
+			Cov(X) \to SET_{\pi_1(X\;x_0)},\\
+			(p: \tilde X \mapsto x) \mapsto F_{x_0}(p)
+		\end{cases}\] ein kovarianter Funktor ist (Faserfunktor auf $X$ in $x_0$). 
+	\end{remark}
 \end{document}

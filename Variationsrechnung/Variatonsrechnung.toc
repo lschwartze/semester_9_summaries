@@ -19,3 +19,6 @@
 \contentsline {subsection}{\numberline {7.4}The Dirichlet problem on the disk}{18}{}%
 \contentsline {section}{\numberline {8}Solution of the Plateau Problem}{20}{}%
 \contentsline {section}{\numberline {9}A reaction-diffusion equation}{21}{}%
+\contentsline {section}{\numberline {10}The mountain pass problem}{21}{}%
+\contentsline {subsection}{\numberline {10.1}The Palais-Smale Condition}{21}{}%
+\contentsline {subsection}{\numberline {10.2}A deformation Lemma in $H$}{22}{}%

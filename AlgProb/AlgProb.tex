@@ -537,4 +537,58 @@
 		In einem planaren Graphen $G$ gibt es einen Knoten von Grad $\leq 5$.
 	\end{lemma}
 	Der Suchbaum besteht nun aus Knoten $(H,S)$ mit planaren Teilgraphen $H$ und $S \subseteq V$. Die Wurzel ist $(G,\varnothing)$. Für jeden inneren Knoten wählen wir ein $v \in V_H$ von Grad höchstens 5 und wir konstruieren die Kinder, indem entweder $v$ oder einer seiner Nachbarn in das IS hinzugefügt wird und dieser Knoten mit allen seinen Nachbarn aus $H$ entfernt wird. Es folgt daher, dass der Suchbaum Maximalgrad 6 hat. Gibt es ein IS der Größe mindestens $k$, so muss entweder $v$ oder einer seiner Nachbarn darin enthalten sein und daher ist eine der 6 Optionen richtig. In so einem Fall gibt es also einen Knoten $(\varnothing, S^*)$ im Suchbaum und $S^*$ ist in Independent Set der Größe $k$. Die Größe des Baumes ist beschränkt durch $6^k$, also erreicht man eine Laufzeit von $\mathcal{O}(6^k p(n))$.
+	\subsection{Reduktion auf den Problemkern}
+	Die Idee ist es, eine Probleminstanz $I$ der Größe $\left|I\right| = n$ auf eine kleinere Instanz $I'$ der Größe $\left|I'\right| \leq f(k)$ zu reduzieren. Dieses Problem ist dann nur noch abhängig vom Parameter $k$. Wir demonstrieren dieses Verfahren anhand des Vertex Cover Problems.\\
+	Gegeben sei $G = (V,E)$. Gesucht ist ein Vertex Cover $H$ der Größe $\leq k$. Bemerke: gibt es $u \in V(G)$ mit $d(u) > k$, dann ist $u \in H$. Darauf basiert der folgende Algorithmus:
+	\begin{enumerate}
+		\item PHASE 1:
+		\item Sei $H = \{v \in V \mid d(v) > k\}$
+		\item if $\left|H\right| > k$: es gibt ein VC der Größe $\leq k$
+		\item else: $G' = G \setminus H$, $k' = k - \left|H\right|$.
+		\item PHASE 2:
+		\item if $\left|E(G')\right| > k\cdot k'$: es gibt kein VC der Größe $\leq k$
+		\item PHASE 3:
+		\item Suche ein VC der Größe $\leq k'$ in $G'$
+	\end{enumerate}
+	Die Laufzeit dieses Algorithmus kann mittels Implementierung durch Adjazenzlisten auf $\mathcal{O}(kn + k^22^k)$ gehalten werden.
+	
+	Als zweites Beispiel betrachten wir das 3-Hitting Set Problem. Hierbei handelt es sich um einen Spezialfall des Hitting Set Problems mit $\left|X_j\right| \leq 3 \; \forall X_j \in F$. Wir machen folgende Beobachtgungen:
+	Ist $H$ ein Hitting Set so gelten 
+	\begin{itemize}
+		\item Falls es $>k$ Tupel $X_j$ der Art $\{x,y,*\}$ gibt und $\exists H$ Hitting Set mit $\left|H\right| \leq k$ folge $x \in H$ oder $y \in H$. In $F$ ersetzen wir daher alle Tupel $\{x,y,*\}$ durch $\{x,y\}$. (HS1)
+		\item Falls $x$ Element von $>k^2$ Tupeln $X_j$ entfernen wir diese aus $F$ und ergänzen $x$ zu $H$. (HS2)
+	\end{itemize}
+	Nach diesen beiden Reduktionen gibt es für jedes $x \in S$ höchstens $k^2$ Tupel, die $x$ enthalten. Ein Algorithmus könnte nun die Instanz durch die beiden obigen Regeln reduzieren und anschließend mittels Suchbaum eine Lösung finden. Das geschieht in Laufzeit $\mathcal{O}(p(m) + 3^kk^3)$.
+	
+	Ein letztes Beispiel für die Reduktion ist das Feedback Vertex Set. Gegeben ein Multigraph $G$, $F \subseteq V$ ist ein Feedback Vertex Set, wenn $G-F$ ein Baum ist. Die Frage ist nun, ob ein FVS $F$ der Größe $\leq k$ existiert. Wie im vorherigen Beispiel gehen wir dafür eine Reihe von Regeln durch. Sei initial $H=\varnothing$.
+	\begin{enumerate}
+		\item Falls es eine Schleife (d.h. $(v,v) \in E(G)$) gibt, setze $H=H\cup \{v\}, k=k-1$ (FVS1)
+		\item Hat eine Kante $e$ Multiplizität $l>2$, entferne $l-2$ Kopien davon (FVS2)
+		\item Falls es einen Knoten $v$ mit $d(v) \leq 1$ gibt, $G = G-v$ (FVS3)
+		\item Gibt es einen Knoten $v$ mit $d(v) = 2$, kontrahiere eine der beiden zu $v$ inzidenten Kanten (FVS4)
+		\item Ist $k<0$, so existiert kein FVS der Größe $\leq k$.
+	\end{enumerate}
+	Nach Anwendung aller 5 Regeln hat jeder Knoten in $G'$ Grad $\geq 3$. sei $V_{3k} = {v_1,v_2,...,v_{3k}}$ die Menge der $3k$ Knoten mit höchstem Grad. Falls es in $G'$ ein FVS $F$ mit $\left|F\right| \leq k$ gibt, so gilt $V_{3k} \cap F \neq \varnothing$. An dieser Stelle kann wieder ein Suchbaum mit beschränkter Tiefe angewandt werden und man erhält einen Lösung für das FVS Problem in Laufzeit $\mathcal{O}(p(n)(3k)^k)$. Dafür benötigen wir aber noch zwei Lemmata.
+	\begin{lemma}
+		Ist $F$ ein FVS in $G=(V,E)$, so ist \[\sum_{v \in F} (d(v)-1) \geq \left|E\right|-\left|V\right|+1\]
+	\end{lemma} 
+	\begin{lemma}
+		Jedes $FVS$ $F$ in $G'$ enthält mindestens einen Knoten in $V_{3k}$.
+	\end{lemma}
+	\subsection{Kronenzerlegung}
+	Hierbei handelt es sich um eine andere Methode, Probleme auf den Problemkern zu reduzieren. Das geschieht mittels einer Graphenzerlegung.
+	\begin{definition}
+		Für einen ungerichteten Graphen $G$ ist eine Kronenzerlegung eine Partition der Knotenmenge \[V = K \dot \cup H \dot \cup H \dot \cup R\] sodass \begin{enumerate}
+			\item $K \neq \varnothing$ ist eine unabhängige Menge
+			\item es gibt ein Matching von $H$ und $K$, das $H$ komplett überdeckt
+			\item $H$ trennt $K$ und $R$
+		\end{enumerate}
+	\end{definition}
+	\begin{theorem}
+		In bipartiten Graphen $G$ gilt \[\min\{\left|C\right| \mid C \text{ vertex cover}\} = \max\{\left|M\right| \mid M \text{ matching}\}\]
+	\end{theorem}
+	\begin{lemma}
+		Es gibt einen Algorithmus für das folgende Problem auf Graphen mit mehr als $3k$ Knoten:\\
+		Berechne Kronenzerlegung oder ein Matching der Größe mindestens $k+1$.
+	\end{lemma}
 \end{document}

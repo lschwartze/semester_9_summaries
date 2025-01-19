@@ -446,4 +446,57 @@
 	\begin{remark}
 		$u\equiv 0$ is a weak solution. For sufficiently small $\lambda$ there are other weak solutions.
 	\end{remark}
+\section{The mountain pass problem}
+	\subsection{The Palais-Smale Condition}
+	Let $H$ be a Hilbert space on $\mathbb{R}$. We denote the scalar product by $\langle \cdot , \cdot \rangle$. We use the usual definition of Fréchet-differentiability.
+	\begin{definition}
+		Let $E \in C^1(H;\mathbb{R})$. If $E$ is  Fréchet-differentiable at $u$ $\forall u \in H$ and the map \[\begin{cases}
+			E': H \to L(H; \mathbb{R})\\
+			u \mapsto E'(u)
+		\end{cases}\]
+	is continuous 
+	\end{definition}	
+	\begin{definition}
+		Let $E \in C^1(H;\mathbb{R})$. \begin{enumerate}
+			\item A sequence $(u_k)_{k \in \mathbb{N}} \subset H$ is called a Palais-Smale sequence for $E$ if \begin{itemize}
+				\item $\exists \lim_{k \to \infty} E(u_k)$
+				\item $\exists \lim_{k \to \infty} \left|\left|\nabla E(u_k)\right|\right|_H = 0$ 
+			\end{itemize}
+		\item $E$ satisfies a Palais-Smale condition if every Palais-Smale sequence admits a convergent subsequence (w.r.t. the norm in $H$).
+		\end{enumerate}
+	\end{definition}
+	\begin{definition}
+		Let $E \in C^1(H;\mathbb{R})$. For $\beta \in \mathbb{R}$, $\delta > 0$, $\varrho > 0$, define \[K_\beta = \{u \in H \mid E(u) = \beta \land \nabla E(u) = 0\}\]
+		\[E_\beta = \{u \in H \mid E(u) < \beta\}\]
+		\[N_{\beta, s} = \{u \in H \mid \left|E(u) - \beta\right| < \delta \land \left|\left|\nabla E(u)\right|\right| < \delta\}\]
+		\[U_{\beta, \varrho} = \{u \in H \mid \exists r \in K_\beta : \; \left|\left|u-v\right|\right|_H < \varrho\} = \bigcup_{u \in K_\beta} B_\varrho(u)\]
+	\end{definition}
+	\begin{lemma}
+		Let $E \in C^1(H;\mathbb{R})$ that satisfies the Palais-Smale condition. Then for $\beta \in \mathbb{R}$ \begin{enumerate}
+			\item $K_\beta$ is compact
+			\item $(N_{\beta,\delta})_{\delta > 0}$ is a neighbourhood basis of $k_\beta$, i.e. Let $U$ open s.t. $U\supset K_\beta$ then $\exists \delta > 0$ s.t. $U\supset N_{\beta, \delta}$
+			\item $(U_{\beta, \varrho})_{\varrho > 0}$ is a neighbourhood basis of $K_\beta$.
+		\end{enumerate}
+	\end{lemma}
+	\subsection{A deformation Lemma in $H$}
+	PROBLEM: In $\mathbb{N}^n$, we could use uniform continuity on compact sets. This no longer holds.\\
+	SOLUTION I: Take a deformation $\frac{\partial}{\partial t} \Phi(x,t) \approx -\nabla E(\Phi(x,t))$. This however requires $E \in C^{1,1}$.\\
+	SOLUTION II: This works for $e \in C^1$. 
+	\begin{definition}
+		Let $X$ be a topological space. \begin{enumerate}
+			\item a covering $(U_i)_{i \in I}$ is a refinement of a cover $(V_j)_{j \in J}$ if $\forall i \in I$ $\exists j \in J$ such that $U_i \subset V_j$.
+			\item a covering of $X$ is called locally finite if $\forall x \in X$ $\exists U$ neighbourhood of $X$ such that $U \cap U_i \neq \varnothing$ for finitely many $i$.
+			\item $X$ is called para-compact if $X$ is Hausdorff and to any open covering $X$ there exists a locally finite refinement.
+		\end{enumerate}
+	\end{definition}
+	\begin{theorem}
+		Every metrizable topological space is paracompact.
+	\end{theorem}
+	\begin{definition}
+		Let $E \in C^1(H;\mathbb{R})$, $\tilde{H} = \{u \in H \mid \nabla E(u) \neq 0\}$. Then $G: \tilde{H} \to H$ is a locally Lipschitz map is pseudogradient for $E$ if $\forall u \in \tilde{H}$ it holds that \[\left|\left|G(u)\right|\right|_h < 2 \min\{1,\left|\left|\nabla E(u)\right|\right|_H\}\]
+		\[\langle G(u), \nabla E(u)\rangle > \frac{1}{2} \min\{1,\left|\left|\nabla E(u)\right|\right|_H\} \left|\left|\nabla E(u)\right|\right|\]
+	\end{definition}
+	\begin{theorem}
+		Let $E \in C^1(H;\mathbb{R}$), $\tilde{H}$ as above, then $E$ admits a pseudogradient $G: \tilde{H} \to H$
+	\end{theorem}
 \end{document}
