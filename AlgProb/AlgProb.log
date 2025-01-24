@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  16 JAN 2025 11:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  20 JAN 2025 13:37
 entering extended mode
 **./AlgProb.tex
 (AlgProb.tex
@@ -297,7 +297,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 529--531
 
  []
 
-[23] [24] [25] [26] (AlgProb.aux) ) 
+[23] [24] [25]
+Underfull \hbox (badness 10000) in paragraph at lines 594--596
+
+ []
+
+[26]
+Overfull \hbox (5.37534pt too wide) in paragraph at lines 610--611
+\OT1/cmr/bx/n/12 Lemma 4.14. []$\OT1/cmr/m/n/12 $ \OT1/cmr/m/it/12 ist vererb-
+bar genau dann, wenn $\OT1/cmr/m/n/12 $ \OT1/cmr/m/it/12 mit-tels ver-botener 
+Teil-graphen charark-
+ []
+
+[27] (AlgProb.aux) ) 
 Here is how much of TeX's memory you used:
  2912 strings out of 479322
  39848 string characters out of 2856609
@@ -305,6 +317,6 @@ Here is how much of TeX's memory you used:
  20359 multiletter control sequences out of 15000+600000
  415570 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,13n,74p,1065b,234s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 67i,13n,74p,1817b,234s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on AlgProb.dvi (27 pages, 108224 bytes).
+Output written on AlgProb.dvi (28 pages, 114472 bytes).

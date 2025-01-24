@@ -499,4 +499,33 @@
 	\begin{theorem}
 		Let $E \in C^1(H;\mathbb{R}$), $\tilde{H}$ as above, then $E$ admits a pseudogradient $G: \tilde{H} \to H$
 	\end{theorem}
+	\begin{theorem}
+		Let $E \in C^1(H)$ satisfy the PS condition. Let $\beta \in \mathbb{R}$, $\varepsilon_0 > 0$ and $N$ be a neighbourhood of $K_\beta = \{u \in H \mid E(u) = \beta \land \nabla E(u) = 0\}$ (note that $K_\beta = \varnothing, N = \varnothing$ are fine as well).\\
+		The $\exists \varepsilon \in (0,\varepsilon_0)$ and a continuous family of homeomorphisms $\Phi(t,\cdot): H \to H$, $t \in \mathbb{R}$ such that \begin{enumerate}
+			\item $\Phi(t,u) = u$ if $t=0$ or $\nabla E(u) = 0$ or $\left|E(u) - \beta\right| \geq \varepsilon_0$.
+			\item $\forall v \in H$ it holds that $t \mapsto E(\Phi(t,u))$ is non-increasing
+			\item $\Phi(1,E_{\beta+\varepsilon}\setminus N) \subset E_{\beta - \varepsilon}$ and $\Phi(1,E_{\beta + \varepsilon}) \subset E_{\beta - \varepsilon} \cup N$ where $E_\alpha = \{u \in H \mid E(u) < \alpha\}$
+		\end{enumerate}
+		Moreover \[\Phi(t,\cdot) \circ \Phi(s,\cdot) = \Phi(t+s, \cdot)\]
+	\end{theorem}
+	\subsection{Mountain Pass Theorem}
+	\begin{theorem}
+		Let $H$ be a Hilbert space, $E \in C^1(H)$ satisfy the PS condition. Moreover, assume \begin{enumerate}
+			\item $E(0)=0$
+			\item $\exists \varrho>0, \exists \alpha > 0$ s.t. \[||u||_H = \varrho \Rightarrow E(u) \geq \alpha\]
+			\item $\exists u_1 \in H$, $||u_1||_H > \varrho$ s.t. $E(u_1) < \alpha$
+		\end{enumerate}
+		Let $P = \{p \in C^0([0,1];H)$ s.t. $p(0) = 0, p(1) = u_1\}$ and $\beta = \inf_{p \in P}\sup_{u \in p} E(u) \geq \alpha$. Then $\beta$ is a critical value of $E$, i.e. $\exists u_{crit}$ critical point of $E$ s.t. $E(u_{crit}) = \beta$.
+	\end{theorem}
+	\subsection{An application}
+	Let $\Omega \subset \mathbb{R}^n$ be a bounded, smooth domain, $n \geq 3$. $g: \Omega \times \mathbb{R} \to \mathbb{R}$ be a continuous function s.t. \[\exists c > 0, p \in (1,\frac{n+2}{n-2}): \; \left|g(x,t)\right| \leq c (1+\left|t\right|^p)\]
+	The aim is to show existence of a non-trivial weak solution to \[\begin{cases}
+		-\Delta u = g(x,u) & \text{ in } \Omega\\
+		u \equiv 0 & \text{ on } \partial \Omega
+	\end{cases}\]
+	If $g(x,0) = 0$ $\forall x$, then 0 is a weak solution.
+	Let $G: \Omega\times \mathbb{R} \to \mathbb{R}$ such that \[G(x,t) = \int_0^t g(x,s) ds\] and $e: W^{1,2}_0(\Omega) \to \mathbb{R}$ s.t. \[E(u) = \frac{1}{2}\int_\Omega \left|\nabla u\right|^2 - \int_\Omega G(x,u) dx\]
+	\begin{lemma}
+		$E \in C^1(W^{1,2}_0(\Omega);\mathbb{R})$ with \[DE(u)(\varphi) = \int_\Omega \nabla u \cdot \nabla \varphi - \int_\Omega g(x,u)\varphi dx\] for $u,\varphi \in W^{1,2}_0(\Omega)$.
+	\end{lemma}
 \end{document}

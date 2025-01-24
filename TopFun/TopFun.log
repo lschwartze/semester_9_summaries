@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  13 JAN 2025 11:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  20 JAN 2025 11:35
 entering extended mode
 **./TopFun.tex
 (TopFun.tex
@@ -271,14 +271,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 358--360
 
  []
 
-[12] [13] [14] (TopFun.aux) ) 
+[12] [13] [14] [15] [16] (TopFun.aux) ) 
 Here is how much of TeX's memory you used:
- 2899 strings out of 479322
- 39627 string characters out of 2856609
+ 2903 strings out of 479322
+ 39665 string characters out of 2856609
  356441 words of memory out of 3000000
- 20348 multiletter control sequences out of 15000+600000
- 413621 words of font info for 67 fonts, out of 8000000 for 9000
+ 20350 multiletter control sequences out of 15000+600000
+ 414322 words of font info for 69 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,9n,74p,535b,269s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 67i,9n,74p,535b,276s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on TopFun.dvi (15 pages, 56440 bytes).
+Output written on TopFun.dvi (17 pages, 62564 bytes).

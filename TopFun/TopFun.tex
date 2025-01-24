@@ -427,4 +427,45 @@
 			(p: \tilde X \mapsto x) \mapsto F_{x_0}(p)
 		\end{cases}\] ein kovarianter Funktor ist (Faserfunktor auf $X$ in $x_0$). 
 	\end{remark}
+	\begin{theorem}
+		Sei $X$ zusammenhängend und lokal einfach zusammenhängend. DAnn ist $\forall x_0 \in X$ der Funktor \[F_{x_0} = \begin{cases}
+			Cov(X) \to SET_{\pi_1(X,x_0)}\\
+			(p: \tilde{X} \to X) \mapsto F_{x_0}(p) = p^{-1}(x_0)
+		\end{cases}\]
+		eine Äquivalenz von Kategorien. Das bedeutet \begin{enumerate}
+			\item $F_{x_0}$ ist volltreu, d.h. für $p_1: \tilde{X}_1 \to X$, $p_2: \tilde{X}_2 \to X$ ist die natürliche Abbildung \[HOM_X(\tilde{X}_1, \tilde{X}_2) \to HOM_{\pi_1(X,x_0)}(p^{-1}(x_0),p_2^{-1}(x_0))\] bijektiv.
+			\item $F_{x_0}$ ist essentiell surjektiv. Das bedeutet für alle $A \in SET_{\pi_1(X,x_0)}$ gibt es ein $p:\tilde{X} \to X \in Cov(X)$ mit \[p^{-1}(x_0) \cong A\]
+		\end{enumerate}
+	\end{theorem}
+	\begin{corollary}
+		Wir haben ein Bijektion \[\{\text{Überlagerung } p: \tilde{X} \to X\} / \cong \tilde{\rightarrow} \{\text{Mengen } A \text{ mit Wirkung von } \pi_1(X,x_0)\} / \cong \]
+		\[(p: \tilde{X} \to X) \mapsto p^{-1}(x_0)\]
+	\end{corollary}
+	\begin{corollary}
+		Sei $p: \tilde{X} \to X$ eine zusammenhängende Überlagerung, $x_0 \in X, \tilde{x_0} \in p^{-1}(x_0)$, $H_{p,\tilde{x}_0} := p*\pi_1(\tilde{X}, \tilde{x}_0) \subseteq \pi_1(X,x_0)$, \[[H_{p,\tilde{x}_0}] = \{\alpha H_{p,\tilde{x}_0} \alpha^{-1} \mid \alpha \in \pi_1(X,x_0)\}\] die Menge der konjugierten Klassen.
+		\begin{enumerate}
+			\item $[H_{p,\tilde{x}_0}]$ hängt von $p$ aber nicht von $\tilde{x}_0$
+			\item Die Zuordnung $p:\tilde{X} \to X \mapsto [H_{p,\tilde{x}_0}]$ ist eine Bijektion zwischen \begin{itemize}
+				\item zusammenhängenden Überdeckungen von $X$ bis auf Isomorphismus
+				\item Untergruppen von $\pi_1(X,x_0)$ bis auf Konjugieren
+			\end{itemize}
+		\end{enumerate}
+	\end{corollary}
+	\begin{corollary}
+		Sei $X$ wie im Hauptsatz. Dann gibt es eine bis auf Isomorphie eindeutige Überlagerung $p^{univ}:X^{univ} \to X$ (universelle Überlagerung), sodass $X^{univ}$ einfach zusammenhängend ist. Zusätzlich gilt \begin{enumerate}
+			\item Für alle $\tilde{x}_0 \in (p^{univ})^{-1}(x_0)$ haben wir eine Bijektion \[\begin{cases}
+				\pi_1(X,x_0) \tilde{\rightarrow} (p^{univ})^{-1}(x_0)\\
+				\alpha \mapsto \tilde{x}_0^\alpha
+			\end{cases}\]
+		\item Wir haben einen kanonischen Antiisomorphismus \[\Phi = \begin{cases}
+			\pi_1(X,x_0) \tilde{\rightarrow} AUT_X(X^*)\\
+			\alpha \mapsto \Phi_\alpha
+		\end{cases}\]
+		sodass für $\tilde{x}_0 \in (p^{univ})^{-1}(x_0)$ gilt $\Phi_\alpha(\tilde{x_0}) = \tilde{x}_0^\alpha$.
+		\item Sei $p:\tilde{X} \to X$ eine zusammenhängende Überlagerung, $H = \Phi(H_{p,\tilde{x}_0})$. Dann ist $\tilde{X} \cong X^{univ} / H$.
+		\end{enumerate}
+	\end{corollary}
+	\begin{lemma}
+		Sei $X$ zusammenhängend und lokal einfach zusammenhängend. Dann gibt es eine Überlagerung $p: \tilde{X} \to X$ sodass $\tilde{X}$ einfach zusammenhängend ist.
+	\end{lemma}
 \end{document}

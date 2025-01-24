@@ -591,4 +591,22 @@
 		Es gibt einen Algorithmus für das folgende Problem auf Graphen mit mehr als $3k$ Knoten:\\
 		Berechne Kronenzerlegung oder ein Matching der Größe mindestens $k+1$.
 	\end{lemma}
+	Wir zeigen nun, wie die Kronenzerlegung verwendet werden kann, um ein Vertex Cover zu bestimmen. Wir nehmen im Sinne des vorherigen Lemmas an, dass die Instanz $G$ keine isolierten Knoten besitzt. Ist $\left|V\right| <3k$, so ist $G$ bereits auf den Problemkern reduziert. Wir nehmen daher an, dass $\left|V\right| \geq 3k$.\\
+	Wir verwenden den Algorithmus aus dem vorherigen Lemma und erhalten daher entweder ein Matching $m$ mit $\left|M\right|\geq k$ oder eine Kronenzerlegung. Im ersten Fall gilt aufgrund des Satzes von König, dass kein $k$-Vertex Cover existiert. Im zweiten Fall, wenn es eine Kronenzerlegung $V = K\cup H \cup R$ gibt, so muss ein Vertex Cover $C$ jede Kante vom Matching von $H$ in $K$ überdecken. Es ist immer günstiger, von solchen Kanten den Knoten aus $H$ zu wählen. Daher können wir die Reduktion $(G',k') = (G\setminus H, k - \left|H\right|)$ anwenden.\\
+	
+	Ein weiteres Beispiel für diese Reduktion ist die Duale Färbung. Bemerke, dass sich normale Knotenfärbungen nicht FPT-parametrisieren lassen, da bereits das 3-Färbbarkeitsproblem NP-vollständig ist. Bei Problem der Dualen Färbung, wollen wir einen Graphen in $n-k$ Farben färben, statt in $k$. Dieses Problem ist in FPT. Wir benötigen für die folgenden Überlegungen den Komplementärgraphen $\bar{G}$ von $G$. Wir können annehmen, dass $G$ keine universellen Knoten hat, da diese eine eigene Farbe benötigen und wir diese daher entfernen können. Daher hat $\bar{G}$ keine isolierten Knoten. Falls $G$ höchstens $3k$ Knoten hat, so ist das Problem bereits reduziert. Wir nehmen daher an $\left|V\right| \geq 3k$. Das selbe gilt natürlich für $\bar{G}$. Wir wenden wieder das Lemma an, diesmal auf $\bar{G}$. Angenommen, es gibt ein Matching $\left|M\right| \geq k+1$. Fpr eine Matching Kante $(u,v)$ in $\bar{G}$, gilt also, dass $(u,v) \notin E(G)$ und daher können die Knoten mit der selben Farbe gefärbt werden. Deshalb können wir $k+1$ Farben für mindestens 2 Knoten verwende und der Graph ist $n-k$-färbbar. Im zweiten Fall erhalten wir ein Kronenzerlegung $V = K\cup H \cup R$ für $\bar{G}$. Wir reduzieren $(G,k)$ wiederum auf $(G',k')$ wobei $G' = G \setminus (K\cup H)$ und $k' = k - \left|H\right|$. Die Korrektheit dieser Regel folgt, weil $K$ eine unabhängige Menge in $\bar{G}$ und daher eine Clique in $G$ ist. Diese Knoten benötigen daher paarweise verschiedene Farben. Die Knoten in $R$ müssen mit jeweils anderen Farben gefärbt werden, da $K$ und $R$ in $\bar{G}$ keine Kanten teilen und in $G$ daher vollständing mit einander verbunden sind. Mit einer ähnlichen Argumentation können aber die Knoten in $H$ mit den Farben von $K$ gefärbt werden.
+	\subsubsection{Graphenmodifikationsproblem}
+	Beim $H_{i,j,k}$ Graphenmodifikationsproblem handelt es sich um eine weitere Anwendung des Reduktion auf den Problemkern.
+	\begin{definition}
+		Sei $U \subseteq V$ eine Teilmenge der Knoten. Wir bezeichnen mit $G[U]$ den von $U$ induzierten Teilgraphen.
+	\end{definition}
+	\begin{definition}
+		Eine Grapheneigenschaft $\Pi$ ist eine Menge von Graphen. $G \in \Pi$ heißt $\Pi$-Graph. $\Pi$ heißt vererbbar, falls jeder induzierte Teilgraph von $G$ die Eigenschaft auch erfüllt. Ein Beispiel für so ein $\Pi$ ist Bipartitheit.
+	\end{definition}
+	\begin{definition}
+		Man kann Grapheneigenschaften auch über verbotene Teilgraphen definieren. \[G \in \Pi \Leftrightarrow \; \forall H \in \mathcal{F}: \; H \not \subset G\] wobei $\mathcal{F}$ eine Menge verbotener Teilgraphen ist.
+	\end{definition}
+	Man kann zeigen \begin{lemma}
+		$\Pi$ ist vererbbar genau dann, wenn $\Pi$ mittels verbotener Teilgraphen charakterisiert werden kann.
+	\end{lemma}
 \end{document}

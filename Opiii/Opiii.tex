@@ -566,6 +566,7 @@
 	\end{theorem}
 	It is rather obvious that 1-interval connectivity is the hard case. If the dynamic graph is $T$-interval connected for a $T>1$, there is more information about successive rounds and so the algorithm can be sped up.\\
 	The following deals with the search for a black hole in a network. For this we interpret the dynamic graph as a street network that can be traversed by so-called agents. An agent located in a vertex $v$ in round $r$ has the decision to move to a neighbouring node $u$ in round $r+1$ or to stay at $v$. Since we are dealing with dynamic graphs however, an edge $e=(u,v)$ may exist in round $r$ but is removed for round $r+1$. If the agent wanted to move through $e$ but the adversary removed it for the following round, the agent has to stay in vertex $v$. A byzantine vertex $b$ which agents can enter but never leave is called a black hole. We are now interested in finding a black hole in a dynamic graph. Specifically, we want to design algorithms that can locate a black hole in the shortest possible time while needing as few agents as possible.
+	\subsection{black hole detection}
 	\begin{definition}
 		If at the start of the black hole search all agents are located in a common vertex $v$, we say they are co-located.
 	\end{definition}
@@ -585,4 +586,68 @@
 	\begin{theorem}
 		Two co-located agents can find the black hole asynchronously in a 2-connected static graph of known topology in $\mathcal{O}(n\log n)$. 
 	\end{theorem}
+	\subsection{Gatherings in 1-interval connected graphs}
+	\begin{definition}
+		In the gathering problem a set of $k$ agents is initially placed arbitrarily on different vertices of a graph and they have to meet at one node within finite time.
+	\end{definition}
+	\begin{definition}
+		In the weak gathering problem we also allow agents to meet at different ends of one edge and not necessarily in the same node.
+	\end{definition}
+	\begin{lemma}
+		Let $G$ be a 1-interval connected graph containing exactly one cycle of size $\left|C\right|>3$. Then it is impossible to solve the gathering problem.
+	\end{lemma}
+	\begin{lemma}
+		Let $G$ be a 1-interval connected graph containing at least two cycles. Then the weak gathering problem is impossible.
+	\end{lemma}
+	By inspection it should be quite obvious that the weak gathering problem is solvable on unicyclic graphs. Note that we work under the assumptions that all agents know the number of nodes $n$ and the number of agents $k$. The first assumption is not actually necessary but the second one is:
+	\begin{theorem}
+		If $k$ is unknown, the weak gathering problem is unsolvable.
+	\end{theorem}
+	\begin{lemma}
+		There is a $\mathcal{O}(n^3 \log n)$ two-phase algorithm solving the weak gathering problem in unicyclic graphs if $n$ and $k$ are known. This algorithm also utilizes the concept of pebbles.
+	\end{lemma}
+	\begin{definition}
+		A pebble is an abstract marker that agents can carry around with them and leave at specific nodes to mark them. Pebbles are not distinct, i.e. if an agent encounters a pebble, they can not know whose it is, not even if it is a pebble they left there themself.
+	\end{definition}
+\section{Lazy Random Walks in Algorithms}
+	This is only a very brief overview of the chapter. It is based on lecture 18 which is not relevant for the exam. We therefore omit the more difficult results and content ourselves with an introduction to random walks as they can be a handy tool for many applications.
+	\begin{definition}[Lazy Random Walk]
+		Starting from a vertex $v \in V$ we perform a sequence of random experiments. Each round consists of at most two random choices.
+		\begin{enumerate}
+			\item With probability $\frac{1}{2}$ stay in the current node and skip step 2
+			\item otherwise uniformly choose a neighbour $u$ of $v$ and go there
+		\end{enumerate}
+	\end{definition}
+	\begin{definition}
+		For a probability distribution $P_v^t$ of a random walk on $G$ starting in $v$ after $t$ rounds, we define the mixing time $\tau_{mix}$ as follows the minimal $t$ such that \[\left|P_v^t(w) - \frac{1}{2md(u)}\right| \leq \frac{1}{2nmd(u)} \; \forall u,w \in V\]
+	\end{definition}
+	\begin{definition}[$2\Delta$-regular Random Walk]
+		Assuming a graph on $n$ nodes with maximum degree $\Delta$ we add $\Delta-d(v)$ loops to each node $v$. This multigraph is denoted by $G'$. Now, a $2\Delta$-regular random walk on $G$ is simply a lazy random walk on $G'$. We define $\tau_{mix}(G) = \tau_{mix}(G')$.
+	\end{definition}
+	\begin{lemma}
+		The mixing time $\overline{\tau_{mix}}$ of a $2\Delta$-regular random walk on $G$ is \[\overline{\tau_{mix}} \leq 8\frac{\Delta^2}{h^2(G)}\ln n\] where $h(G)$ is the so-called edge expansion of $G$.
+	\end{lemma}
+	Ultimately we have access to parallel processing, so using only one random walk seems like a waste of computing power. To this end, we allow for parallel random walks which is not easily possible in a centralized setting.
+	\begin{lemma}
+		Suppose we run at most $n^{\mathcal{O}(1)}$ synchronous steps of a collection of independent parallel random walks on a graph $G$. If each node $v$ is the starting point of at most $kd(v)$ random walks, then w.h.p. after each parallel step there are at most $\mathcal{O}(kd(v)+\log n)$ random walks at each node $v$.
+	\end{lemma}
+	\begin{lemma}
+		When performing $T = n^{\mathcal{O}(1)}$ steps of a collection of independent random walks in parallel where each node $v$ is the starting node of at most $kd(v)$ random walks then w.h.p. the $T$ steps of all random walks can be performed in $\mathcal{O}((k+\log n) T)$ rounds in a distributed system.
+	\end{lemma}
+\section{Robot mutual visibility}
+	\subsection{Introduction}
+	\begin{definition}
+		The gist of this problem is that we want to place robots on pairwise different nodes of a graph $G$. The shortes path between any two robots should be unobstructed. That is, there can be no other robots placed on any shortest path. The idea is that this allows for secure communication.
+	\end{definition}
+	\begin{definition}
+		Given a graph $G$ and $X \subseteq V$ a set of robots placed on $G$ is called $X$-visible if no shortest path between robots intersects $X$. We call $X$ a geodesic mutual visibility set (GMV). The maximal cardinality of such sets $X$ is denoted by $\mu(G)$.
+	\end{definition}
+	\subsection{GMV on unit interval graphs}
+	\begin{definition}
+		Let $M$ be a set of unit intervals on the real line. We define the unit interval graph $G(M)$ as the graph whose vertices are the intervals and where vertices share an edge if and only if the corresponding intervals intersect. 
+	\end{definition}
+	Now, since the vertices of the graph are intervals, we have a natural ordering on the nodes (e.g. the left interval boundary). We can thus construct an ordered set $C = \{C_1,C_2,...,C_k\}$ of maximal cliques of $G$. Furthermore, we define the set $R = \{R_1,R_2,...,R_k\}$ as a set of subsets of $V$ where in each $R_i$ lie the vertices of the intersection of neighbouring cliques. We denóte by $r(G) = \min_{R_i \in R} \left|R_i\right|$.
+	\begin{lemma}
+		In a unit interval graph it holds that $\mu(G) = n - r(G)$.
+	\end{lemma}
 \end{document}

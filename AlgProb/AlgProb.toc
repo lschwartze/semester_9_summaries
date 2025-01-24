@@ -27,3 +27,4 @@
 \contentsline {subsection}{\numberline {4.1}Tiefenbeschränkte Suchbäume}{22}{}%
 \contentsline {subsection}{\numberline {4.2}Reduktion auf den Problemkern}{24}{}%
 \contentsline {subsection}{\numberline {4.3}Kronenzerlegung}{25}{}%
+\contentsline {subsubsection}{\numberline {4.3.1}Graphenmodifikationsproblem}{27}{}%
