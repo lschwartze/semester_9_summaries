@@ -609,4 +609,56 @@
 	Man kann zeigen \begin{lemma}
 		$\Pi$ ist vererbbar genau dann, wenn $\Pi$ mittels verbotener Teilgraphen charakterisiert werden kann.
 	\end{lemma}
-\end{document}
+	\begin{definition}
+		Eine Grapheneigenschaft $\Pi$ heißt abgeschlossen unter Minorenbildung, wenn \[G\in \Pi \land H < G \implies H \in \Pi\] 
+	\end{definition}
+	\begin{theorem}
+		Sei $\Pi$ unter Minorenbildung abgeschlossen, dann existiert eine Menge $O = \{H_1,...,H_k\}$ von Graphen, sodass \[G \in \Pi \Leftrightarrow H_i \not < G \; \forall i = 1,2,...,k\] $O$ heißt eine Obstruktionsmenge.
+	\end{theorem}
+	Wir wenden uns nun dem Graphenmodifikationsproblem zu. Gegeben eine Grapheneigenschaft $\Pi$ und ein Graph $G$, lässt sich $G$ mittels \begin{itemize}
+		\item $\leq i$ Löschen von Knoten
+		\item $\leq j$ Löschen von Kanten
+		\item $\leq k$ Einfügen von Kanten
+	\end{itemize}
+	in einen $\Pi$-Graphen verwandeln?
+	\begin{lemma}
+		Gegeben sei ein Graph $G$ und eine vererbbare Grapheneigenschaft $\Pi$. Existiert ein Algorithmus $A$, der in Zeit $T(n)$ überprüfen kann, ob $G \in \Pi$, so gibt es einen Algorithmus, der in Zeit $\mathcal{O}(n \times T(n))$ einen minimalen induzierten verbotenen Teilgraphen $H$ von $G$ bestimmt.
+	\end{lemma}
+	\begin{theorem}
+		Sei $\Pi$ eine Grapheneigenschaft mit einer endlichen Menge verbotener Teilgraphen. Dann liegt das dazugehörige Modifiaktionsproblem in FPT mit Laufzeit $\mathcal{O}(f(i,j,k)\cdot n^c)$.
+	\end{theorem}
+	\begin{lemma}
+		Seien $G$ und $H$ zwei Graphen. Die Frage, ob $H<G$ kann in $\mathcal{O}(f\left(\left|H\right|\right)\cdot \left|G\right|^3)$ beantwortet werden.
+	\end{lemma}
+	\subsection{Farbkodierung und Hashing}
+	Dies ist eine weitere Technik, um Probleme in Abhängigkeit eines Faktors $k$ effizient zu lösen. Wir beginnen mit einer Einführung am Pfadproblem.\\
+	Gegeben sei ein Graph $G$ mit $n$ Knoten und eine Zahl $k \in \mathbb{N}$. Existiert ein Pfad der Länge $k$? Wir verwenden dafür das Konzept einer $k$-Färbung $c: V \to \{1,2,...,k\}$.
+	\begin{definition}
+		Ein Teilgraph $H$ von $G$ heißt voll bunt, wenn alle Knoten verschieden gefärbt sind.
+	\end{definition}
+	\begin{lemma}
+		Sei $P$ ein $k$-Pfad in $G$ und $c$ eine zufällige Färbung der Knoten in $G$. Dann gilt \[\mathbb{P}[P \text{ ist voll bunt}] = \frac{k!}{k^k} > e^{-k}\]
+	\end{lemma}
+	\begin{lemma}
+		Sei $G$ ein Graph und $c$ eine Färbung der Knoten mit $k$ Farben. Existiert ein voll bunter $k$-Pfad, so kann dieser in $2^{\mathcal{O}(k)}\left|E\right|$ gefunden werden.
+	\end{lemma}
+	Man sieht also, dass dieser Algorithmus mindestens $\mathcal{O}(e^k)$ oft ausgeführt werden müsste, um eine konstante Laufzeit zu erreichen. Das Problem ist, dass die Färbung zufällig gewählt wurde und es ist daher nicht sicher, ob ein voll bunter $k$-Pfad existiert. Wir definieren daher im folgenden eine Menge $L$ von Färbungen, sodass gilt \[V' \subseteq V, \left|V'\right| = k \implies \exists c \in L: \; \left|c(V')\right| = k \; \forall V' \subseteq V\]
+	\begin{definition}
+		Eine Familie $F$ von Hashfunktionen $f: \{1,2,....,n\} \to \{1,2,...,k\}$ heißt perfekt, falls $\forall S \subseteq \{1,2,...,n\}$ mit $\left|S\right| = k$ gilt \[\exists f \in F\; \forall a,b \in S: \; f(a) \neq f(b) \Leftrightarrow a \neq b\]
+	\end{definition}
+	\begin{theorem}
+		Es ist möglich eine solche Familie $F$ mit $\left|F\right| = 2^{\mathcal{O}(k)} \log^2 n$ zu konstruieren. Das geschieht in Laufzeit $2^{\mathcal{O}(k)} n \log^2 n$.
+	\end{theorem}
+	Mit dem Resultat über einen voll bunten $k$-Pfad in zufälligen Färbungen ergibt sich nun, dass ein $k$-Pfad in FPT gefunden werden kann, falls einer existiert. Die genaue Laufzeit dafür ist $2^{\mathcal{O}(k)} \log^2 \left|V\right| \cdot \left|E\right|$.\\
+	
+	Man kann auch das folgende Problem mittels Farbkodierung lösen:\\
+	Gegeben: Ein Graph $G$ und ein Baum $T$ mit $\left|T\right| = k$.\\
+	Gesucht: Ist $T$ isomorph zu einem Teilgraphen $H$ von $T$?\\
+	Wir beschreiben nun einen randomisierten Algorithmus, der einen Teilgraphen bestimmt (falls so einer existiert). Sei dafür $\varphi: T \to G$ eine Abbildung und $\varphi(T)$ der dazugehörige isomorphe Teilgraph von $G$. Wir beginnen mit einer zufälligen Färbung $f_ \{1,2,...,n\} \to \{1,2,....,k\}$ der Knoten von $G$. Die Wahrscheinlichkeit, dass $\varphi(T)$ voll bunt ist, ist $< e^{-k}$. Wir benötigen nun wieder eine Menge von Färbungen.\\
+	Wir fixieren einen Knoten $r \in V(T)$. Der Algorithmus berechnet für alle $w \in V(G)$ die Farbmenge aller bunten Kopien von $\varphi(T)$, in denen $r$ auf $w$ abgebildet werden. Die Menge solcher Farbklassen nennen wir $L^T_r(w)$. Ist $k=1$, so ist $L^T_r(w) = \{f(w)\}$ und wir sind fertig. Sonst hat $r$ einen Nachbarn $r'$. Wir spalten nun $T$ in zwei Hälften $T',T''$, sodass $r \in T'$ und $r' \in T''$. Auf diesen beiden Teilgraphen wird das Verfahren rekursiv fortgesetzt. Wir erhalten also $L^{T'}_{r}(w)$ und $L^{T''}_{r'}(w)$ für alle $w$ und fügen diese beiden Mengen zu $L^T_r(w)$ zusammen.\\
+	Dafür wird $\forall (u,v) \in E(G)$ \begin{itemize}
+		\item getestet, ob es $C \in F^{T'}_{r}(u)$, $C' \in F^{T''}_{r'}(v)$ gibt mit $C\cap C' = \varnothing$.
+		\item Wenn schon, $L^T_r(w) = L^T_r(W) \cup \{C \cup C'\}$.
+	\end{itemize}
+	Die Laufzeit ist beschränkt durch $\mathcal{O}(4^k \left|E(G)\right|)$.
+\end{document}	

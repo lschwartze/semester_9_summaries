@@ -521,11 +521,27 @@
 	Let $\Omega \subset \mathbb{R}^n$ be a bounded, smooth domain, $n \geq 3$. $g: \Omega \times \mathbb{R} \to \mathbb{R}$ be a continuous function s.t. \[\exists c > 0, p \in (1,\frac{n+2}{n-2}): \; \left|g(x,t)\right| \leq c (1+\left|t\right|^p)\]
 	The aim is to show existence of a non-trivial weak solution to \[\begin{cases}
 		-\Delta u = g(x,u) & \text{ in } \Omega\\
-		u \equiv 0 & \text{ on } \partial \Omega
+		u = 0 & \text{ on } \partial \Omega
 	\end{cases}\]
 	If $g(x,0) = 0$ $\forall x$, then 0 is a weak solution.
 	Let $G: \Omega\times \mathbb{R} \to \mathbb{R}$ such that \[G(x,t) = \int_0^t g(x,s) ds\] and $e: W^{1,2}_0(\Omega) \to \mathbb{R}$ s.t. \[E(u) = \frac{1}{2}\int_\Omega \left|\nabla u\right|^2 - \int_\Omega G(x,u) dx\]
 	\begin{lemma}
 		$E \in C^1(W^{1,2}_0(\Omega);\mathbb{R})$ with \[DE(u)(\varphi) = \int_\Omega \nabla u \cdot \nabla \varphi - \int_\Omega g(x,u)\varphi dx\] for $u,\varphi \in W^{1,2}_0(\Omega)$.
 	\end{lemma}
+	\begin{lemma}
+		If $\exists R_0 > 0$, $\exists q > 2$ s.t. $\forall x \in \Omega$ and $\forall \left|t\right| \geq R_0$ \[0 < q G(x,t) \leq g(x,t)t\] (i.e. $g$ ahs super-linear growth at $\infty$) then $E$ satisfies a PS condition.
+	\end{lemma}
+	\begin{theorem}
+		If $f_k \to f$ almost everywhere, $f_k \in L^r(\Omega)$, $1 \leq r < \infty$, $\left|\Omega\right|<\infty$, then the following are equivalent
+		\begin{enumerate}
+			\item $f_k \to f$ in $L^r(\Omega)$, $f \in L^r(\Omega)$
+			\item uniform equicontinuity of the $L^r$ norm. That is \[\sup_k \int_E \left|f_k\right|^r \, dx \to 0 \text{ for } \left|E\right| \to 0\]
+		\end{enumerate}
+	\end{theorem}
+	\begin{theorem}
+		Additionally, assume that $\forall \varepsilon>0 \exists \delta>0$ s-t- \[\frac{g(x,t)}{t} < \varepsilon \; \forall x \in \Omega \; \forall \left|t\right| < \delta\] then the PDE \[\begin{cases}
+			- \Delta u = g(x,u) \text{ in } \Omega\\
+			u = 0 \text{ on } \partial \Omega
+		\end{cases}\] admits a non-trivial weak solution.
+	\end{theorem}
 \end{document}

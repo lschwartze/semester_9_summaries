@@ -19,7 +19,9 @@
 \contentsline {section}{\numberline {8}Dynamic networks}{20}{}%
 \contentsline {subsection}{\numberline {8.1}black hole detection}{21}{}%
 \contentsline {subsection}{\numberline {8.2}Gatherings in 1-interval connected graphs}{22}{}%
-\contentsline {section}{\numberline {9}Lazy Random Walks in Algorithms}{23}{}%
-\contentsline {section}{\numberline {10}Robot mutual visibility}{24}{}%
-\contentsline {subsection}{\numberline {10.1}Introduction}{24}{}%
-\contentsline {subsection}{\numberline {10.2}GMV on unit interval graphs}{24}{}%
+\contentsline {section}{\numberline {9}Distributed minimum cut}{23}{}%
+\contentsline {section}{\numberline {10}Lazy Random Walks in Algorithms}{23}{}%
+\contentsline {section}{\numberline {11}Robot mutual visibility}{24}{}%
+\contentsline {subsection}{\numberline {11.1}Introduction}{24}{}%
+\contentsline {subsection}{\numberline {11.2}GMV on unit interval graphs}{24}{}%
+\contentsline {subsection}{\numberline {11.3}GMV on chordal graphs}{25}{}%

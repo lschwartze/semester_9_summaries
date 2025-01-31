@@ -609,6 +609,14 @@
 	\begin{definition}
 		A pebble is an abstract marker that agents can carry around with them and leave at specific nodes to mark them. Pebbles are not distinct, i.e. if an agent encounters a pebble, they can not know whose it is, not even if it is a pebble they left there themself.
 	\end{definition}
+\section{Distributed minimum cut}
+	\begin{lemma}
+		Let $G = (V,E)$ be a graph with edge-connectivity $\lambda$. Sample edges from $G$ with probability $p \geq \frac{20 \log n}{\lambda}$ and call the set of sampled edges $S$. Then the graph $G' = (V,S)$ is connected with probability at least $1-\frac{1}{n}$. 
+	\end{lemma}
+	In each sampling step, we also assign each edge $e$ to a layer $l \in \{0,1,...,L-1\}$ as well, where $L = 20 \log n$. We then define $S_i$ as the set of sampled edges in $S$ that have been assigned layer $i$ and $S_{\leq i} = \bigcup_{j \leq i} S_j$. Finally, for each component $C$ of each graph $G_i = (V,S_i)$ corresponding to a layer $i$, we collect the cut $(C, V\setminus C)$ in a set $F$. Note that this amounts to only about $n \log n$ cuts.
+	\begin{theorem}
+		Let $\varepsilon \in (0,1)$. This sampling process with $p = \varepsilon \frac{\log n}{2 \lambda}$ computes a set of cuts $F$ that satisfies \[\mathbb{P}[F \text{ contains an } \mathcal{O}(\varepsilon^{-1}) \text{ approximation to a minimum cut}] \geq n^{-\frac{\varepsilon}{2}}\]
+	\end{theorem}
 \section{Lazy Random Walks in Algorithms}
 	This is only a very brief overview of the chapter. It is based on lecture 18 which is not relevant for the exam. We therefore omit the more difficult results and content ourselves with an introduction to random walks as they can be a handy tool for many applications.
 	\begin{definition}[Lazy Random Walk]
@@ -637,7 +645,7 @@
 \section{Robot mutual visibility}
 	\subsection{Introduction}
 	\begin{definition}
-		The gist of this problem is that we want to place robots on pairwise different nodes of a graph $G$. The shortes path between any two robots should be unobstructed. That is, there can be no other robots placed on any shortest path. The idea is that this allows for secure communication.
+		The gist of this problem is that we want to place robots on pairwise different nodes of a graph $G$. The shortest path between any two robots should be unobstructed. That is, there can be no other robots placed on any shortest path. The idea is that this allows for secure communication.
 	\end{definition}
 	\begin{definition}
 		Given a graph $G$ and $X \subseteq V$ a set of robots placed on $G$ is called $X$-visible if no shortest path between robots intersects $X$. We call $X$ a geodesic mutual visibility set (GMV). The maximal cardinality of such sets $X$ is denoted by $\mu(G)$.
@@ -650,4 +658,25 @@
 	\begin{lemma}
 		In a unit interval graph it holds that $\mu(G) = n - r(G)$.
 	\end{lemma}
+	\subsection{GMV on chordal graphs}
+	\begin{definition}
+		A chordal graph is a graph $G$ without induced cycles of length $\geq 4$. In other words: every large cycle is subdivided by chords.
+	\end{definition}
+	We can characterize chordal graphs by a set of overlapping maximal cliques $C_1,C_2,...,C_\alpha$. We define sets $R(G) \subseteq V(G)$ as sets of vertices such that \[R(G) \cap (C_i \cap C_j) \neq \varnothing \; \forall i\neq j\] and we define $\mathcal{R}(G)$ as the set of such sets $R(G)$. Finally, we denote $\tilde{R}(G)$ as the minimal set from $\mathcal{R}(G)$.
+	\begin{definition}
+		Let $C_i$ be a clique such that $\forall j\neq k$ it holds that \[C_i \cap C_j \neq \varnothing \land C_i \cap C_k \neq  \varnothing \Rightarrow C_j \cap C_k \neq \varnothing\] then we call $C_i$ a boundary clique. Intuitively, all cliques intersecting $C_i$ also intersect each other.\\
+		Let $C_i$ be a clique such that $\forall j\neq k$ it holds that \[C_i \cap C_j \neq \varnothing \land C_i \cap C_k \neq \varnothing \Rightarrow C_j \cap C_k = \varnothing\] then we call $C_i$ an intermediate clique.
+	\end{definition}
+	\begin{lemma}
+		Let $C_1,C_2,C_3,C_4$ be cliques such that $C_1 \cap C_i \neq \varnothing$ and $C_2 \cap C_i \neq \varnothing$ for $i \in \{3,4\}$, then it holds that $C_1 \cap C_3 = C_1 \cap C_4$ or $C_2 \cap C_3 = C_2 \cap C_4$.
+	\end{lemma}
+	\begin{definition}
+		We call a clique $C$ free if $\exists v \in C$ such that $v \notin C'$ for any other clique $C'$. We call $v$ a free vertex of $C$.
+	\end{definition}
+	\begin{lemma}
+		Let $S$ be the set of free vertices from all free cliques. Then $S$ is a maximum visibility set and $V(G) \setminus S = \overline{S} = \tilde{R}(G)$ for some minimal $\tilde{R}(G) \in \mathcal{R}(G)$.
+	\end{lemma}
+	\begin{theorem}
+		Finding an optimal GMV in chordal graphs is solvable in polynomial time.
+	\end{theorem}
 \end{document}
