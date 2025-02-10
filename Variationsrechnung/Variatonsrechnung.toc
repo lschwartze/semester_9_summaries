@@ -24,3 +24,6 @@
 \contentsline {subsection}{\numberline {10.2}A deformation Lemma in $H$}{22}{}%
 \contentsline {subsection}{\numberline {10.3}Mountain Pass Theorem}{23}{}%
 \contentsline {subsection}{\numberline {10.4}An application}{24}{}%
+\contentsline {section}{\numberline {11}$\Gamma $-convergence}{25}{}%
+\contentsline {subsection}{\numberline {11.1}Definitions}{25}{}%
+\contentsline {subsection}{\numberline {11.2}Examples}{26}{}%

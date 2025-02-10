@@ -468,4 +468,13 @@
 	\begin{lemma}
 		Sei $X$ zusammenhängend und lokal einfach zusammenhängend. Dann gibt es eine Überlagerung $p: \tilde{X} \to X$ sodass $\tilde{X}$ einfach zusammenhängend ist.
 	\end{lemma}
+\subsection{Der Satz von van Kampen}
+	Sei $X$ ein topologischer Raum, $(A_i)_{i \in I}$ eine Überdeckung von $X$ mit offenen, wegzusammenhängenden Mengen und $x_0 \in X$, sodass \[x_0 \in \bigcap_{i \in I} A_i\] Bezeichne mit \[\varphi_i: \pi_1(A_i, x_0) \to \pi_1(X,x_0)\] die natürlichen Homomorphismen und mit \[\Phi: *_i \pi_1(A_i, x_0) \to \pi_1(X,x_0)\] den Homomorphismus induziert durch die $\varphi_i$ und den Eigenschaften des freien Produkts. \begin{enumerate}
+		\item Falls $A_{i,j} = A_i \cap A_j$ $\forall i,j \in I$ wegzusammenhängend ist, so ist $\Phi$ surjektiv.
+		\item Falls $A_{i,j,k} = A_i \cap A_j \cap A_k$ $\forall i,j,k$ wegzusammenhängend ist, so ist $\mathcal{N} = \ker \Phi$ der normale Abschluss der Elemente \[\varphi_{i,j}(\alpha)\varphi_{j,i}(\alpha)^{-1}\] wobei $\varphi_{i,j}: \pi_1(A_{i,j},x_0) \to \pi_1(A_i,x_0)$ und $\alpha: [0,1]\to A_{i,j}$ ist ein geschlossener Weg mit Basispunkt $x_0$.
+	\end{enumerate}
+\subsection{Die Fundamentalgruppen der kompakten Flächen}
+	\begin{theorem}
+		Sei $X$ wegzusammenhängend und $\alpha: S^1 \to X$, $x_0 = \alpha(1)$. Wir definieren \[Y = (X \cup D)/\sim\] wobei $D$ eine Scheibe sei und $\sim$ die Relation \[\alpha(t) \sim \iota(t)\] wenn $t \in S^1$ und $\iota: S^1 \to D$. Dann ist der natürliche Homomorphismus $\pi_1(X,x_0) \to \pi_1(Y,x_0)$ surjektiv mit Kern $\langle[\alpha]\rangle^{norm}$.
+	\end{theorem}
 \end{document}

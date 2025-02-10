@@ -642,6 +642,46 @@
 	\begin{lemma}
 		When performing $T = n^{\mathcal{O}(1)}$ steps of a collection of independent random walks in parallel where each node $v$ is the starting node of at most $kd(v)$ random walks then w.h.p. the $T$ steps of all random walks can be performed in $\mathcal{O}((k+\log n) T)$ rounds in a distributed system.
 	\end{lemma}
+\section{MST in complete graphs}
+	Naturally, in a complete graph it is possible to improve on our results about computing MST. The simple reason is that any node can send its message to any other node in just one round. In our previous discussion, we partitioned the graph into multiple fragments and elect a leader in each fragment. This leader is then responsible for all communication with other fragments. This resulted in a $\mathcal{O}(\log n)$ algorithm.
+	Now, let $F$ be a fragment and $L_F$ its leader (think the one with highest ID). The idea is that the leader connects $F$ to more than one fragment in each round. To that intent, we construct an algorithm that allows each node to learn about the $\left|F\right|$ lightest outgoing edges of $F$ in $\mathcal{O}(1)$ time.\\
+	The following algorithm is computed in parallel by all nodes $v$ in fragment $F$.
+	\begin{enumerate}
+		\item repeat
+		\item $\forall F^* \neq F$ compute lightest edge $e_{F^*}$ connecting $v$ with $F^*$.
+		\item $\forall F^* \neq F$ send $e_{F^*}$ to $L_{F^*}$
+		\item if $v = L_F$
+		\item $\forall F^* \neq F$ compute lightest edge $e_{F,F^*}$ between $F$ and $F^*$
+		\item let $E(F)$ be the set of the $\left|F\right|$ lightest edges including $e_{F,F^*}$ $\forall F\neq F^*$
+		\item send each edge from $E(F)$ to a distinct member of $F$
+		\item endif
+		\item send the edge received from $L_F$ to all other nodes
+		\item AddEdges($E^*$)
+		\item until all nodes are in the same fragment
+	\end{enumerate}
+	In this algorithm we use a subroutine AddEdges (explained below) that allows each node to decide for all edges in $E^*$ whether it is save to add the edge to the MST. Such edges are called safe. A fragment $F$ that has safe outgoing edges is also called safe. $F$ is same precisely if the original fragments composing $F$ are incident to to at least one safe edge in $E^*$ that has not yet been considered. To keep track of edges that have been considered, we implement a counter $c(F')$ of edges incident to fragment $F'$. Note that if edge $e$ is incident to $F'$ and $F''$ and $e$ is added to the MST in any given round, we need to decrement both $c(F')$ and $c(F'')$.\\
+	The subroutine AddEdges looks as follows.
+	\begin{enumerate}
+		\item Let $f_1=F_1,...,f_s=F_r$ be the original $s$ many fragments of the current round $r$.
+		\item $\forall i \in [s]$ let $c(f_i)$ be the number of edges in $E^*$ that are incident to $F_i$ and set $safe(F_i) = true$
+		\item while $E^* \neq \varnothing$
+		\item let $e$ be the lightest edge in $E^*$ between the original fragments $F_i$ and $F_j$
+		\item $E^* = E^* \setminus \{e\}$
+		\item $c(F_i) = c(F_i)-1, c(F_j) = c(F_j)$-1
+		\item if $e$ connects fragments $f'\neq f''$ and either of them are safe
+		\item add $e$ to the MST
+		\item merge $f'$ and $f''$ into larger fragment $f_{new}$
+		\item if $f',f''$ are both safe and $c(F_i)>0,c(F_j)>0$ then set $safe(f_{new}) = true$
+		\item else $safe(f_{new})=false$
+		\item endif
+		\item else if $f'=f''$ and $c(F_i)=0$ or $c(F_j)=0$ then $safe(f')=false$
+		\item endif
+		\item endwhile 
+	\end{enumerate}
+	An edge $e$ that connects two distinct fragments is added if and only if at least one of the fragments is safe. By adding this edge, we merge the two fragments. If both of them are safe and $e$ is not the last safe edge from $E^*$ that connects the two original fragments, the newly created is safe as well.
+	\begin{theorem}
+		The algorithm has a running time of $\mathcal{O}(\log \log n)$.
+	\end{theorem}
 \section{Robot mutual visibility}
 	\subsection{Introduction}
 	\begin{definition}
@@ -679,4 +719,55 @@
 	\begin{theorem}
 		Finding an optimal GMV in chordal graphs is solvable in polynomial time.
 	\end{theorem}
+	\subsection{GMV on Hypercubes}
+	\begin{definition}
+		A hypercube graph $Q_d$ is a graph with $n=2^d$ vertices that are labelled with $d$ digit bitstrings. There is an edge between $u$ and $v$ if the Hamming distance $d_H(u,v)$ is 1.
+	\end{definition}
+	\begin{lemma}
+		$\mu(Q_d) \leq 2 \mu(Q_{d-1})$ and by considering the case $d=5$ one can determine $\mu(Q_d) \leq 2^{d-1}$ $\forall d \geq 5$.
+	\end{lemma}
+	\begin{theorem}
+		$\mu(Q_d) \geq \binom{d}{\lfloor\frac{d}{2}\rfloor} + \binom{d}{\lfloor\frac{d}{2}+3\rfloor}$.
+	\end{theorem}
+	\begin{corollary}
+		There exists an algorithm for the GMV problem in hypercubes with an approximation factor of $\frac{2^d}{\sqrt{\frac{\pi}{2}d}}$. That is, there is a $\mathcal{O}(\sqrt{d})$-approximation algorithm.
+	\end{corollary}
+	\subsection{GMV on Cube-Connected Cycles}
+	\begin{definition}
+		A Cube-Connected-Cycle graph of order $d$ can be visualized as hypercube of dimension $d$ where each vertex is replaced by a $d$-cycle.\\
+		A vertex of a CCC graph is a tuple $(i,v)$ where $v$ is a $d$ digit bitstring (analogous to hypercubes) and $i$ is an integer in $[d]$. Intuitively, $v$ indicates which cycle the node is on and $i$ gives the index of the node on that cycle.\\
+		There is an edge between $(i,v)$ and $(j,u)$ if
+		\begin{enumerate}
+			\item $i=j$ and $d_H(u,v) = 1$ or 
+			\item $u=v$ and $|i-j| = 1 \mod d$.
+		\end{enumerate} 
+	\end{definition}
+	\begin{lemma}
+		$\mu(CCC_d) \leq 3 \cdot 2^{d-2}$ $\forall d \geq 3$.
+	\end{lemma}
+	\begin{theorem}
+		$\mu(CCC_d) \geq 2^{\lceil\frac{d}{2}\rceil}$, $\forall d \geq 3$.
+	\end{theorem}
+	\begin{corollary}
+		There exists a $3\cdot 2^{\lfloor\frac{d}{2}\rfloor-2}$-approximation algorithm for the GMV problem.
+	\end{corollary}
+	\subsection{GMV on Butterfly graphs}
+	\begin{definition}
+		A butterfly graph $BF_d$ of order $d$ is a graph with vertices $(l,c)$ where $l \in \{0,1,...,d\}$ is called the level and $c \in \{0,1\}^d$ is called the column. There are edges between $(l,c)$ and $(l',c')$ if \begin{enumerate}
+			\item $l = l+1$ and $c=c'$ or 
+			\item $l=l+1$ and $c$ and $c'$ differ in the $l$-th bit.
+		\end{enumerate}
+	\end{definition}
+	\begin{definition}
+		We define $A_i = \{(l,i) \mid l \in [d+1]\}$ as the set of vertices in column $i$ and $L_j = \{(j,c) \mid c \in \{0,1\}^d\}$ as the vertices of level $j$.
+	\end{definition}
+	\begin{lemma}
+		Let $X$ be a GMV set. Then \[\left|X \cap A_i\right| \leq 2 \;\forall i \in [d+1]\]
+	\end{lemma}
+	\begin{lemma}
+		$X = (L0 \cup L_d) \setminus \{(0,1^d), (d,1^d)\}$ is a GMV set.
+	\end{lemma}
+	\begin{lemma}
+		$\mu(BF_d) = 2^{d+1} - 2$.
+	\end{lemma}
 \end{document}

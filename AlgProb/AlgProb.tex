@@ -661,4 +661,34 @@
 		\item Wenn schon, $L^T_r(w) = L^T_r(W) \cup \{C \cup C'\}$.
 	\end{itemize}
 	Die Laufzeit ist beschränkt durch $\mathcal{O}(4^k \left|E(G)\right|)$.
+\subsection{Baumzerlegungen}
+	\begin{definition}
+		Sei $G$ ein Graph. Eine Baumzerlegung von $G$ ist ein Paar $(\{X_i \mid i \in V_T\}, T)$, sodass $T$ ein Baum und $X_i \subseteq V(G) \; \forall i$ eine Teilmenge der Knoten ist. Die Knoten des Baumes sind sogenannte Bags, die folgende Eigenschaften erfüllen
+		\begin{enumerate}
+			\item $\bigcup_{i\in V_T} X_i = V$
+			\item $\forall e = (u,v) \in V$ gibt es $i$ sodass $u,v \in X_i$
+			\item $\forall i,j,k$ gilt, falls Bag $j$ auf einem $i-k$ Pfad in $T$ liegt, so ist $X_i \cap X_k \subseteq X_j$.
+		\end{enumerate}
+	\end{definition}
+	\begin{definition}
+		Die Weite einer Baumzerlegung ist definiert als \[\max\{\left|X_i\right|-1 \mid i \in V_T\}\]
+		Die Baumweite eines Graphen $G$ ist definiert als \[w(G) = \min\{k \mid \exists \text{ Baumzerlegung der Weite } k\}\] 
+	\end{definition}
+	\begin{theorem}
+		Sei $G$ ein Graph mit Baumweite $k$. Dann gibt es einen Algorithmus, der eine optimale Baumzerlegung in $\mathcal{O}(f(k)\cdot n)$ findet, wobei $f(k) = 2^{35\cdot k^2}$.
+	\end{theorem}
+	Mithilfe einer Baumzerlegung und Prinzipien der dynamischen Programmierung können wir nun einige NP-Probleme effizienter lösen.\\
+	
+	Gegeben einer Baumzerlegung der Weite $k$ wollen wir zum Beispiel ein minimales Vertex Cover bestimmen. Für alle $X_i$ können wir alle Vertex Cover für die Knoten in $X_i$ in $f(k)$ berechnen. Die Idee ist nun, ausgehend von den Blättern der Bauzerlegung ein Vertex Cover iterativ zu bestimmen. Im folgenden sei $G_i$ definiert als der induzierte Teilgraph von $G$ bestehend aus allen Bags vor $X_i$ in der Baumordnung (d.h. alle Bags im in $X_i$ gewurzelten Teilbaum). Wir definieren $c: X_i \to \{0,1\}$ mit $c(v) = 1 \Leftrightarrow v \in VC$. Wir halten alle solchen Färbungen von $X_i$ in einer Tabelle fest. Dabei heißt $c$ eine gültige Färbung, wenn sie auf $X_i$ tatsächlich teil eines Vertex Cover ist.\\
+	Wir bewerten außerdem die Vertex Cover anhand ihrer Größe: \[
+		m(c) = \begin{cases}
+			\left|c^{-1}(1)\right|, & \text{ falls $c$ Vertex Cover ist}\\
+			\infty, & \text{ sonst}
+		\end{cases}\]
+	Wir können bisher nur einzelne Bags bezüglich eines Vertex Covers betrachten und bewerten. Angefangen bei den Blättern ist das ausreichend, wir wollen die Tabellen für die (induktiv) nächste Stufe in der Baumordnung erweitern.\\
+	Sei dazu $i,j \in V_T$ und $X_j$ der Eltern-Bag von $X_i$. Für jede Färbung $c_\cap: X_i \cap X_j \to \{0,1\}$ und jede Erweiterung $c_j: X_j \to \{0,1\}$ von $c_\cap$ auf $X_j$ ist \[m(c_j) = m(c_j) + \min\{m(c_i) \mid c_i \text{ ist Erweiterung von } c_\cap\} - \left|c_\cap^{-1}(1)\right|\] Es ist klar, dass $c_j$ damit auf $G_j$ erweitert wurde.\\
+	Wir wollen zum Schluss noch die Laufzeit des Algorithmus ermitteln. Die Tabelle einer Tasche ist $2^{\left|X_i\right|}$ Zeilen lang. Mithilfe einer geschickten Sortierung kann die Aktualisierung der Tabelle in $\mathcal{O}(2^{\left|X_i\right|} + 2^{\left|X_j\right|}) = \mathcal{O}(2^{w(G)}\cdot n)$ geschehen. Das wird zusammengefasst im folgenden Satz:
+	\begin{theorem}
+		Sei $G$ ein Graph und $Z$ eine Baumzerlegung der Weite $w(Z)$. Dann kann ein minimales Vertex Cover in $\mathcal{O}(2^{w(Z)}\cdot n)$ bestimmt werden.
+	\end{theorem}
 \end{document}	

@@ -544,4 +544,48 @@
 			u = 0 \text{ on } \partial \Omega
 		\end{cases}\] admits a non-trivial weak solution.
 	\end{theorem}
+\section{$\Gamma$-convergence}
+	\underline{First motivation:} Consider a family of problems \[\inf\{F_j(u) \mid u \in X_j\}, j \in \mathbb{N}\]
+	where $X_j = (X_j,d_j)$ is a separable metric space, \[F_j : X_j \to \mathbb{R}\] are functionals.\\
+	Question: Is there a separable metric space $X$ and $F:X \to \mathbb{R}$ s.t. $\inf\{F(u) \mid u \in X\}$ is an approximation of $\inf\{F_j(u) \mid u \in X_j\}$ for $j$ big enough?\\
+	\underline{Second motivation:} Consider a double well potential $W: \mathbb{R} \to [0,\infty)$, that is $W$ has two distinct positions $\alpha$ and $\beta$ where the potential is zero. A state with zero energy can jump infinitely often from $\alpha$ to $\beta$. Here $W(\alpha) = W(\beta) = 0$, $W(x) > 0 \; \forall x \notin \{\alpha, \beta\}$, $W \in C^0$ with $\lim_{x \to \infty} W(x) = \infty$. However, the solution in experiments does not have that many jumps.\\
+	IDEA: Approximate the physical solution with problems where we penalize the jumps.
+\subsection{Definitions}
+	Note that the concept of convergence we use on the space $X$ is fundamental to get $\Gamma$-convergence. For instance, we will see for the Modica-Mortola-functional that the energy is bounded in $W^{1,2}$ bit $\Gamma$-convergence will be in $L^1$.
+	\begin{remark}
+		What do we do, when each $F_j$ is defined in another metric space?\\
+		Solution: Take $X$ big enough such that $X \supset X_j \; \forall j$, $X$ a metric space and consider $\tilde{F}_j : X \to \mathbb{R}$ where \[\tilde{F}_j(x) = \begin{cases}
+			F_j(x), & x \in X_j\\
+			\infty, & \text{ otherwise}
+		\end{cases}\]
+	\end{remark}
+	$\Gamma$-convergence was developed to study minimization problems. That is our aim is the following:\\
+	If $x_j$ minimizes $F_j$ and $x_j \to x$ in $X$ and $F_j$ $\Gamma$-converges to $G$ we would get that $x$ is a minimizer of $F$.\\
+	In the following, $(X,d)$ is a separable metric space.
+	\begin{definition}
+		Let $F_n)_{n \in \mathbb{N}}$ be a sequence of energy functionals $F_n: X \to [-\infty,\infty]$. We say that $(F_n)_{n \in \mathbb{N}}$ $\Gamma$-converges to $F: X \to [\infty,\infty]$ and we write $F = \Gamma-\lim_{n \to \infty} F_n$ in $X$ if \begin{enumerate}
+			\item \underline{$\liminf$ inequality:} $\forall x \in X,$ $\forall (x_n)_{n \in \mathbb{N}} \subset X$ s.t. $x_n \to x$ in $X$ it holds that \[F(X) \leq \liminf_{n \to \infty} F_n(x_n)\]
+			\item \underline{$\limsup$-inequality:} $\forall x \in X$ $\exists (x_n)_{n \in \mathbb{N}}$ s.t $x_n \to x$ in $X$ and \[F(X) \geq \limsup_{n \to \infty} F_n(x_n)\] 
+		\end{enumerate}
+		$F$ is called the $\Gamma$-limit of $F_n$.
+	\end{definition}
+	\begin{remark}
+		\begin{itemize}
+			\item If LII is satisfied, then LSI can be written as \[\forall x \in X \; \exists x_n \to x \; \text{ in } X \text{ s.t. } F(x) = \lim_{n\to \infty} F_n(x_n)\]
+			\item The definition of $\Gamma$-convergence is not symmetric. As a consequence, in general \[\Gamma-\lim_{j \to \infty} -F_j \neq -\Gamma-\lim_{j \to \infty} F_j\]
+		\end{itemize}
+	\end{remark}
+\subsection{Examples}
+	\begin{enumerate}
+		\item Consider $f_j: \mathbb{R} \to \mathbb{R}$ where \[f_j(x) = \begin{cases}
+			1, & x = 0\\
+			0, & \text{ otherwise}
+		\end{cases}, \; j \in \mathbb{N}\]
+		It holds that $\Gamma-\lim_{j \to \infty} f_j \equiv 0$.
+		\item Let $f: X \to \mathbb{R}$ and $f_j = f$ $\forall j \in \mathbb{N}$, i.e. a constant sequence. When is $f = \Gamma\lim_{j \to \infty} f_j$ in $X$?\\
+		By the LII it is necessary that $\forall x \in X, \forall x_j \to x$ in $X$ that \[f(x) \leq \liminf_{j \to \infty} f_j(x_j) = \liminf_{j \to \infty}f(x_j)\] that is $f$ should be lower semicontinuous. This is actually also sufficient.
+		\item If $f_j \to f$ uniformly and $f$ is lower semicontinuous then $f = \Gamma-\lim_{j \to \infty} f_j$.
+		\item $f_j,g_j: \mathbb{R} \to \mathbb{R}$ where $f_j(x) = -\cos(j\cdot x)$ and $g_j(x) = \cos(j \cdot x)$. Then $\Gamma-\lim_{j \to \infty}f_j = \Gamma-\lim_{j \to \infty} g_j = -1$.
+		\item If $f  \Gamma-\lim_{j \to \infty} f_j$ and $g$ is continuous, then \[f+g = \Gamma-\lim_{j \to \infty} (f_j+g)\]
+	\end{enumerate}
 \end{document}
