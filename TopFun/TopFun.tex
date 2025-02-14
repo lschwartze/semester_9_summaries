@@ -477,4 +477,31 @@
 	\begin{theorem}
 		Sei $X$ wegzusammenhängend und $\alpha: S^1 \to X$, $x_0 = \alpha(1)$. Wir definieren \[Y = (X \cup D)/\sim\] wobei $D$ eine Scheibe sei und $\sim$ die Relation \[\alpha(t) \sim \iota(t)\] wenn $t \in S^1$ und $\iota: S^1 \to D$. Dann ist der natürliche Homomorphismus $\pi_1(X,x_0) \to \pi_1(Y,x_0)$ surjektiv mit Kern $\langle[\alpha]\rangle^{norm}$.
 	\end{theorem}
+	Mit den gesammelten Resultaten über Fundamentalgruppen kann nun gezeigt werden, dass zwei Simplizialkomplexe in verschiedenen Normalformen nicht homöomorph zueinander sind. Das lässt sich zusammenfassen in folgendem Satz.
+	\begin{theorem}
+		Sei $X=\left|K\right|$ eine kompakte Fläche in Normalform, $x_0 \in X$. \begin{itemize}
+			\item Ist $K$ orientierbar, $\chi(K) = 2-2g, \; g\geq 0$, dann \[\pi_1(X;x_0) \langle a_1, b_1,...,a_g,b_g \mid \prod_{i=1}^g [a_i,b_i] = 1 \rangle\]
+			\item Ist $K$ nicht orientierbar, $\chi(K) = 1-p, \; p \geq 1$, damm \[\pi_1(X,x_0) = \langle a_1,a_2,...,a_p \mid a_1^2 ... a_p^2 = 1 \rangle\]
+		\end{itemize}
+	\end{theorem}
+	\begin{definition}
+		Sei $G$ eine Gruppe. Dann heißt $G' = \langle [a,b] \mid a,b \in G \rangle \subseteq G$ die Kommutatorengruppe. 
+	\end{definition}
+	\begin{lemma}
+		\begin{enumerate}
+			\item $G' \triangleleft G$ ist eine normale Untergruppe
+			\item $G^{ab} = G/G'$ ist der maximale abelsche Quotient von $G$. Für alle $H$ gilt $\varphi: G \to H$ abelsch genau dann, wenn $\ker(\varphi) \supseteq G'$. 
+		\end{enumerate}
+	\end{lemma}
+	\begin{lemma}
+		Sei $X$ eine kompakte Fläche in Normalform, $x_0 \in X$. \begin{itemize}
+			\item Ist $X$ orientierbar, $\chi(X) = 2-2g$, gilt \[\pi_1(X,x_0)^{ab} \cong \mathbb{Z}^{2g}\]
+			\item Ist $X$ nicht orientierbar, $\chi(X) = 1-p$, $$\pi_1(X,x_0) \cong \mathbb{Z}^{p-1} \oplus \mathbb{Z}/2\mathbb{Z}$$
+		\end{itemize}
+	\end{lemma}
+	\begin{corollary}
+		Die Normalform einer kompakten Fläche ist eindeutig bestimmt.
+	\end{corollary}
+	Wir wollen dieses Konzept verallgemeinern. Sei $X$ eine kompakte Fläche, $R \subseteq X$ eine endliche Teilmenge, $r = \left|R\right|$, $X^0 = X \setminus R$. Dann \[\pi_1(X,x_0)  \cong \langle a_1,b_1,...,a_g,b_g, c_1,....,c_N \mid \prod_{i=1}^g [a_i,b_i]\prod_j c_j = 1\rangle\] in Normalform 1 und \[\pi(X,x_0) = \langle a_1...a_pc_1...c_N \mid \prod_{i=1}^p a_i^2 \prod_j c_j = 1\rangle\] in Normalform 2.\\
+	Sei $X$ eine kompakte Fläche, $p:Y \to X$ eine endlich verzweigte Überlagerung, d.h. \[p: Y^0 = Y \setminus p^{-1}(R) \to X^0 = X \setminus R\] Es gilt, dass $X^0$ homöomorph zu einer Untergruppe von $\pi_1(X^0,x_0)$ ist 
 \end{document}

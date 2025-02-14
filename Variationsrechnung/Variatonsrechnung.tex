@@ -588,4 +588,19 @@
 		\item $f_j,g_j: \mathbb{R} \to \mathbb{R}$ where $f_j(x) = -\cos(j\cdot x)$ and $g_j(x) = \cos(j \cdot x)$. Then $\Gamma-\lim_{j \to \infty}f_j = \Gamma-\lim_{j \to \infty} g_j = -1$.
 		\item If $f  \Gamma-\lim_{j \to \infty} f_j$ and $g$ is continuous, then \[f+g = \Gamma-\lim_{j \to \infty} (f_j+g)\]
 	\end{enumerate}
+	\subsection{Application}
+	Let $W: \mathbb{R} \to [0, \infty)$ be a $C^1$ function s.t. \[W(x) = 0 \Leftrightarrow x \in \{\alpha, \beta\}\]
+	with $\alpha < \beta$. For $\varepsilon > 0$ consider \[F_\varepsilon: W^{1,2}(\Omega) \to \mathbb{R}\]\[F_\varepsilon(u) = \frac{1}{\varepsilon} \int_\Omega W(u(x)) \; dx + \varepsilon \int_\Omega \left|\nabla u\right|^2 \; dx\]
+	We are interested in the $\Gamma-\lim$ for $\varepsilon \to 0$.
+	\begin{theorem}
+		Let $\varepsilon_n \searrow 0$ and $(u_n)_{n \in \mathbb{N}} \subset W^{1,2}(\Omega)$ be such that \[\sup_{n \in \mathbb{N}} F_{\varepsilon_n} (un) < \infty\] Then there exists a subsequence $(u_{n_k})_{k \in \mathbb{N}}$ and there exists a $u \in BV(\Omega, \{\alpha, \beta\})$ such that \[u_{n_k} \to u \;(k \to \infty) \text{ in } L^1 \]
+	\end{theorem}
+	We now extend the functional $F_\varepsilon$ as follows \[F_\varepsilon: L^1(\Omega) \to (-\infty, \infty]\] by \[F_\varepsilon(u) = \begin{cases}
+		\frac{1}{\varepsilon} \int_\Omega W(u) + \varepsilon \int_\Omega \left|\nabla u\right|^2, & u \in W^{1,2}(\Omega \land \int u = m\\
+		\infty, & \text{ otherwise})
+	\end{cases}\] 
+	AIM: $F_\varepsilon$ $\Gamma$-converges in $L^1(\Omega)$ to \[F(u) = \begin{cases}
+		c_W \times \left|\{\text{ jumps of $u$}\}\right|, & u \in BV(\Omega, \{\alpha, \beta\} \land \int_\Omega u = m\\
+		\infty, & \text{ otherwise})
+	\end{cases}\]
 \end{document}

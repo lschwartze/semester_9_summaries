@@ -765,9 +765,97 @@
 		Let $X$ be a GMV set. Then \[\left|X \cap A_i\right| \leq 2 \;\forall i \in [d+1]\]
 	\end{lemma}
 	\begin{lemma}
-		$X = (L0 \cup L_d) \setminus \{(0,1^d), (d,1^d)\}$ is a GMV set.
+		$X = (L_0 \cup L_d) \setminus \{(0,1^d), (d,1^d)\}$ is a GMV set.
 	\end{lemma}
 	\begin{lemma}
 		$\mu(BF_d) = 2^{d+1} - 2$.
 	\end{lemma}
+	\section{Labelling schemes}
+	The idea is that we want to repeatedly query a large graph. Therefore, we try to label the nodes in a way that by looking at vertex labels we can retrieve the answer.
+	\subsection{Adjacency}
+	\begin{theorem}
+		We can label the nodes of a tree with $2\log n$ bits such that by looking at the labels of $u$ and $v$ we can determine whether $u$ and $v$ are adjacent.
+	\end{theorem}
+	\begin{definition}
+		The construction from the previous theorem is called a labelling scheme. This consists of and encoder $e$ and a decoder $d$. The encoder is a function \[e(v) = \begin{cases}
+			V \to \{0,1,...,n-1\}\\
+			v \mapsto e(v)
+		\end{cases}\]
+	such that $\forall u \neq v \in V$ it holds that $e(u) \neq e(v)$.\\
+	The decoder $d$ receives a list of labels and returns an answer to the query. We define the label size as \[\max_{v \in V} e(v)\]
+	\end{definition}
+	\begin{theorem}
+		A labelling scheme in a general graph needs a label size of $\Omega(n)$ bits.
+	\end{theorem}
+	\subsection{Rooted Trees}
+	\begin{theorem}
+		There is a labelling scheme with label size $2 \log n$ that solves queries of the form ``is $v$ an ancestor of $u$''.
+	\end{theorem}
+	\begin{theorem}
+		There is a labelling scheme of label size $\mathcal{O}(n \log n)$ that answers distance queries. 
+	\end{theorem}
+	This method uses the same basic idea (a depth-first search) as in the labelling scheme for ancestry. This however is not optimal which is shown by the following theorem.
+	\begin{theorem}
+		There is a labelling scheme with label size $\log^2 n$ that solves distance queries.
+	\end{theorem}
+\section{Quorum Systems}
+	This section covers a technique to retrieve and update information from a distributed system.
+	\begin{definition}
+		Let $V = \{v_1,...,v_n\}$ be a set of nodes. A quorum is a subset $Q \subseteq V$ and a quorum system is a set $S \subset \mathcal{P}(V)$ such that its elements are pairwise not disjoint. That is \[Q_1 \cap Q_2 \neq \varnothing \; \forall Q_1, Q_2 \in S\]
+		A quorum system $S$ such that $Q_1 \not \subseteq Q_2\; \forall Q_1,Q_2 \in S$ is called minimal. A quorum system $S$ with only one quorum $Q$ is called a singleton. If $\left|Q\right| = \lfloor \frac{n}{2} \rfloor +1$ $\forall Q \in S$ we call $S$ a majority. Finally, if $\left|Q_1\right| = \left|Q_2\right|$ $\forall Q_1,Q_2 \in S$, we call $S$ uniform.
+	\end{definition}
+	\begin{definition}
+		An access strategy $A$ is a probability distribution on $S$. That is, the probability to access a quorum $Q$ is given by $P_A(Q)$ where \[\sum_{Q \in S} P_A(Q) = 1\]
+		The load of an access strategy $A$ on a node $v$ is \[L_A(v) = \sum_{Q \in S: v \in Q} P_A(Q)\]
+		The load induced by an access strategy is the maximum of these terms, i.e. \[L_A = \max_v L_A(v)\]
+		Finally, the load of a quorum system $S$ is the minimal induced load of all access strategies, i.e. \[L(S) = \min_A L_A\]
+	\end{definition}
+	\begin{definition}
+		The work of a quorum is $W(Q) = \left|Q\right|$ while the work induced by an access strategy on a quorum system $S$ is the expected number of nodes accessed. That is \[W_A(S) = \sum_{Q \in S} P_A(Q) \cdot W(Q)\]
+		The work on a quorum system is again the minimum over all access strategies \[W(S) = \min_A W_A(S)\]
+	\end{definition}
+	\begin{theorem}
+		For any quorum system it holds that \[L(S) \geq \frac{1}{\sqrt{n}}\]
+	\end{theorem}
+	\begin{definition}
+		Arrange $n$ nodes in a square grid of side length $\sqrt{n}$. The basic grid quorum system consists $\sqrt{n}$ quorums containing the entire $i$-th row and $i$-th column each.
+	\end{definition}
+	The basic grid quorum system is a uniform system where each quorum is of size $2\sqrt{n}-1$. Two quorums intersect in exactly two nodes. Thus, if the access strategy $A$ is uniform, i.e. \[P_A(Q) = \frac{1}{\sqrt{n}} \; \forall Q \in S\] the work is $2\sqrt{n}-1$ and the load is in $\theta(\frac{1}{\sqrt{n}})$.\\
+	We will now proceed with a concurrent locking algorithm for a quorum system $S$. For that, we define $v_Q$ as the node with highest identifier in $Q$ such that all nodes with smaller identifier are locked as well. If $Q$ does not lock any nodes, we set $v_Q = 0$.
+	\begin{enumerate}
+		\item repeat
+		\item attempt to lock all nodes in $Q$
+		\item for all nodes $v$ that could not be locked by $Q$
+		\item exchange $v_Q$ and $v_{Q^*}$ where $Q^*$ is the quorum that locked $v$
+		\item if $v_Q > v_{Q^*}$:
+		\item $Q^*$ releases lock on $v$ and $Q$ locks it
+		\item endif
+		\item until all nodes in $Q$ are locked
+	\end{enumerate}
+	\begin{theorem}
+		At least one quorum can lock all of its nodes.
+	\end{theorem}
+	\begin{definition}
+		If any set of at most $f$ nodes from a quorum system $S$ can crash, such that at least one quorum remains failure-free, we call $S$ $f$-crash-resilient.
+	\end{definition}
+	The basic grid quorum system has a resilience of $\sqrt{n}$.
+	\begin{definition}
+		If each node fails with a constant probability $p$, we denote by $F_p(S)$ the probability that at least one node from each quorum fails. We call $F_p(S)$ the failure probability.
+	\end{definition}
+	\begin{theorem}
+		The asymptotic failure probability of a majority quorum is 0.
+	\end{theorem}
+	\begin{theorem}
+		The asymptotic failure probability of the basic grid quorum system is 1.
+	\end{theorem}
+	\begin{definition}
+		Arrange $n = c \cdot h \cdot r$ nodes in a square with $h\cdot r$ rows and $c$ columns. Each group of $r$ consecutive rows is called a band and a column of the rectangle restricted to one band is called a mini-column. We define the $B$-grid quorum system as the system containing all quorums that are composed of \begin{itemize}
+			\item one mini-column from each band
+			\item one node from each mini-column of one band.
+		\end{itemize} 
+		The $B$-grid quorum system is uniform as each quorum contains exactly $c+hr-1$ nodes.
+	\end{definition}
+	\begin{theorem}
+		The asymptotic failure probability of the $B$-grid quorum system is 0.
+	\end{theorem}
 \end{document}

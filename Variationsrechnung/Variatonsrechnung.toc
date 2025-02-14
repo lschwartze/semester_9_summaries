@@ -1,29 +1,30 @@
 \babel@toc {english}{}
-\contentsline {section}{\numberline {1}Introduction}{2}{}%
-\contentsline {subsection}{\numberline {1.1}mathematical formulation}{2}{}%
-\contentsline {section}{\numberline {2}First variation and convexity}{3}{}%
-\contentsline {subsection}{\numberline {2.1}First variation}{3}{}%
-\contentsline {section}{\numberline {3}Direct Methods}{5}{}%
-\contentsline {subsection}{\numberline {3.1}Some concepts from functional analysis}{5}{}%
-\contentsline {section}{\numberline {4}A partition problem and functions of bounded variation}{6}{}%
-\contentsline {subsection}{\numberline {4.1}Motivation}{7}{}%
-\contentsline {subsection}{\numberline {4.2}Functions of bounded variations}{7}{}%
-\contentsline {subsection}{\numberline {4.3}Lower semicontinuity in $BV(\Omega )$}{8}{}%
-\contentsline {subsection}{\numberline {4.4}Lipschitz continuity}{9}{}%
-\contentsline {section}{\numberline {5}Obstacle problems}{10}{}%
-\contentsline {section}{\numberline {6}The Schrödinger equation}{12}{}%
-\contentsline {section}{\numberline {7}Parametric minimal surfaces (the plateau problem)}{15}{}%
-\contentsline {subsection}{\numberline {7.1}Some basic concepts from differential geometry}{15}{}%
-\contentsline {subsection}{\numberline {7.2}Setup for the problems}{17}{}%
-\contentsline {subsection}{\numberline {7.3}Euler-Lagrange equation for question 2}{17}{}%
-\contentsline {subsection}{\numberline {7.4}The Dirichlet problem on the disk}{18}{}%
-\contentsline {section}{\numberline {8}Solution of the Plateau Problem}{20}{}%
-\contentsline {section}{\numberline {9}A reaction-diffusion equation}{21}{}%
-\contentsline {section}{\numberline {10}The mountain pass problem}{21}{}%
-\contentsline {subsection}{\numberline {10.1}The Palais-Smale Condition}{21}{}%
-\contentsline {subsection}{\numberline {10.2}A deformation Lemma in $H$}{22}{}%
-\contentsline {subsection}{\numberline {10.3}Mountain Pass Theorem}{23}{}%
-\contentsline {subsection}{\numberline {10.4}An application}{24}{}%
-\contentsline {section}{\numberline {11}$\Gamma $-convergence}{25}{}%
-\contentsline {subsection}{\numberline {11.1}Definitions}{25}{}%
-\contentsline {subsection}{\numberline {11.2}Examples}{26}{}%
+\contentsline {section}{\numberline {1}Introduction}{3}{}%
+\contentsline {subsection}{\numberline {1.1}mathematical formulation}{3}{}%
+\contentsline {section}{\numberline {2}First variation and convexity}{4}{}%
+\contentsline {subsection}{\numberline {2.1}First variation}{4}{}%
+\contentsline {section}{\numberline {3}Direct Methods}{6}{}%
+\contentsline {subsection}{\numberline {3.1}Some concepts from functional analysis}{6}{}%
+\contentsline {section}{\numberline {4}A partition problem and functions of bounded variation}{7}{}%
+\contentsline {subsection}{\numberline {4.1}Motivation}{8}{}%
+\contentsline {subsection}{\numberline {4.2}Functions of bounded variations}{8}{}%
+\contentsline {subsection}{\numberline {4.3}Lower semicontinuity in $BV(\Omega )$}{9}{}%
+\contentsline {subsection}{\numberline {4.4}Lipschitz continuity}{10}{}%
+\contentsline {section}{\numberline {5}Obstacle problems}{11}{}%
+\contentsline {section}{\numberline {6}The Schrödinger equation}{13}{}%
+\contentsline {section}{\numberline {7}Parametric minimal surfaces (the plateau problem)}{16}{}%
+\contentsline {subsection}{\numberline {7.1}Some basic concepts from differential geometry}{16}{}%
+\contentsline {subsection}{\numberline {7.2}Setup for the problems}{18}{}%
+\contentsline {subsection}{\numberline {7.3}Euler-Lagrange equation for question 2}{18}{}%
+\contentsline {subsection}{\numberline {7.4}The Dirichlet problem on the disk}{19}{}%
+\contentsline {section}{\numberline {8}Solution of the Plateau Problem}{21}{}%
+\contentsline {section}{\numberline {9}A reaction-diffusion equation}{22}{}%
+\contentsline {section}{\numberline {10}The mountain pass problem}{22}{}%
+\contentsline {subsection}{\numberline {10.1}The Palais-Smale Condition}{22}{}%
+\contentsline {subsection}{\numberline {10.2}A deformation Lemma in $H$}{23}{}%
+\contentsline {subsection}{\numberline {10.3}Mountain Pass Theorem}{24}{}%
+\contentsline {subsection}{\numberline {10.4}An application}{25}{}%
+\contentsline {section}{\numberline {11}$\Gamma $-convergence}{26}{}%
+\contentsline {subsection}{\numberline {11.1}Definitions}{26}{}%
+\contentsline {subsection}{\numberline {11.2}Examples}{27}{}%
+\contentsline {subsection}{\numberline {11.3}Application}{28}{}%

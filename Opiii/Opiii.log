@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  7 FEB 2025 14:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=latex 2021.5.10)  14 FEB 2025 21:09
 entering extended mode
 **./Opiii.tex
 (Opiii.tex
@@ -258,7 +258,13 @@ Overfull \hbox (11.67592pt too wide) in paragraph at lines 705--705
 ping max-i-mal cliques $\OML/cmm/m/it/12 C[]; C[]; :::; C[]$\OT1/cmr/m/n/12 .
  []
 
-[27] [28] [29] (Opiii.aux) ) 
+[27] [28] [29]
+Overfull \hbox (0.87975pt too wide) in paragraph at lines 780--780
+\OT1/cmr/bx/n/12 Definition 13.2. []\OT1/cmr/m/n/12 The con-struc-tion from the
+ pre-vi-ous the-o-rem is called a la-belling scheme.
+ []
+
+[30] [31] [32] [33] (Opiii.aux) ) 
 Here is how much of TeX's memory you used:
  2903 strings out of 479322
  39681 string characters out of 2856609
@@ -266,6 +272,6 @@ Here is how much of TeX's memory you used:
  20352 multiletter control sequences out of 15000+600000
  414925 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,8n,74p,866b,212s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 67i,8n,74p,866b,231s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Opiii.dvi (30 pages, 118084 bytes).
+Output written on Opiii.dvi (34 pages, 130660 bytes).
